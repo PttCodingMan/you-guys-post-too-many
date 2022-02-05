@@ -1,1 +1,4 @@
 SingleLog
+requests
+websockets
+uao
