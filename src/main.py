@@ -1,3 +1,5 @@
+import json
+
 from SingleLog.log import Logger
 
 import PyPtt
@@ -85,7 +87,10 @@ def detect_posts():
                 else:
                     result += f'\n{current_date}{mark}{suspect} {title}'
 
-        print(result)
+        # print(result)
+
+        with open('result', 'w') as f:
+            json.dump(authors, f, indent=4, ensure_ascii=False)
 
     ptt_bot.logout()
 
