@@ -269,8 +269,6 @@ class VT100Parser:
                     self._newline()
                     continue
 
-                # print(f'-{data[:1]}-{len(data[:1].encode("big5-uao", "replace"))}')
-
                 if self._cursor_y not in self.screen_length:
                     self.screen_length[self._cursor_y] = len(self.screen[self._cursor_y].encode(encoding, 'replace'))
 
