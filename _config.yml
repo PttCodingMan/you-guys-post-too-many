@@ -102,7 +102,9 @@ theme: next
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  type: ''
+  type: git
+  repo: git@github.com:PttCodingMan/ptt_post_too_many_monitor.git
+  branch: hexo
 
 # searchdb
 search:
