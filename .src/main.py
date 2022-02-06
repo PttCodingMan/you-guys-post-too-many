@@ -1,4 +1,5 @@
 import json
+from datetime import date
 
 from SingleLog.log import Logger
 
@@ -7,16 +8,23 @@ import config
 import util
 
 
-def detect_posts():
+def login():
     ptt_bot = PyPtt.API()
-
     ptt_bot.login(
         config.PTT1_ID,
-        config.PTT1_PW,
-        kick_other_login=True)
+        config.PTT1_PW)
     logger.info('login', 'success')
 
+    return ptt_bot
+
+
+def detect_posts():
+
+    ptt_bot = login()
+
     current_date = util.get_date(1)
+
+    today = date.today()
 
     for board, max_post in config.boards:
         logger.info('啟動超貼偵測', board, f"最多 {max_post} 篇文章")
@@ -27,12 +35,17 @@ def detect_posts():
 
         for index in range(start_index, end_index + 1):
 
-            post = ptt_bot.get_post(
-                board='ALLPOST',
-                index=index,
-                search_type=PyPtt.SearchType.KEYWORD,
-                search_condition=f'({board})',
-                query=True)
+            for _ in range(3):
+                try:
+                    post = ptt_bot.get_post(
+                        board='ALLPOST',
+                        index=index,
+                        search_type=PyPtt.SearchType.KEYWORD,
+                        search_condition=f'({board})',
+                        query=True)
+                    break
+                except PyPtt.ConnectionClosed:
+                    ptt_bot = login()
 
             author = post.get('author')
             if '(' in author:
@@ -79,18 +92,34 @@ def detect_posts():
 
             for title in titles:
                 mark = ' '
-                if title.startswith('R:'):
+                if not title.startswith('R:'):
                     mark = ' □ '
 
                 if result is None:
-                    result = f'{current_date}{mark}{suspect} {title}'
+                    result = f'{current_date} {suspect}{mark}{title}'
                 else:
-                    result += f'\n{current_date}{mark}{suspect} {title}'
+                    result += f'\n{current_date} {suspect}{mark}{title}'
 
         # print(result)
 
-        with open('result', 'w') as f:
-            json.dump(authors, f, indent=4, ensure_ascii=False)
+        with open(f'./source/_posts/{board}-{today.strftime("%Y-%m-%d")}.md', 'w') as f:
+            post = config.post_template
+
+            post = post.replace('=title=', f'{board}-{today.strftime("%Y-%m-%d")}')
+            post = post.replace('=tags=', f'    - {board}')
+            post = post.replace('=link=', f'{board}-{today.strftime("%Y-%m-%d")}')
+            post = post.replace('=date=', f'{board}-{today.strftime("%Y-%m-%d %I:%M:%S")}')
+
+            f.write(post)
+
+            if result is None:
+                f.write('昨日沒有違規')
+            else:
+                f.write(f'{board} 板規，每日不能超過 {max_post} 篇\n')
+                f.write('<!-- more -->\n')
+                f.write('昨日違規清單\n')
+                f.write(result)
+            # json.dump(authors, f, indent=4, ensure_ascii=False)
 
     ptt_bot.logout()
 

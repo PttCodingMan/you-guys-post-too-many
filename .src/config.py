@@ -7,5 +7,15 @@ version = '0.0.1'
 
 boards = [
     # 'give',
-    ('Wanted', 1),
+    ('Wanted', 3),
+    ('HatePolitics', 5),
 ]
+
+post_template = '''---
+title: =title=
+tags:
+=tags=
+abbrlink: =link=
+date: =date=
+---
+'''
