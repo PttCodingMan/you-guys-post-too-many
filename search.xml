@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>Hello World</title>
-    <url>/hello-world/</url>
+    <url>/ptt_post_too_many_monitor/undefined/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
 
@@ -20,7 +20,7 @@
   </entry>
   <entry>
     <title>Wanted-2022-02-06</title>
-    <url>/Wanted-2022-02-06/</url>
+    <url>/ptt_post_too_many_monitor/Wanted-2022-02-06/</url>
     <content><![CDATA[<p>昨日沒有違規</p>
 ]]></content>
       <tags>
@@ -29,7 +29,7 @@
   </entry>
   <entry>
     <title>HatePolitics-2022-02-06</title>
-    <url>/HatePolitics-2022-02-06/</url>
+    <url>/ptt_post_too_many_monitor/HatePolitics-2022-02-06/</url>
     <content><![CDATA[<p>HatePolitics 板規，每日不能超過 5 篇</p>
 <span id="more"></span>
 <p>昨日違規清單<br>2/05 tfct R: [新聞] 美國兩黨議員提案<br>2/05 tfct □ [討論] 看茶金有感，沒有KMT …<br>2/05 tfct R: [討論] 看茶金有感，沒有KMT …<br>2/05 tfct R: [討論] 當年認為民進黨會打房…<br>2/05 tfct R: [新聞] 北市微解封勢在必行　…<br>2/05 tfct □ [討論] 阿北推疫苗護照是不是…<br>2/05 tfct R: [討論] 撇除民眾黨，臺北市長…</p>
@@ -40,7 +40,7 @@
   </entry>
   <entry>
     <title>關於</title>
-    <url>/about/index.html</url>
+    <url>/ptt_post_too_many_monitor/about/index.html</url>
     <content><![CDATA[<div class="about_text">
 此專案使用 <a href="https://github.com/PttCodingMan/PyPtt">PyPtt</a> 與 <a href="https://hexo.io/zh-tw/">Hexo</a> 搭建而成
 
@@ -49,7 +49,7 @@
   </entry>
   <entry>
     <title>404</title>
-    <url>//404.html</url>
+    <url>/ptt_post_too_many_monitor//404.html</url>
     <content><![CDATA[<!-- markdownlint-disable MD039 MD033 -->
 
 <h2 id="很抱歉，你目前存取的頁面並不存在。"><a href="#很抱歉，你目前存取的頁面並不存在。" class="headerlink" title="很抱歉，你目前存取的頁面並不存在。"></a>很抱歉，你目前存取的頁面並不存在。</h2><p>預計將在約 <span id="timeout">6</span> 秒後返回首頁。</p>
@@ -73,7 +73,7 @@ count();
   </entry>
   <entry>
     <title>tags</title>
-    <url>/tags/index.html</url>
+    <url>/ptt_post_too_many_monitor/tags/index.html</url>
     <content><![CDATA[]]></content>
   </entry>
 </search>

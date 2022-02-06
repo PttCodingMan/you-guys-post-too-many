@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://example.com/HatePolitics-2022-02-06/</loc>
+    <loc>https://pttcodingman.github.io/ptt_post_too_many_monitor/HatePolitics-2022-02-06/</loc>
     
     <lastmod>2022-02-06</lastmod>
     
@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/Wanted-2022-02-06/</loc>
+    <loc>https://pttcodingman.github.io/ptt_post_too_many_monitor/Wanted-2022-02-06/</loc>
     
     <lastmod>2022-02-06</lastmod>
     
@@ -20,7 +20,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/about/</loc>
+    <loc>https://pttcodingman.github.io/ptt_post_too_many_monitor/about/</loc>
     
     <lastmod>2022-02-06</lastmod>
     
@@ -29,7 +29,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/tags/</loc>
+    <loc>https://pttcodingman.github.io/ptt_post_too_many_monitor/tags/</loc>
     
     <lastmod>2022-01-03</lastmod>
     
@@ -38,7 +38,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/404</loc>
+    <loc>https://pttcodingman.github.io/ptt_post_too_many_monitor/404</loc>
     
     <lastmod>2022-01-03</lastmod>
     
@@ -47,7 +47,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/hello-world/</loc>
+    <loc>https://pttcodingman.github.io/ptt_post_too_many_monitor/undefined/</loc>
     
     <lastmod>2021-12-14</lastmod>
     
@@ -57,7 +57,7 @@
   
 
   <url>
-    <loc>http://example.com/</loc>
+    <loc>https://pttcodingman.github.io/ptt_post_too_many_monitor</loc>
     <lastmod>2022-02-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
@@ -65,14 +65,14 @@
 
   
   <url>
-    <loc>http://example.com/tags/Wanted/</loc>
+    <loc>https://pttcodingman.github.io/ptt_post_too_many_monitor/tags/Wanted/</loc>
     <lastmod>2022-02-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://example.com/tags/HatePolitics/</loc>
+    <loc>https://pttcodingman.github.io/ptt_post_too_many_monitor/tags/HatePolitics/</loc>
     <lastmod>2022-02-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

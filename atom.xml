@@ -3,11 +3,11 @@
   <title>批踢踢多 PO 觀察站</title>
   
   
-  <link href="http://example.com/atom.xml" rel="self"/>
+  <link href="https://pttcodingman.github.io/ptt_post_too_many_monitor/atom.xml" rel="self"/>
   
-  <link href="http://example.com/"/>
+  <link href="https://pttcodingman.github.io/ptt_post_too_many_monitor/"/>
   <updated>2022-02-06T09:40:21.027Z</updated>
-  <id>http://example.com/</id>
+  <id>https://pttcodingman.github.io/ptt_post_too_many_monitor/</id>
   
   <author>
     <name>CodingMan</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>Wanted-2022-02-06</title>
-    <link href="http://example.com/Wanted-2022-02-06/"/>
-    <id>http://example.com/Wanted-2022-02-06/</id>
+    <link href="https://pttcodingman.github.io/ptt_post_too_many_monitor/Wanted-2022-02-06/"/>
+    <id>https://pttcodingman.github.io/ptt_post_too_many_monitor/Wanted-2022-02-06/</id>
     <published>2022-02-06T04:00:00.000Z</published>
     <updated>2022-02-06T09:40:21.027Z</updated>
     
@@ -35,14 +35,14 @@
     
     
     
-    <category term="Wanted" scheme="http://example.com/tags/Wanted/"/>
+    <category term="Wanted" scheme="https://pttcodingman.github.io/ptt_post_too_many_monitor/tags/Wanted/"/>
     
   </entry>
   
   <entry>
     <title>HatePolitics-2022-02-06</title>
-    <link href="http://example.com/HatePolitics-2022-02-06/"/>
-    <id>http://example.com/HatePolitics-2022-02-06/</id>
+    <link href="https://pttcodingman.github.io/ptt_post_too_many_monitor/HatePolitics-2022-02-06/"/>
+    <id>https://pttcodingman.github.io/ptt_post_too_many_monitor/HatePolitics-2022-02-06/</id>
     <published>2022-02-06T04:00:00.000Z</published>
     <updated>2022-02-06T09:40:43.731Z</updated>
     
@@ -54,14 +54,14 @@
     
     
     
-    <category term="HatePolitics" scheme="http://example.com/tags/HatePolitics/"/>
+    <category term="HatePolitics" scheme="https://pttcodingman.github.io/ptt_post_too_many_monitor/tags/HatePolitics/"/>
     
   </entry>
   
   <entry>
     <title>Hello World</title>
-    <link href="http://example.com/hello-world/"/>
-    <id>http://example.com/hello-world/</id>
+    <link href="https://pttcodingman.github.io/ptt_post_too_many_monitor/undefined/"/>
+    <id>https://pttcodingman.github.io/ptt_post_too_many_monitor/undefined/</id>
     <published>2021-12-14T14:21:02.385Z</published>
     <updated>2021-12-14T14:21:02.385Z</updated>
     
