@@ -107,9 +107,9 @@ def detect_posts():
         with open(f'./source/_posts/{board}-{today.strftime("%Y-%m-%d")}.md', 'w') as f:
             post = config.post_template
 
-            post = post.replace('=title=', f'{board}-{today.strftime("%Y-%m-%d")}')
+            post = post.replace('=title=', f'{today.strftime("%Y-%m-%d")}-{board}')
             post = post.replace('=tags=', f'    - {board}')
-            post = post.replace('=link=', f'{board}-{today.strftime("%Y-%m-%d")}')
+            post = post.replace('=link=', f'{today.strftime("%Y-%m-%d")}-{board}')
             post = post.replace('=date=', f'{board}-{today.strftime("%Y-%m-%d %I:%M:%S")}')
 
             f.write(post)

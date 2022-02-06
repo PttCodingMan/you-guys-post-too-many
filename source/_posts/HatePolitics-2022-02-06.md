@@ -1,8 +1,8 @@
 ---
-title: HatePolitics-2022-02-06
+title: 2022-02-06-HatePolitics
 tags:
     - HatePolitics
-abbrlink: HatePolitics-2022-02-06
+abbrlink: 2022-02-06-HatePolitics
 date: HatePolitics-2022-02-06 12:00:00
 ---
 HatePolitics 板規定每日不能超過 5 篇 [板規連結](https://www.ptt.cc/bbs/HatePolitics/M.1617115262.A.D60.html)
