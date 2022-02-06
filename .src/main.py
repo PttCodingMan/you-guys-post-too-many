@@ -26,7 +26,7 @@ def detect_posts():
 
     today = date.today()
 
-    for board, max_post in config.boards:
+    for board, max_post, rule_url in config.boards:
         logger.info('啟動超貼偵測', board, f"最多 {max_post} 篇文章")
 
         authors = dict()
@@ -80,12 +80,14 @@ def detect_posts():
         logger.debug('authors', authors)
 
         result = None
+        prisoner_count = 0
         for suspect, titles in authors.items():
 
             logger.debug('->', suspect, titles)
 
             if len(titles) <= max_post:
                 continue
+            prisoner_count += 1
 
             if result is not None:
                 result += '\n'
@@ -112,12 +114,13 @@ def detect_posts():
 
             f.write(post)
 
+            f.write(f'{board} 板規定每日不能超過 {max_post} 篇 [板規連結]({rule_url})\n')
             if result is None:
-                f.write('昨日沒有違規')
+                f.write('昨天沒有違規')
             else:
-                f.write(f'{board} 板規，每日不能超過 {max_post} 篇\n')
-                f.write('<!-- more -->\n')
-                f.write('昨日違規清單\n')
+                f.write(f'昨天違規 {prisoner_count} 人')
+                f.write('<!-- more -->\n\n')
+                f.write('違規清單\n')
                 f.write(result)
             # json.dump(authors, f, indent=4, ensure_ascii=False)
 
