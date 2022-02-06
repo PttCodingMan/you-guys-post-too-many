@@ -2,33 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://pttcodingman.github.io/you-guys-post-too-many/give-2022-02-06/</loc>
-    
-    <lastmod>2022-02-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://pttcodingman.github.io/you-guys-post-too-many/about/</loc>
-    
-    <lastmod>2022-02-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://pttcodingman.github.io/you-guys-post-too-many/404</loc>
-    
-    <lastmod>2022-02-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://pttcodingman.github.io/you-guys-post-too-many/HatePolitics-2022-02-06/</loc>
     
     <lastmod>2022-02-06</lastmod>
@@ -47,9 +20,36 @@
   </url>
   
   <url>
+    <loc>https://pttcodingman.github.io/you-guys-post-too-many/give-2022-02-06/</loc>
+    
+    <lastmod>2022-02-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://pttcodingman.github.io/you-guys-post-too-many/404</loc>
+    
+    <lastmod>2022-02-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://pttcodingman.github.io/you-guys-post-too-many/about/</loc>
+    
+    <lastmod>2022-02-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://pttcodingman.github.io/you-guys-post-too-many/tags/</loc>
     
-    <lastmod>2022-01-03</lastmod>
+    <lastmod>2022-02-06</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -65,14 +65,14 @@
 
   
   <url>
-    <loc>https://pttcodingman.github.io/you-guys-post-too-many/tags/Wanted/</loc>
+    <loc>https://pttcodingman.github.io/you-guys-post-too-many/tags/HatePolitics/</loc>
     <lastmod>2022-02-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://pttcodingman.github.io/you-guys-post-too-many/tags/HatePolitics/</loc>
+    <loc>https://pttcodingman.github.io/you-guys-post-too-many/tags/Wanted/</loc>
     <lastmod>2022-02-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

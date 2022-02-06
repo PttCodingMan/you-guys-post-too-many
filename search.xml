@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Wanted-2022-02-06</title>
-    <url>/you-guys-post-too-many/Wanted-2022-02-06/</url>
-    <content><![CDATA[<p>昨日沒有違規</p>
-]]></content>
-      <tags>
-        <tag>Wanted</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>HatePolitics-2022-02-06</title>
     <url>/you-guys-post-too-many/HatePolitics-2022-02-06/</url>
     <content><![CDATA[<p>HatePolitics 板規，每日不能超過 5 篇</p>
@@ -21,6 +12,15 @@
       </tags>
   </entry>
   <entry>
+    <title>Wanted-2022-02-06</title>
+    <url>/you-guys-post-too-many/Wanted-2022-02-06/</url>
+    <content><![CDATA[<p>昨日沒有違規</p>
+]]></content>
+      <tags>
+        <tag>Wanted</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>give-2022-02-06</title>
     <url>/you-guys-post-too-many/give-2022-02-06/</url>
     <content><![CDATA[<p>昨日沒有違規</p>
@@ -28,15 +28,6 @@
       <tags>
         <tag>give</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>關於</title>
-    <url>/you-guys-post-too-many/about/index.html</url>
-    <content><![CDATA[<div class="about_text">
-此專案使用 <a href="https://github.com/PttCodingMan/PyPtt">PyPtt</a> 與 <a href="https://hexo.io/zh-tw/">Hexo</a> 搭建而成
-
-<p>原始碼: <a href="https://github.com/PttCodingMan/you-guys-post-too-many">https://github.com/PttCodingMan/you-guys-post-too-many</a></p>
-</div>]]></content>
   </entry>
   <entry>
     <title>404</title>
@@ -61,6 +52,18 @@ function count() {
 
 count();
 </script>]]></content>
+  </entry>
+  <entry>
+    <title>關於</title>
+    <url>/you-guys-post-too-many/about/index.html</url>
+    <content><![CDATA[<div class="about_text">
+此專案使用 <a href="https://github.com/PttCodingMan/PyPtt">PyPtt</a> 與 <a href="https://hexo.io/zh-tw/">Hexo</a> 搭建而成<br>
+所有資料來自 <a href="https://www.ptt.cc/bbs/ALLPOST/index.html">ALLPOST 板</a><br>
+<br>
+
+<p>如果你有新增版面需求，可丟站內信給我 CodingMan<br>說明你是哪一個板的板主，並附上板規連結即可</p>
+<p>原始碼: <a href="https://github.com/PttCodingMan/you-guys-post-too-many">https://github.com/PttCodingMan/you-guys-post-too-many</a></p>
+</div>]]></content>
   </entry>
   <entry>
     <title>tags</title>
