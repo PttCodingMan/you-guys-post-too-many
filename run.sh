@@ -1,5 +1,5 @@
 
-sh ptt.sh
+bash ptt.sh
 
 git pull
 
