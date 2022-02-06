@@ -28,10 +28,6 @@ jobs:
     - name: Install Dependencies
       if: steps.cache.outputs.cache-hit != 'true'
       run: npm ci
-    - name: Download resume
-      run: wget https://docs.google.com/presentation/d/1Niir9_qKlRaE3zyBNK4p_LIScFikA-muywKG6U8aYaE/export/pdf
-    - name: Move and rename resume
-      run: mv pdf public/resume.pdf
 
     # Deploy hexo blog website.
     - name: Deploy
