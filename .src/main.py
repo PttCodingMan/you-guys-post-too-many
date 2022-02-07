@@ -22,8 +22,6 @@ def login():
 def detect_posts(days_ago: int = 1):
     ptt_bot = None
 
-    current_date = util.get_date(days_ago)
-
     basic_day = date.today() - timedelta(days_ago - 1)
 
     for board, rule_list, gen_web, rule_url in config.board_rules:
@@ -93,7 +91,7 @@ def detect_posts(days_ago: int = 1):
 
                         if author not in current_authors:
                             current_authors[author] = []
-                        current_authors[author].append(title)
+                        current_authors[author].append([post.get('list_date'), title])
 
                     with open(temp_file, 'w') as f:
                         json.dump(current_authors, f, indent=4, ensure_ascii=False)
@@ -111,7 +109,7 @@ def detect_posts(days_ago: int = 1):
 
             for suspect, titles in authors.items():
 
-                logger.debug('->', suspect, titles)
+                # logger.info('->', suspect, titles)
 
                 if key_word is None:
 
@@ -129,24 +127,31 @@ def detect_posts(days_ago: int = 1):
                         else:
                             result = f'{day_mark}不得超過 {max_post} 篇\n'
 
-                    for title in titles:
+                    for list_date, title in titles:
                         mark = ' '
                         if not title.startswith('R:'):
                             mark = ' □ '
 
                         if result is None:
-                            result = f'{current_date} {suspect}{mark}{title}'
+                            result = f'{list_date} {suspect}{mark}{title}'
                         else:
-                            result += f'\n{current_date} {suspect}{mark}{title}'
+                            result += f'\n{list_date} {suspect}{mark}{title}'
 
                 else:
                     if key_word == '[問卦]':
-                        # (本文已被刪除)
-                        compliant_titles = [title for title in titles if title.startswith('(本文已被刪除)') or (
-                                key_word in title and not title.startswith('R:'))]
+                        compliant_titles = []
+
+                        for list_date, title in titles:
+                            if title.startswith('(本文已被刪除)') or (key_word in title and not title.startswith('R:')):
+                                compliant_titles.append(
+                                    [list_date, title])
                     else:
-                        compliant_titles = [title for title in titles if
-                                            key_word in title and not title.startswith('R:')]
+                        compliant_titles = []
+
+                        for list_date, title in titles:
+                            if key_word in title and not title.startswith('R:'):
+                                compliant_titles.append(
+                                    [list_date, title])
 
                     if len(compliant_titles) <= max_post:
                         continue
@@ -162,15 +167,15 @@ def detect_posts(days_ago: int = 1):
                         else:
                             result = f'{day_mark} {key_word} 不得超過 {max_post} 篇\n'
 
-                    for title in compliant_titles:
+                    for list_date, title in compliant_titles:
                         mark = ' '
                         if not title.startswith('R:'):
                             mark = ' □ '
 
                         if result is None:
-                            result = f'{current_date} {suspect}{mark}{title}'
+                            result = f'{list_date} {suspect}{mark}{title}'
                         else:
-                            result += f'\n{current_date} {suspect}{mark}{title}'
+                            result += f'\n{list_date} {suspect}{mark}{title}'
 
         # print(result)
 
@@ -231,7 +236,7 @@ if __name__ == '__main__':
     logger = Logger('post')
     logger.info('Welcome to', 'PTT Post Too Many Monitor', config.version)
 
-    # for day in range(1, 6):
-    #     detect_posts(days_ago=day)
+    for day in range(1, 6):
+        detect_posts(days_ago=day)
 
-    detect_posts(1)
+    # detect_posts(1)
