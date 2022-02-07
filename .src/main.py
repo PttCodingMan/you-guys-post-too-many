@@ -20,25 +20,28 @@ def login():
 
 
 def detect_posts(days_ago: int = 1):
-    ptt_bot = login()
+    ptt_bot = None
 
     current_date = util.get_date(days_ago)
 
     today = date.today() - timedelta(days_ago - 1)
     yesterday = date.today() - timedelta(days_ago)
 
-    for board, max_post, gen_web, rule_url in config.boards:
-        logger.info('啟動超貼偵測', board, f"最多 {max_post} 篇文章")
+    for board, rule_list, gen_web, rule_url in config.boards:
+        logger.info('啟動超貼偵測', yesterday.strftime("%Y-%m-%d"), board)
 
         temp_file = f'./.src/data/{board}-{yesterday.strftime("%Y-%m-%d")}.json'
         if os.path.exists(temp_file):
             with open(temp_file, 'r') as f:
                 authors = json.load(f)
         else:
-            authors = dict()
+
+            if ptt_bot is None:
+                ptt_bot = login()
 
             start_index, end_index = util.get_post_index_range(ptt_bot, board=board, days_ago=days_ago)
 
+            authors = dict()
             for index in range(start_index, end_index + 1):
 
                 for _ in range(3):
@@ -68,7 +71,7 @@ def detect_posts(days_ago: int = 1):
                 elif delete_status == PyPtt.PostDelStatus.deleted_by_moderator:
                     title = '(本文已被刪除) <' + author + '>'
                 elif delete_status == PyPtt.PostDelStatus.deleted_by_unknown:
-                    # title = '(本文已被刪除) <' + author + '>'
+                    title = '(本文已被刪除) <<' + author + '>>'
                     pass
                 else:
                     title = title[:title.rfind('(')].strip()
@@ -93,26 +96,70 @@ def detect_posts(days_ago: int = 1):
 
         result = None
         prisoner_count = 0
-        for suspect, titles in authors.items():
+        last_key_word = None
+        for key_word, max_post in rule_list:
+            for suspect, titles in authors.items():
 
-            logger.debug('->', suspect, titles)
+                logger.debug('->', suspect, titles)
 
-            if len(titles) <= max_post:
-                continue
-            prisoner_count += 1
+                if key_word is None:
 
-            if result is not None:
-                result += '\n'
+                    if len(titles) <= max_post:
+                        continue
+                    prisoner_count += 1
 
-            for title in titles:
-                mark = ' '
-                if not title.startswith('R:'):
-                    mark = ' □ '
+                    if result is not None:
+                        result += '\n'
 
-                if result is None:
-                    result = f'{current_date} {suspect}{mark}{title}'
+                    if last_key_word != key_word:
+                        last_key_word = key_word
+                        if result is not None:
+                            result += f'\n單日不得超過 {max_post} 篇\n'
+                        else:
+                            result = f'單日不得超過 {max_post} 篇\n'
+
+                    for title in titles:
+                        mark = ' '
+                        if not title.startswith('R:'):
+                            mark = ' □ '
+
+                        if result is None:
+                            result = f'{current_date} {suspect}{mark}{title}'
+                        else:
+                            result += f'\n{current_date} {suspect}{mark}{title}'
+
                 else:
-                    result += f'\n{current_date} {suspect}{mark}{title}'
+                    if key_word == '[問卦]':
+                        # (本文已被刪除)
+                        compliant_titles = [title for title in titles if title.startswith('(本文已被刪除)') or (
+                                    key_word in title and not title.startswith('R:'))]
+                    else:
+                        compliant_titles = [title for title in titles if
+                                            key_word in title and not title.startswith('R:')]
+
+                    if len(compliant_titles) <= max_post:
+                        continue
+                    prisoner_count += 1
+
+                    if result is not None:
+                        result += '\n'
+
+                    if last_key_word != key_word:
+                        last_key_word = key_word
+                        if result is not None:
+                            result += f'\n單日 {key_word} 不得超過 {max_post} 篇\n'
+                        else:
+                            result = f'單日 {key_word} 不得超過 {max_post} 篇\n'
+
+                    for title in compliant_titles:
+                        mark = ' '
+                        if not title.startswith('R:'):
+                            mark = ' □ '
+
+                        if result is None:
+                            result = f'{current_date} {suspect}{mark}{title}'
+                        else:
+                            result += f'\n{current_date} {suspect}{mark}{title}'
 
         # print(result)
 
@@ -127,8 +174,8 @@ def detect_posts(days_ago: int = 1):
 
                 f.write(post)
 
-                f.write(f'{board} 板規定每日不能超過 {max_post} 篇 [板規連結]({rule_url})\n')
-                f.write(f'昨天違規 {prisoner_count} 人')
+                f.write(f'{board} 板 [板規連結]({rule_url})\n')
+                f.write(f'昨天違規 {prisoner_count} 人\n')
                 if result is None:
                     pass
                     # f.write('昨天沒有違規')
@@ -138,7 +185,8 @@ def detect_posts(days_ago: int = 1):
                     f.write(result)
             # json.dump(authors, f, indent=4, ensure_ascii=False)
 
-    ptt_bot.logout()
+    if ptt_bot is not None:
+        ptt_bot.logout()
 
     logger.info('超貼偵測', '結束')
 
