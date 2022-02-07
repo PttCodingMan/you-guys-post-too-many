@@ -19,7 +19,7 @@ def login():
     return ptt_bot
 
 
-def detect_posts(days_ago: int = 1):
+def detect_posts_one_day(days_ago: int = 1):
     ptt_bot = None
 
     current_date = util.get_date(days_ago)
@@ -27,7 +27,7 @@ def detect_posts(days_ago: int = 1):
     today = date.today() - timedelta(days_ago - 1)
     yesterday = date.today() - timedelta(days_ago)
 
-    for board, rule_list, gen_web, rule_url in config.boards:
+    for board, rule_list, gen_web, rule_url in config.one_day_board_rules:
         logger.info('啟動超貼偵測', yesterday.strftime("%Y-%m-%d"), board)
 
         temp_file = f'./.src/data/{board}-{yesterday.strftime("%Y-%m-%d")}.json'
@@ -195,7 +195,7 @@ if __name__ == '__main__':
     logger = Logger('post')
     logger.info('Welcome to', 'PTT Post Too Many Monitor', config.version)
 
-    for day in range(1, 6):
-        detect_posts(days_ago=day)
+    # for day in range(1, 6):
+    #     detect_posts_one_day(days_ago=day)
 
-    # detect_posts(5)
+    detect_posts_one_day(1)
