@@ -207,31 +207,6 @@ def detect_posts(days_ago: int = 1):
     logger.info('超貼偵測', '結束')
 
 
-# def detect_post_multi_days(days_ago: int = 1):
-#     basic_day = date.today() - timedelta(days_ago - 1)
-#
-#     for board, rule_list, gen_web, rule_url in config.multi_days_board_rules:
-#         logger.info('啟動多日超貼偵測', board, (basic_day - timedelta(1)).strftime("%Y-%m-%d"), '~', (basic_day - timedelta(7)).strftime("%Y-%m-%d"))
-#         for key_word, max_post, day_range in rule_list:
-#
-#             authors = {}
-#             for day in range(1, day_range + 1):
-#                 # print('load', day)
-#                 current_day = basic_day - timedelta(day)
-#
-#                 temp_file = f'./.src/data/{board}-{current_day.strftime("%Y-%m-%d")}.json'
-#                 if os.path.exists(temp_file):
-#                     with open(temp_file, 'r') as f:
-#                         current_authors = json.load(f)
-#
-#                     authors = {**authors, **current_authors}
-#
-#             if key_word is None:
-#                 for suspect, titles in authors.items():
-#
-#             # print(json.dumps(authors, indent=4, ensure_ascii=False))
-
-
 if __name__ == '__main__':
     logger = Logger('post')
     logger.info('Welcome to', 'PTT Post Too Many Monitor', config.version)
