@@ -1,5 +1,5 @@
 ---
-title: 2022-02-06-HatePolitics
+title: 2022-02-06-HatePolitics 違規 1 人
 tags:
     - HatePolitics
 abbrlink: 2022-02-06-HatePolitics
