@@ -61,6 +61,8 @@ def detect_posts(days_ago: int = 1):
                 delete_status = post.get('delete_status')
                 # ip = post.ip
 
+                # logger.info('data', author, title)
+
                 if delete_status == PyPtt.PostDelStatus.deleted_by_author:
                     title = '(本文已被刪除) [' + author + ']'
                 elif delete_status == PyPtt.PostDelStatus.deleted_by_moderator:
@@ -69,7 +71,7 @@ def detect_posts(days_ago: int = 1):
                     # title = '(本文已被刪除) <' + author + '>'
                     pass
                 else:
-                    title = title[:title.rfind(' ')].strip()
+                    title = title[:title.rfind('(')].strip()
 
                 if title is None:
                     title = ''
@@ -144,7 +146,7 @@ if __name__ == '__main__':
     logger = Logger('post')
     logger.info('Welcome to', 'PTT Post Too Many Monitor', config.version)
 
-    # for day in range(1, 6):
-    #     detect_posts(days_ago=day)
+    for day in range(1, 6):
+        detect_posts(days_ago=day)
 
-    detect_posts()
+    # detect_posts(5)
