@@ -111,8 +111,8 @@ def detect_posts(days_ago: int = 1):
                     if result is not None:
                         result += '\n'
 
-                    if last_key_word != key_word:
-                        last_key_word = key_word
+                    if last_key_word is None:
+                        last_key_word = ''
                         if result is not None:
                             result += f'\n單日不得超過 {max_post} 篇\n'
                         else:
