@@ -27,7 +27,7 @@ def detect_posts(days_ago: int = 1):
     today = date.today() - timedelta(days_ago - 1)
     yesterday = date.today() - timedelta(days_ago)
 
-    for board, max_post, rule_url in config.boards:
+    for board, max_post, gen_web, rule_url in config.boards:
         logger.info('啟動超貼偵測', board, f"最多 {max_post} 篇文章")
 
         temp_file = f'./.src/data/{board}-{yesterday.strftime("%Y-%m-%d")}.json'
@@ -116,25 +116,26 @@ def detect_posts(days_ago: int = 1):
 
         # print(result)
 
-        with open(f'./source/_posts/{board}-{today.strftime("%Y-%m-%d")}.md', 'w') as f:
-            post = config.post_template
+        if gen_web:
+            with open(f'./source/_posts/{board}-{today.strftime("%Y-%m-%d")}.md', 'w') as f:
+                post = config.post_template
 
-            post = post.replace('=title=', f'{today.strftime("%Y-%m-%d")}-{board} 違規 {prisoner_count} 人')
-            post = post.replace('=tags=', f'    - {board}')
-            post = post.replace('=link=', f'{today.strftime("%Y-%m-%d")}-{board}')
-            post = post.replace('=date=', f'{board}-{today.strftime("%Y-%m-%d %I:%M:%S")}')
+                post = post.replace('=title=', f'{today.strftime("%Y-%m-%d")}-{board} 違規 {prisoner_count} 人')
+                post = post.replace('=tags=', f'    - {board}')
+                post = post.replace('=link=', f'{today.strftime("%Y-%m-%d")}-{board}')
+                post = post.replace('=date=', f'{board}-{today.strftime("%Y-%m-%d %I:%M:%S")}')
 
-            f.write(post)
+                f.write(post)
 
-            f.write(f'{board} 板規定每日不能超過 {max_post} 篇 [板規連結]({rule_url})\n')
-            f.write(f'昨天違規 {prisoner_count} 人')
-            if result is None:
-                pass
-                # f.write('昨天沒有違規')
-            else:
-                f.write('<!-- more -->\n\n')
-                f.write('違規清單\n')
-                f.write(result)
+                f.write(f'{board} 板規定每日不能超過 {max_post} 篇 [板規連結]({rule_url})\n')
+                f.write(f'昨天違規 {prisoner_count} 人')
+                if result is None:
+                    pass
+                    # f.write('昨天沒有違規')
+                else:
+                    f.write('<!-- more -->\n\n')
+                    f.write('違規清單\n')
+                    f.write(result)
             # json.dump(authors, f, indent=4, ensure_ascii=False)
 
     ptt_bot.logout()
