@@ -10,6 +10,8 @@ Gossiping 板 [板規連結](https://www.ptt.cc/bbs/Gossiping/M.1637425085.A.07D
 <!-- more -->
 
 違規清單
+單日不得超過 5 篇
+
 2/02 ZMittermeyer R: [問卦] 為何台劇就是沒韓劇那種氣氛
 2/02 ZMittermeyer R: [問卦] 大家有被黃河長江滋養嗎？
 2/02 ZMittermeyer R: [問卦] 矽谷工程師vs台灣受雇醫師…

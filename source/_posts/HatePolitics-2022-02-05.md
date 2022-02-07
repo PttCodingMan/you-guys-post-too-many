@@ -10,6 +10,8 @@ HatePolitics 板 [板規連結](https://www.ptt.cc/bbs/HatePolitics/M.1617115262
 <!-- more -->
 
 違規清單
+單日不得超過 5 篇
+
 2/04 Ferrara □ [討論] Enes Kanter484塔綠班
 2/04 Ferrara □ [黑特] 為什麼DJ舔共都遮遮掩掩
 2/04 Ferrara R: [討論] 為什麼只有洪秀柱去中…

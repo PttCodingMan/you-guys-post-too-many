@@ -10,6 +10,8 @@ HatePolitics 板 [板規連結](https://www.ptt.cc/bbs/HatePolitics/M.1617115262
 <!-- more -->
 
 違規清單
+單日不得超過 5 篇
+
 2/03 Pietro □ [轉錄] 劉宇：作賊喊抓賊
 2/03 Pietro □ [討論] 倫敦大學：蔡英文博士…
 2/03 Pietro □ [新聞]獨家：蔡英文唯一有力證…

@@ -10,6 +10,8 @@ Gossiping 板 [板規連結](https://www.ptt.cc/bbs/Gossiping/M.1637425085.A.07D
 <!-- more -->
 
 違規清單
+單日不得超過 5 篇
+
 2/06 oinmrr R: [新聞] 不捨愛女遭下藥拍攝不雅片…
 2/06 oinmrr □ [問卦] 在台中按喇叭有另外的意思？
 2/06 oinmrr □ [問卦] 欸欸,聽說G軟都出沒在逢甲…
