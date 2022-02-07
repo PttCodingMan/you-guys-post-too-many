@@ -29,7 +29,7 @@ def detect_posts(days_ago: int = 1):
 
         authors = dict()
 
-        start_index, end_index = util.get_post_index_range(ptt_bot, board=board)
+        start_index, end_index = util.get_post_index_range(ptt_bot, board=board, days_ago=days_ago)
 
         for index in range(start_index, end_index + 1):
 
@@ -69,7 +69,8 @@ def detect_posts(days_ago: int = 1):
             if '[公告]' in title:
                 continue
 
-            logger.info('data', author, title)
+            # logger.info('data', author, title)
+            # logger.info('post', post.get('list_date'))
 
             if author not in authors:
                 authors[author] = []
@@ -132,4 +133,5 @@ if __name__ == '__main__':
     logger = Logger('post')
     logger.info('Welcome to', 'PTT Post Too Many Monitor', config.version)
 
-    detect_posts()
+    for day in range(1, 6):
+        detect_posts(days_ago=day)
