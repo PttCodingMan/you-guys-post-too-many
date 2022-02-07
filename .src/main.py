@@ -1,5 +1,4 @@
-import json
-from datetime import date
+from datetime import date, timedelta
 
 from SingleLog.log import Logger
 
@@ -18,13 +17,12 @@ def login():
     return ptt_bot
 
 
-def detect_posts():
-
+def detect_posts(days_ago: int = 1):
     ptt_bot = login()
 
-    current_date = util.get_date(1)
+    current_date = util.get_date(days_ago)
 
-    today = date.today()
+    today = date.today() - timedelta(days_ago - 1)
 
     for board, max_post, rule_url in config.boards:
         logger.info('啟動超貼偵測', board, f"最多 {max_post} 篇文章")
@@ -107,7 +105,7 @@ def detect_posts():
         with open(f'./source/_posts/{board}-{today.strftime("%Y-%m-%d")}.md', 'w') as f:
             post = config.post_template
 
-            post = post.replace('=title=', f'{today.strftime("%Y-%m-%d")}-{board}')
+            post = post.replace('=title=', f'{today.strftime("%Y-%m-%d")}-{board} 違規 {prisoner_count} 人')
             post = post.replace('=tags=', f'    - {board}')
             post = post.replace('=link=', f'{today.strftime("%Y-%m-%d")}-{board}')
             post = post.replace('=date=', f'{board}-{today.strftime("%Y-%m-%d %I:%M:%S")}')
@@ -115,10 +113,11 @@ def detect_posts():
             f.write(post)
 
             f.write(f'{board} 板規定每日不能超過 {max_post} 篇 [板規連結]({rule_url})\n')
+            f.write(f'昨天違規 {prisoner_count} 人')
             if result is None:
-                f.write('昨天沒有違規')
+                pass
+                # f.write('昨天沒有違規')
             else:
-                f.write(f'昨天違規 {prisoner_count} 人')
                 f.write('<!-- more -->\n\n')
                 f.write('違規清單\n')
                 f.write(result)

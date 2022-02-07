@@ -103,7 +103,7 @@ def get_first_index(ptt_bot: PyPtt.API, board, newest_index, day_ago, oldest_ind
         current_index = int((start_index + end_index) / 2)
 
 
-def get_post_index_range(ptt_bot: PyPtt.API, board: str):
+def get_post_index_range(ptt_bot: PyPtt.API, board: str, days_ago: int = 1):
     newest_index = ptt_bot.get_newest_index(
         PyPtt.NewIndex.BBS,
         board='ALLPOST',
@@ -112,8 +112,8 @@ def get_post_index_range(ptt_bot: PyPtt.API, board: str):
 
     logger.info(newest_index)
 
-    start_index = get_first_index(ptt_bot, board, newest_index, 1)
-    end_index = get_first_index(ptt_bot, board, newest_index, 0, oldest_index=start_index) - 1
+    start_index = get_first_index(ptt_bot, board, newest_index, days_ago)
+    end_index = get_first_index(ptt_bot, board, newest_index, days_ago - 1, oldest_index=start_index) - 1
 
     logger.info('index range', start_index, end_index)
 
