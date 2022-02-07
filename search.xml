@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>2022-02-07-AllTogether 違規 1 人</title>
+    <url>/you-guys-post-too-many/2022-02-07-AllTogether/</url>
+    <content><![CDATA[<p>AllTogether 板 <a href="https://www.ptt.cc/bbs/Gossiping/M.1637425085.A.07D.html">板規連結</a><br>昨天違規 1 人</p>
+<span id="more"></span>
+
+<p>違規清單<br>7 日內不得超過 1 篇</p>
+<p>2/06 xxx00112 □ Hey ~<br>2/06 xxx00112 □ [徵女] Hey ~</p>
+]]></content>
+      <tags>
+        <tag>AllTogether</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>2022-02-03-Gossiping 違規 6 人</title>
     <url>/you-guys-post-too-many/2022-02-03-Gossiping/</url>
     <content><![CDATA[<p>Gossiping 板 <a href="https://www.ptt.cc/bbs/Gossiping/M.1637425085.A.07D.html">板規連結</a><br>昨天違規 6 人</p>
@@ -261,7 +274,7 @@ count();
 所有資料來自批踢踢 <a href="https://www.ptt.cc/bbs/ALLPOST/index.html">ALLPOST</a> 板<br>
 <br>
 
-<p>如果你有新增版面需求，可丟站內信給我 CodingMan<br>說明你是哪一個板的板主，並附上板規連結即可</p>
+<p>如果你有新增看板的需求，可丟站內信給我 CodingMan<br>說明你是哪一個板的板主，並附上板規連結即可</p>
 <p>原始碼: <a href="https://github.com/PttCodingMan/you-guys-post-too-many">https://github.com/PttCodingMan/you-guys-post-too-many</a></p>
 </div>]]></content>
   </entry>
