@@ -1,3 +1,5 @@
+import json
+import os.path
 from datetime import date, timedelta
 
 from SingleLog.log import Logger
@@ -23,58 +25,67 @@ def detect_posts(days_ago: int = 1):
     current_date = util.get_date(days_ago)
 
     today = date.today() - timedelta(days_ago - 1)
+    yesterday = date.today() - timedelta(days_ago)
 
     for board, max_post, rule_url in config.boards:
         logger.info('啟動超貼偵測', board, f"最多 {max_post} 篇文章")
 
-        authors = dict()
+        temp_file = f'./.src/data/{board}-{yesterday.strftime("%Y-%m-%d")}.json'
+        if os.path.exists(temp_file):
+            with open(temp_file, 'r') as f:
+                authors = json.load(f)
+        else:
+            authors = dict()
 
-        start_index, end_index = util.get_post_index_range(ptt_bot, board=board, days_ago=days_ago)
+            start_index, end_index = util.get_post_index_range(ptt_bot, board=board, days_ago=days_ago)
 
-        for index in range(start_index, end_index + 1):
+            for index in range(start_index, end_index + 1):
 
-            for _ in range(3):
-                try:
-                    post = ptt_bot.get_post(
-                        board='ALLPOST',
-                        index=index,
-                        search_type=PyPtt.SearchType.KEYWORD,
-                        search_condition=f'({board})',
-                        query=True)
-                    break
-                except PyPtt.ConnectionClosed:
-                    ptt_bot = login()
+                for _ in range(3):
+                    try:
+                        post = ptt_bot.get_post(
+                            board='ALLPOST',
+                            index=index,
+                            search_type=PyPtt.SearchType.KEYWORD,
+                            search_condition=f'({board})',
+                            query=True)
+                        break
+                    except PyPtt.ConnectionClosed:
+                        ptt_bot = login()
 
-            author = post.get('author')
-            if '(' in author:
-                author = author[:author.find('(')].strip()
+                author = post.get('author')
+                if '(' in author:
+                    author = author[:author.find('(')].strip()
 
-            title = post.get('title')
-            delete_status = post.get('delete_status')
-            # ip = post.ip
+                title = post.get('title')
+                delete_status = post.get('delete_status')
+                # ip = post.ip
 
-            if delete_status == PyPtt.PostDelStatus.deleted_by_author:
-                title = '(本文已被刪除) [' + author + ']'
-            elif delete_status == PyPtt.PostDelStatus.deleted_by_moderator:
-                title = '(本文已被刪除) <' + author + '>'
-            elif delete_status == PyPtt.PostDelStatus.deleted_by_unknown:
-                # title = '(本文已被刪除) <' + author + '>'
-                pass
-            else:
-                title = title[:title.rfind(' ')].strip()
+                if delete_status == PyPtt.PostDelStatus.deleted_by_author:
+                    title = '(本文已被刪除) [' + author + ']'
+                elif delete_status == PyPtt.PostDelStatus.deleted_by_moderator:
+                    title = '(本文已被刪除) <' + author + '>'
+                elif delete_status == PyPtt.PostDelStatus.deleted_by_unknown:
+                    # title = '(本文已被刪除) <' + author + '>'
+                    pass
+                else:
+                    title = title[:title.rfind(' ')].strip()
 
-            if title is None:
-                title = ''
+                if title is None:
+                    title = ''
 
-            if '[公告]' in title:
-                continue
+                if '[公告]' in title:
+                    continue
 
-            # logger.info('data', author, title)
-            # logger.info('post', post.get('list_date'))
+                # logger.info('data', author, title)
+                # logger.info('post', post.get('list_date'))
 
-            if author not in authors:
-                authors[author] = []
-            authors[author].append(title)
+                if author not in authors:
+                    authors[author] = []
+                authors[author].append(title)
+
+            with open(temp_file, 'w') as f:
+                json.dump(authors, f, indent=4, ensure_ascii=False)
 
         logger.debug('authors', authors)
 
@@ -133,5 +144,7 @@ if __name__ == '__main__':
     logger = Logger('post')
     logger.info('Welcome to', 'PTT Post Too Many Monitor', config.version)
 
-    for day in range(1, 6):
-        detect_posts(days_ago=day)
+    # for day in range(1, 6):
+    #     detect_posts(days_ago=day)
+
+    detect_posts()
