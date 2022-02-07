@@ -41,13 +41,13 @@ def detect_posts(days_ago: int = 1):
 
                     authors = {**authors, **current_authors}
                 else:
-                    if day > 5:
+                    if days_ago + day - 1 > 5:
                         break
 
                     if ptt_bot is None:
                         ptt_bot = login()
 
-                    start_index, end_index = util.get_post_index_range(ptt_bot, board=board, days_ago=days_ago)
+                    start_index, end_index = util.get_post_index_range(ptt_bot, board=board, days_ago=days_ago + day - 1)
                     current_authors = {}
                     for index in range(start_index, end_index + 1):
 
@@ -236,7 +236,7 @@ if __name__ == '__main__':
     logger = Logger('post')
     logger.info('Welcome to', 'PTT Post Too Many Monitor', config.version)
 
-    for day in range(1, 6):
-        detect_posts(days_ago=day)
+    # for day in range(1, 6):
+    #     detect_posts(days_ago=day)
 
-    # detect_posts(1)
+    detect_posts(1)
