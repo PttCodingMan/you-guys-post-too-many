@@ -2,15 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://pttcodingman.github.io/you-guys-post-too-many/tags/</loc>
-    
-    <lastmod>2022-02-08</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://pttcodingman.github.io/you-guys-post-too-many/2022-02-07-AllTogether/</loc>
     
     <lastmod>2022-02-08</lastmod>
@@ -21,6 +12,15 @@
   
   <url>
     <loc>https://pttcodingman.github.io/you-guys-post-too-many/2022-02-08-AllTogether/</loc>
+    
+    <lastmod>2022-02-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://pttcodingman.github.io/you-guys-post-too-many/2022-02-09-AllTogether/</loc>
     
     <lastmod>2022-02-08</lastmod>
     
@@ -83,6 +83,15 @@
   </url>
   
   <url>
+    <loc>https://pttcodingman.github.io/you-guys-post-too-many/2022-02-09-Gossiping/</loc>
+    
+    <lastmod>2022-02-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://pttcodingman.github.io/you-guys-post-too-many/2022-02-03-HatePolitics/</loc>
     
     <lastmod>2022-02-08</lastmod>
@@ -129,6 +138,15 @@
   
   <url>
     <loc>https://pttcodingman.github.io/you-guys-post-too-many/2022-02-08-HatePolitics/</loc>
+    
+    <lastmod>2022-02-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://pttcodingman.github.io/you-guys-post-too-many/2022-02-09-HatePolitics/</loc>
     
     <lastmod>2022-02-08</lastmod>
     
@@ -191,6 +209,15 @@
   </url>
   
   <url>
+    <loc>https://pttcodingman.github.io/you-guys-post-too-many/2022-02-09-Wanted/</loc>
+    
+    <lastmod>2022-02-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://pttcodingman.github.io/you-guys-post-too-many/2022-02-03-give/</loc>
     
     <lastmod>2022-02-08</lastmod>
@@ -245,6 +272,15 @@
   </url>
   
   <url>
+    <loc>https://pttcodingman.github.io/you-guys-post-too-many/2022-02-09-give/</loc>
+    
+    <lastmod>2022-02-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://pttcodingman.github.io/you-guys-post-too-many/404</loc>
     
     <lastmod>2022-02-08</lastmod>
@@ -255,6 +291,15 @@
   
   <url>
     <loc>https://pttcodingman.github.io/you-guys-post-too-many/about/</loc>
+    
+    <lastmod>2022-02-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://pttcodingman.github.io/you-guys-post-too-many/tags/</loc>
     
     <lastmod>2022-02-08</lastmod>
     
