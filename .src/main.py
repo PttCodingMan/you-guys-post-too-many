@@ -24,6 +24,7 @@ def detect_posts(days_ago: int = 1):
 
     basic_day = date.today() - timedelta(days_ago - 1)
 
+    authors_day_1 = None
     for board, rule_list, gen_web, rule_url in config.board_rules:
         logger.info('啟動超貼偵測', board)
 
@@ -98,6 +99,9 @@ def detect_posts(days_ago: int = 1):
 
                     authors = {**authors, **current_authors}
 
+                if day == 1:
+                    authors_day_1 = current_authors
+
         logger.debug('authors', authors)
 
         result = None
@@ -115,6 +119,9 @@ def detect_posts(days_ago: int = 1):
 
                     if len(titles) <= max_post:
                         continue
+                    if suspect not in authors_day_1:
+                        continue
+
                     prisoner_count += 1
 
                     if result is not None:
@@ -154,6 +161,8 @@ def detect_posts(days_ago: int = 1):
                                     [list_date, title])
 
                     if len(compliant_titles) <= max_post:
+                        continue
+                    if suspect not in authors_day_1:
                         continue
                     prisoner_count += 1
 
