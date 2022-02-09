@@ -15,6 +15,14 @@ board_rules = [
         ('[新聞]', 1, 1)
     ], True, 'https://www.ptt.cc/bbs/Gossiping/M.1637425085.A.07D.html'),
     ('AllTogether', [(None, 1, 7)], True, 'https://www.ptt.cc/bbs/AllTogether/M.1643211430.A.5FB.html'),
+    ('nCoV2019', [(None, 4, 1)], True, 'https://www.ptt.cc/bbs/nCoV2019/M.1584500627.A.886.html'),
+    ('NBA', [
+        ('[討論]', 1, 1),
+        ('[專欄]', 1, 1),
+        ('[情報]', 1, 1),
+        ('[新聞]', 1, 1),
+        ('[花邊]', 1, 1),
+    ], True, 'https://www.ptt.cc/bbs/NBA/M.1637555315.A.C34.html'),
 ]
 
 post_template = '''---
