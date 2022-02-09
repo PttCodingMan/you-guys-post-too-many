@@ -119,7 +119,7 @@ menu:
   home: / || fa fa-home
   about: /about/ || fa fa-user
   tags: /tags/ || fa fa-tags
-  changelog: /changelog/ || fas fa-star
+  Change Log: /changelog/ || fas fa-star
   archives: /archives/ || fa fa-archive
   RSS: /atom.xml || fa fa-rss
 #  sitemap: /sitemap.xml || fa fa-sitemap
