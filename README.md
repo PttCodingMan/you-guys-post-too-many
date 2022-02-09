@@ -6,7 +6,7 @@ This project is publish at https://codingman.cc/you-guys-post-too-many/
 
 ## Config
 
-The following config is an actual setting config.
+The following config is an actual config.
 
 ```python
 board_rules = [
