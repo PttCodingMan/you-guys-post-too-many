@@ -40,7 +40,7 @@ def detect_posts(days_ago: int = 1):
                     with open(temp_file, 'r') as f:
                         current_authors = json.load(f)
 
-                    authors = {**authors, **current_authors}
+                    authors = util.merge_dict(authors, current_authors)
                 else:
                     if days_ago + day - 1 > 5:
                         break
@@ -97,7 +97,7 @@ def detect_posts(days_ago: int = 1):
                     with open(temp_file, 'w') as f:
                         json.dump(current_authors, f, indent=4, ensure_ascii=False)
 
-                    authors = {**authors, **current_authors}
+                    authors = util.merge_dict(authors, current_authors)
 
                 if day == 1:
                     authors_day_1 = current_authors
@@ -220,7 +220,7 @@ if __name__ == '__main__':
     logger = Logger('post')
     logger.info('Welcome to', 'PTT Post Too Many Monitor', config.version)
 
-    # for day in range(1, 6):
-    #     detect_posts(days_ago=day)
+    for day in range(1, 8):
+        detect_posts(days_ago=day)
 
-    detect_posts(1)
+    # detect_posts(1)

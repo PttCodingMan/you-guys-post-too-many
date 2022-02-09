@@ -118,3 +118,43 @@ def get_post_index_range(ptt_bot: PyPtt.API, board: str, days_ago: int = 1):
     logger.info('index range', start_index, end_index)
 
     return start_index, end_index
+
+
+def merge_dict(a: dict, b: dict):
+    result = {}
+    result.update(a)
+
+    for key, values in b.items():
+        if key in result:
+            result[key].extend(values)
+        else:
+            result[key] = values
+
+    return result
+
+
+if __name__ == '__main__':
+    a = {
+        "kpn": [
+            [
+                "2/02",
+                "[徵女] 熱情開朗肉肉女孩"
+            ]
+        ], }
+
+    b = {
+        "kpn": [
+            [
+                "2/03",
+                "[徵女] 熱情開朗肉肉女孩 QQ"
+            ]
+        ],
+        "kpn_2": [
+            [
+                "2/02",
+                "[徵女] 熱情開朗肉肉女孩"
+            ]
+        ],
+    }
+    c = merge_dict(a, b)
+    print(c)
