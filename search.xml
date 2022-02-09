@@ -425,7 +425,7 @@ count();
 <li>新增 Change Log 頁面</li>
 <li>修正資料合併邏輯</li>
 <li>影響看板資料<ul>
-<li>Alltogether</li>
+<li><a href="/you-guys-post-too-many/tags/AllTogether/">Alltogether</a></li>
 </ul>
 </li>
 </ul>
@@ -434,11 +434,11 @@ count();
 <ul>
 <li>Release 初版</li>
 <li>支援<ul>
-<li>Alltogether</li>
-<li>Gossiping</li>
-<li>give</li>
-<li>HatePolitics</li>
-<li>Wanted</li>
+<li><a href="/you-guys-post-too-many/tags/AllTogether/">Alltogether</a></li>
+<li><a href="/you-guys-post-too-many/tags/Gossiping/">Gossiping</a></li>
+<li><a href="/you-guys-post-too-many/tags/give/">give</a></li>
+<li><a href="/you-guys-post-too-many/tags/HatePolitics/">HatePolitics</a></li>
+<li><a href="/you-guys-post-too-many/tags/Wanted/">Wanted</a></li>
 </ul>
 </li>
 </ul>
