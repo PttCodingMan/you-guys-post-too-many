@@ -15,6 +15,7 @@ board_rules = [
         ('[新聞]', 1, 1)
     ], True, 'https://www.ptt.cc/bbs/Gossiping/M.1637425085.A.07D.html'),
     ('AllTogether', [(None, 1, 7)], True, 'https://www.ptt.cc/bbs/AllTogether/M.1643211430.A.5FB.html'),
+    ('Beauty', [(None, 3, 1)], True, 'https://www.ptt.cc/bbs/Beauty/M.1630069980.A.84B.html'),
     ('nCoV2019', [(None, 4, 1)], False, 'https://www.ptt.cc/bbs/nCoV2019/M.1584500627.A.886.html'),
     ('NBA', [
         ('[討論]', 1, 1),
@@ -23,7 +24,15 @@ board_rules = [
         ('[新聞]', 1, 1),
         ('[花邊]', 1, 1),
     ], False, 'https://www.ptt.cc/bbs/NBA/M.1637555315.A.C34.html'),
-    ('Beauty', [(None, 3, 1)], True, 'https://www.ptt.cc/bbs/Beauty/M.1630069980.A.84B.html'),
+    ('Lifeismoney', [(None, 15, 30)], False, 'https://www.ptt.cc/bbs/Lifeismoney/M.1629830908.A.94F.html'),
+    ('Hsinchu', [
+        ('[新聞]', 3, 7),
+        ('[合購]', 1, 7),
+        ('[廣宣]', 1, 30),
+        ('[代買]', 1, 30),
+        ('模特', 1, 30),
+        ('共乘', 2, 7),
+    ], False, 'https://www.ptt.cc/bbs/Hsinchu/M.1572354348.A.E2D.html'),
 ]
 
 post_template = '''---
