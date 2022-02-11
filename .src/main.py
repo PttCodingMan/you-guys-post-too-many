@@ -220,7 +220,7 @@ if __name__ == '__main__':
     logger = Logger('post')
     logger.info('Welcome to', 'PTT Post Too Many Monitor', config.version)
 
-    for day in range(1, 6):
-        detect_posts(days_ago=day)
+    # for day in range(1, 6):
+    #     detect_posts(days_ago=day)
 
-    # detect_posts(1)
+    detect_posts(1)
