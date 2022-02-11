@@ -116,11 +116,12 @@ darkmode: false
 # When running the site in a subdirectory (e.g. yoursite.com/blog), remove the leading slash from link value (/archives -> archives).
 # External url should start with http:// or https://
 menu:
-  home: / || fa fa-home
-  about: /about/ || fa fa-user
-  tags: /tags/ || fa fa-tags
-  Change Log: /changelog/ || fas fa-star
-  archives: /archives/ || fa fa-archive
+  首頁: / || fa fa-home
+  關於: /about/ || fa fa-user
+  看板分類: /tags/ || fa fa-tags
+  變更日誌: /changelog/ || fas fa-star
+  已上線板規: /implemented-rules/ || fas fa-running
+#  archives: /archives/ || fa fa-archive
   RSS: /atom.xml || fa fa-rss
 #  sitemap: /sitemap.xml || fa fa-sitemap
   #commonweal: /404/ || fa fa-heartbeat
