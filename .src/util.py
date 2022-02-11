@@ -34,7 +34,16 @@ def get_target(date0: str, date1: str):
     return int(date0 + date1)
 
 
+history = {}
+
+
 def get_first_index(ptt_bot: PyPtt.API, board, newest_index, day_ago, oldest_index=1):
+    global history
+
+    history_tag = f'{board}_{day_ago}'
+    if history_tag in history:
+        return history[history_tag]
+
     current_date_0 = get_date(
         day_ago + 1, ptt_style=False).replace('/', '').strip()
     current_date_1 = get_date(day_ago, ptt_style=False).replace('/', '').strip()
@@ -94,6 +103,7 @@ def get_first_index(ptt_bot: PyPtt.API, board, newest_index, day_ago, oldest_ind
         current_target = get_target(current_date_0, current_date_1)
 
         if current_target == finish_target:
+            history[history_tag] = current_index
             return current_index
 
         if current_target > finish_target:
