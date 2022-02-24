@@ -1,5 +1,6 @@
 import json
 import os.path
+import time
 from datetime import date, timedelta
 
 from SingleLog.log import Logger
@@ -48,7 +49,8 @@ def detect_posts(days_ago: int = 1):
                     if ptt_bot is None:
                         ptt_bot = login()
 
-                    start_index, end_index = util.get_post_index_range(ptt_bot, board=board, days_ago=days_ago + day - 1)
+                    start_index, end_index = util.get_post_index_range(ptt_bot, board=board,
+                                                                       days_ago=days_ago + day - 1)
                     current_authors = {}
                     for index in range(start_index, end_index + 1):
 
@@ -223,4 +225,10 @@ if __name__ == '__main__':
     # for day in range(1, 6):
     #     detect_posts(days_ago=day)
 
-    detect_posts(1)
+    for _ in range(3):
+        try:
+            detect_posts(1)
+            break
+        except:
+            # Retry at 10 mins later if an error causes
+            time.sleep(10 * 60)
