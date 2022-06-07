@@ -1,3 +1,4 @@
+import os
 from datetime import date, timedelta, datetime
 
 from SingleLog.log import Logger
@@ -144,27 +145,8 @@ def merge_dict(a: dict, b: dict):
 
 
 if __name__ == '__main__':
-    a = {
-        "kpn": [
-            [
-                "2/02",
-                "[徵女] 熱情開朗肉肉女孩"
-            ]
-        ], }
+    import glob
 
-    b = {
-        "kpn": [
-            [
-                "2/03",
-                "[徵女] 熱情開朗肉肉女孩 QQ"
-            ]
-        ],
-        "kpn_2": [
-            [
-                "2/02",
-                "[徵女] 熱情開朗肉肉女孩"
-            ]
-        ],
-    }
-    c = merge_dict(a, b)
-    print(c)
+    for f in glob.glob('./data/*.json'):
+        if '-05-' in f or '-04-' in f or '-03-' in f or '-02-' in f:
+            os.remove(f)
