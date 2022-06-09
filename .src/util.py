@@ -1,6 +1,9 @@
+import glob
+import json
 import os
 from datetime import date, timedelta, datetime
 
+import requests
 from SingleLog.log import Logger
 
 import PyPtt
@@ -145,8 +148,7 @@ def merge_dict(a: dict, b: dict):
 
 
 if __name__ == '__main__':
-    import glob
-
     for f in glob.glob('./data/*.json'):
         if '-05-' in f or '-04-' in f or '-03-' in f or '-02-' in f:
             os.remove(f)
+

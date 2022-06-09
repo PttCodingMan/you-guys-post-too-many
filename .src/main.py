@@ -3,6 +3,7 @@ import os.path
 import time
 from datetime import date, timedelta
 
+import tweepy
 from SingleLog.log import Logger
 
 import PyPtt
@@ -22,6 +23,8 @@ def login():
 
 def detect_posts(days_ago: int = 1):
     ptt_bot = None
+
+    twitter_content = None
 
     basic_day = date.today() - timedelta(days_ago - 1)
 
@@ -194,6 +197,11 @@ def detect_posts(days_ago: int = 1):
             with open(f'./source/_posts/{board}-{basic_day.strftime("%Y-%m-%d")}.md', 'w') as f:
                 post = config.post_template
 
+                if twitter_content is None:
+                    twitter_content = f'{board} 板 違規 {prisoner_count} 人'
+                else:
+                    twitter_content += f'\n{board} 板 違規 {prisoner_count} 人'
+
                 post = post.replace('=title=', f'{basic_day.strftime("%Y-%m-%d")}-{board} 違規 {prisoner_count} 人')
                 post = post.replace('=tags=', f'    - {board}')
                 post = post.replace('=link=', f'{basic_day.strftime("%Y-%m-%d")}-{board}')
@@ -216,6 +224,19 @@ def detect_posts(days_ago: int = 1):
         ptt_bot.logout()
 
     logger.info('超貼偵測', '結束')
+
+    # https://docs.tweepy.org/en/stable/examples.html
+
+    twitter_content = f"{basic_day.strftime('%Y.%m.%d')} 多 po 結果\n\n{twitter_content}\n\n詳細多 PO 名單 https://codingman.cc/k6bC7"
+
+    client = tweepy.Client(
+        consumer_key=config.consumer_key, consumer_secret=config.consumer_secret,
+        access_token=config.access_token, access_token_secret=config.access_token_secret
+    )
+
+    response = client.create_tweet(
+        text=twitter_content
+    )
 
 
 if __name__ == '__main__':
