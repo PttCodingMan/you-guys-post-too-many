@@ -57,6 +57,7 @@ def get_first_index(ptt_bot: PyPtt.API, board, newest_index, day_ago, oldest_ind
     end_index = newest_index
 
     current_index = int((start_index + end_index) / 2)
+    last_index = current_index
     retry_index = 0
 
     while True:
@@ -106,6 +107,8 @@ def get_first_index(ptt_bot: PyPtt.API, board, newest_index, day_ago, oldest_ind
             current_date_1 = '0' + current_date_1
         current_target = get_target(current_date_0, current_date_1)
 
+        logger.debug('get_first_index', finish_target, current_target, current_index)
+
         if current_target == finish_target:
             history[history_tag] = current_index
             return current_index
@@ -114,7 +117,12 @@ def get_first_index(ptt_bot: PyPtt.API, board, newest_index, day_ago, oldest_ind
             end_index = current_index - 1
         elif current_target < finish_target:
             start_index = current_index + 1
+
+        last_index = current_index
         current_index = int((start_index + end_index) / 2)
+
+        if last_index == current_index:
+            return current_index
 
 
 def get_post_index_range(ptt_bot: PyPtt.API, board: str, days_ago: int = 1):
@@ -124,7 +132,7 @@ def get_post_index_range(ptt_bot: PyPtt.API, board: str, days_ago: int = 1):
         search_type=PyPtt.SearchType.KEYWORD,
         search_condition=f'({board})')
 
-    logger.info(newest_index)
+    logger.info('newest_index', newest_index)
 
     start_index = get_first_index(ptt_bot, board, newest_index, days_ago)
     end_index = get_first_index(ptt_bot, board, newest_index, days_ago - 1, oldest_index=start_index) - 1
