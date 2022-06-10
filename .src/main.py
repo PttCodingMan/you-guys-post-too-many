@@ -250,6 +250,8 @@ if __name__ == '__main__':
         try:
             detect_posts(1)
             break
-        except:
+        except Exception:
             # Retry at 10 mins later if an error causes
             time.sleep(10 * 60)
+        except KeyboardInterrupt:
+            break
