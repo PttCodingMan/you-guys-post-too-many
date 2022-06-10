@@ -225,18 +225,31 @@ def detect_posts(days_ago: int = 1):
 
     logger.info('超貼偵測', '結束')
 
-    # https://docs.tweepy.org/en/stable/examples.html
-
-    twitter_content = f"{basic_day.strftime('%Y.%m.%d')} 多 po 結果\n\n{twitter_content}\n\n詳細多 PO 名單 https://codingman.cc/k6bC7"
-
     client = tweepy.Client(
+        bearer_token=config.bearer_token,
         consumer_key=config.consumer_key, consumer_secret=config.consumer_secret,
-        access_token=config.access_token, access_token_secret=config.access_token_secret
-    )
+        access_token=config.access_token, access_token_secret=config.access_token_secret)
 
-    response = client.create_tweet(
-        text=twitter_content
-    )
+    user_id = 1534551619077304321
+
+    response = client.get_users_tweets(user_id, tweet_fields=['created_at'], max_results=20)
+
+    exist = False
+    check_date = basic_day.strftime("%Y-%m-%d")
+    for tweet in response.data:
+        if check_date in str(tweet.created_at):
+            exist = True
+            break
+
+    if exist:
+        logger.info('Twitter already post today')
+    else:
+        twitter_content = f"{basic_day.strftime('%Y.%m.%d')} 多 po 結果\n\n{twitter_content}\n\n詳細多 PO 名單 https://codingman.cc/k6bC7"
+
+        response = client.create_tweet(
+            text=twitter_content
+        )
+        logger.info('Twitter', 'post')
 
 
 if __name__ == '__main__':
