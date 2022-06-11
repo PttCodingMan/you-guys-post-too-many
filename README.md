@@ -3,7 +3,7 @@
 This project is intended to help the hard-working PTT moderators to reduce loading.  
 This project finds people who have posted too many posts in the past day, even if they delete them.  
   
-Publish on this site: https://codingman.cc/you-guys-post-too-many/
+Publish on this site: https://codingman.cc/you-guys-post-too-many/  
 Also publish on Twitter: https://twitter.com/ptt_post_many
 
 ## Config
