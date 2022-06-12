@@ -3,6 +3,8 @@ title: 更新日誌
 date: 2022-02-09 09:13:05
 ---
 
+- 2022.06.11
+  - 結果開始發佈在 Twitter [批踢踢多 PO 觀測站](https://twitter.com/ptt_post_many)
 - 2022.02.11
   - 新增 [Beauty](/you-guys-post-too-many/tags/Beauty/) 板
   - 新增 [已上線板規](/you-guys-post-too-many/implemented-rules/) 頁面
