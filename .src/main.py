@@ -244,7 +244,7 @@ def detect_posts(days_ago: int = 1):
     if exist:
         logger.info('Twitter already post today')
     else:
-        twitter_content = f"{basic_day.strftime('%Y.%m.%d')} 多 po 結果\n\n{twitter_content}\n\n詳細多 PO 名單 https://codingman.cc/k6bC7"
+        twitter_content = f"{basic_day.strftime('%Y.%m.%d')} 多 po 結果\n\n{twitter_content}\n\n詳細名單請洽上方傳送門"
 
         response = client.create_tweet(
             text=twitter_content
