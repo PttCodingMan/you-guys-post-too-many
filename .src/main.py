@@ -236,10 +236,21 @@ def detect_posts(days_ago: int = 1):
 
     exist = False
     check_date = basic_day.strftime("%Y-%m-%d")
+    print(check_date)
     for tweet in response.data:
-        if check_date in str(tweet.created_at):
-            exist = True
-            break
+        # print(str(tweet.text))
+        if check_date in str(tweet.created_at) and '多 po 結果' in tweet.text.lower():
+
+            check_board = True
+            for board, _, gen_web, _ in config.board_rules:
+                if not gen_web:
+                    continue
+                if board not in tweet.text:
+                    check_board = False
+                    break
+            if check_board:
+                exist = True
+                break
 
     if exist:
         logger.info('Twitter already post today')
