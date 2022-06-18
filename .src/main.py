@@ -85,7 +85,6 @@ def detect_posts(days_ago: int = 1):
                             title = '(本文已被刪除) <' + author + '>'
                         elif delete_status == PyPtt.PostDelStatus.deleted_by_unknown:
                             title = '(本文已被刪除) <<' + author + '>>'
-                            pass
                         else:
                             title = title[:title.rfind('(')].strip()
 
