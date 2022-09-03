@@ -1,28 +1,30 @@
 import re
+from typing import Dict
 
-from SingleLog.log import Logger
+from SingleLog import LogLevel
+from SingleLog import Logger
 
+from . import _api_util
+from . import check_value
 from . import command
 from . import connect_core
 from . import exceptions
 from . import i18n
 from . import screens
-from .data_type import Board
+from .data_type import BoardField
 
 
-def get_board_info(
-        api,
-        board: str,
-        get_post_kind: bool,
-        call_by_others: bool) -> None:
-    if call_by_others:
-        log_level = Logger.DEBUG
-    else:
-        log_level = Logger.INFO
+def get_board_info(api, board: str, get_post_kind: bool, call_by_others: bool) -> Dict:
+    logger = Logger('get_board_info', LogLevel.DEBUG if call_by_others else LogLevel.INFO)
 
-    logger = Logger('get_board_info', log_level)
+    _api_util.one_thread(api)
 
-    api._goto_board(board, refresh=True)
+    if not api._is_login:
+        raise exceptions.Requirelogin(i18n.require_login)
+
+    check_value.check_type(board, str, 'board')
+
+    _api_util.goto_board(api, board, refresh=True)
 
     ori_screen = api.connect_core.get_screen_queue()[-1]
     # print(ori_screen)
@@ -64,7 +66,7 @@ def get_board_info(
             i18n.reading_board_info,
             '任意鍵繼續',
             break_detect=True,
-            log_level=log_level
+            log_level=LogLevel.DEBUG if call_by_others else LogLevel.INFO
         ),
     ]
 
@@ -96,7 +98,7 @@ def get_board_info(
     if r is not None:
         moderator_line = r.group(0)[5:].strip()
         if '(無)' in moderator_line:
-            moderators = list()
+            moderators = []
         else:
             moderators = moderator_line.split('/')
             for moderator in moderators.copy():
@@ -112,8 +114,7 @@ def get_board_info(
     open_status = ('公開狀態(是否隱形): 公開' in ori_screen)
     logger.debug('公開狀態', open_status)
 
-    into_top_ten_when_hide = (
-            '隱板時 可以 進入十大排行榜' in ori_screen)
+    into_top_ten_when_hide = ('隱板時 可以 進入十大排行榜' in ori_screen)
     logger.debug('隱板時可以進入十大排行榜', into_top_ten_when_hide)
 
     non_board_members_post = ('開放 非看板會員發文' in ori_screen)
@@ -160,21 +161,17 @@ def get_board_info(
     logger.debug('對齊開頭', push_aligned)
 
     # 板主 可 刪除部份違規文字
-    moderator_can_del_illegal_content = (
-            '板主 可 刪除部份違規文字' in ori_screen)
+    moderator_can_del_illegal_content = ('板主 可 刪除部份違規文字' in ori_screen)
     logger.debug('板主可刪除部份違規文字', moderator_can_del_illegal_content)
 
     # 轉錄文章 會 自動記錄，且 需要 發文權限
-    tran_post_auto_recorded_and_require_post_permissions = (
-            '轉錄文章 會 自動記錄，且 需要 發文權限' in ori_screen)
+    tran_post_auto_recorded_and_require_post_permissions = ('轉錄文章 會 自動記錄，且 需要 發文權限' in ori_screen)
     logger.debug('轉錄文章 會 自動記錄，且 需要 發文權限', tran_post_auto_recorded_and_require_post_permissions)
 
-    cool_mode = (
-            '未 設為冷靜模式' not in ori_screen)
+    cool_mode = ('未 設為冷靜模式' not in ori_screen)
     logger.debug('冷靜模式', cool_mode)
 
-    require18 = (
-            '禁止 未滿十八歲進入' in ori_screen)
+    require18 = ('禁止 未滿十八歲進入' in ori_screen)
     logger.debug('禁止未滿十八歲進入', require18)
 
     p = re.compile('登入次數 [\d]+ 次以上')
@@ -198,10 +195,10 @@ def get_board_info(
     kind_list = None
     if get_post_kind:
 
-        api._goto_board(board)
+        _api_util.goto_board(api, board)
 
         # Go certain board, then post to get post type info
-        cmd_list = list()
+        cmd_list = []
         cmd_list.append(command.ctrl_p)
         cmd = ''.join(cmd_list)
 
@@ -237,7 +234,7 @@ def get_board_info(
                 break
 
         # Clear post status
-        cmd_list = list()
+        cmd_list = []
         cmd_list.append(command.ctrl_c)
         cmd_list.append(command.ctrl_c)
         cmd = ''.join(cmd_list)
@@ -277,26 +274,26 @@ def get_board_info(
     #     require_illegal_post,
     #     kind_list)
     return {
-        Board.board: boardname,
-        Board.online_user: online_user,
-        Board.chinese_des: chinese_des,
-        Board.moderators: moderators,
-        Board.open_status: open_status,
-        Board.into_top_ten_when_hide: into_top_ten_when_hide,
-        Board.non_board_members_post: non_board_members_post,
-        Board.reply_post: reply_post,
-        Board.self_del_post: self_del_post,
-        Board.push_post: push_post,
-        Board.boo_post: boo_post,
-        Board.fast_push: fast_push,
-        Board.min_interval: min_interval,
-        Board.push_record_ip: push_record_ip,
-        Board.push_aligned: push_aligned,
-        Board.moderator_can_del_illegal_content: moderator_can_del_illegal_content,
-        Board.tran_post_auto_recorded_and_require_post_permissions: tran_post_auto_recorded_and_require_post_permissions,
-        Board.cool_mode: cool_mode,
-        Board.require18: require18,
-        Board.require_login_time: require_login_time,
-        Board.require_illegal_post: require_illegal_post,
-        Board.kind_list: kind_list
+        BoardField.board: boardname,
+        BoardField.online_user: online_user,
+        BoardField.chinese_des: chinese_des,
+        BoardField.moderators: moderators,
+        BoardField.open_status: open_status,
+        BoardField.into_top_ten_when_hide: into_top_ten_when_hide,
+        BoardField.non_board_members_post: non_board_members_post,
+        BoardField.reply_post: reply_post,
+        BoardField.self_del_post: self_del_post,
+        BoardField.push_post: push_post,
+        BoardField.boo_post: boo_post,
+        BoardField.fast_push: fast_push,
+        BoardField.min_interval: min_interval,
+        BoardField.push_record_ip: push_record_ip,
+        BoardField.push_aligned: push_aligned,
+        BoardField.moderator_can_del_illegal_content: moderator_can_del_illegal_content,
+        BoardField.tran_post_auto_recorded_and_require_post_permissions: tran_post_auto_recorded_and_require_post_permissions,
+        BoardField.cool_mode: cool_mode,
+        BoardField.require18: require18,
+        BoardField.require_login_time: require_login_time,
+        BoardField.require_illegal_post: require_illegal_post,
+        BoardField.kind_list: kind_list
     }

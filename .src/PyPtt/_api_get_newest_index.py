@@ -1,6 +1,7 @@
 import re
 
-from SingleLog.log import Logger
+from SingleLog import LogLevel
+from SingleLog import Logger
 
 from . import _api_util
 from . import check_value
@@ -10,11 +11,11 @@ from . import data_type, lib_util
 from . import exceptions
 from . import i18n
 from . import screens
-from .data_type import SearchType, NewIndex
 
 
 def _get_newest_index(api) -> int:
-    logger = Logger('get_newest_index', Logger.INFO)
+    logger = Logger('api', api.config.log_level)
+
     last_screen = api.connect_core.get_screen_queue()[-1]
     # print(last_screen)
     last_screen_list = last_screen.split('\n')
@@ -57,62 +58,39 @@ def _get_newest_index(api) -> int:
     return newest_index
 
 
-def get_newest_index(
-        api,
-        index_type: int,
-        search_type: int = 0,
-        search_condition: str = None,
-        search_list: list = None,
-        # BBS
-        board: str = None) -> int:
-    api._one_thread()
+def get_newest_index(api, index_type: data_type.NewIndex, board: [str | None] = None,
+                     search_type: data_type.SearchType = data_type.SearchType.NOPE, search_condition: [str | None] = None,
+                     search_list: [list | None] = None) -> int:
+    _api_util.one_thread(api)
 
-    if not api._login_status:
+    if not api._is_login:
         raise exceptions.Requirelogin(i18n.require_login)
 
-    if not isinstance(index_type, NewIndex):
-        TypeError('index_type must be NewIndex')
+    check_value.check_type(index_type, data_type.NewIndex, 'index_type')
+    check_value.check_type(search_type, data_type.SearchType, 'search_type')
 
-    if not isinstance(search_type, SearchType):
-        raise TypeError(f'search_type must be SearchType, but {search_type}')
-
-    if index_type == NewIndex.MAIL:
-        if api.unregistered_user:
+    if index_type == data_type.NewIndex.MAIL:
+        if not api.is_registered_user:
             raise exceptions.UnregisteredUser(lib_util.get_current_func_name())
 
         if board is not None:
-            raise ValueError('board should not input in mail mode')
-
-        mail_search_options = [
-            SearchType.KEYWORD,
-            SearchType.AUTHOR,
-            SearchType.MARK,
-            SearchType.NOPE,
-        ]
-        if search_type not in mail_search_options:
-            ValueError(f'search type must in {mail_search_options} in mail mode')
+            raise ValueError('board should not input at NewIndex.MAIL.')
 
     if search_condition is not None:
-        check_value.check_type(str, 'search_condition', search_condition)
+        check_value.check_type(search_condition, str, 'search_condition')
 
     if search_list is not None:
-        check_value.check_type(api.config, list, 'search_list', search_list)
-    check_value.check_type(int, 'SearchType', search_type)
+        check_value.check_type(search_list, list, 'search_list')
 
-    if index_type == data_type.NewIndex.BBS:
+    if index_type is data_type.NewIndex.BBS:
 
-        check_value.check_type(str, 'board', board)
+        check_value.check_type(board, str, 'board')
 
-        api._check_board(board)
-        api._goto_board(board)
+        _api_util.check_board(api, board)
+        _api_util.goto_board(api, board)
 
-        cmd_list, normal_newest_index = _api_util.get_search_condition_cmd(
-            api,
-            index_type,
-            search_type,
-            search_condition,
-            search_list,
-            board)
+        cmd_list, normal_newest_index = _api_util.get_search_condition_cmd(api, index_type, board, search_type,
+                                                                           search_condition, search_list)
 
         cmd_list.append('1')
         cmd_list.append(command.enter)
@@ -125,17 +103,17 @@ def get_newest_index(
                 i18n.no_post,
                 '沒有文章...',
                 break_detect=True,
-                log_level=Logger.DEBUG),
+                log_level=LogLevel.DEBUG),
             connect_core.TargetUnit(
                 i18n.complete,
                 screens.Target.InBoard,
                 break_detect=True,
-                log_level=Logger.DEBUG),
+                log_level=LogLevel.DEBUG),
             connect_core.TargetUnit(
                 i18n.complete,
                 screens.Target.InBoardWithCursor,
                 break_detect=True,
-                log_level=Logger.DEBUG),
+                log_level=LogLevel.DEBUG),
             connect_core.TargetUnit(
                 i18n.no_such_board,
                 screens.Target.MainMenu_Exiting,
@@ -157,18 +135,13 @@ def get_newest_index(
 
     elif index_type == data_type.NewIndex.MAIL:
 
-        cmd_list = list()
+        cmd_list = []
         cmd_list.append(command.go_main_menu)
         cmd_list.append(command.ctrl_z)
         cmd_list.append('m')
 
-        _cmd_list, normal_newest_index = _api_util.get_search_condition_cmd(
-            api,
-            index_type,
-            search_type,
-            search_condition,
-            search_list,
-            board)
+        _cmd_list, normal_newest_index = _api_util.get_search_condition_cmd(api, index_type, board, search_type,
+                                                                            search_condition, search_list)
         # print('normal_newest_index', normal_newest_index)
 
         cmd_list.extend(_cmd_list)
@@ -185,7 +158,7 @@ def get_newest_index(
                 i18n.no_mail,
                 screens.Target.CursorToGoodbye,
                 break_detect=True,
-                log_level=Logger.DEBUG),
+                log_level=LogLevel.DEBUG),
         ]
 
         def get_index(api):

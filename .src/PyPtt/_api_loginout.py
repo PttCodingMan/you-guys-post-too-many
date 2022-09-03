@@ -1,20 +1,27 @@
 import re
 
-from SingleLog.log import Logger
+from SingleLog import Logger
 
-from . import data_type
-from . import i18n
-from . import connect_core
-from . import screens
-from . import exceptions
-from . import command
 from . import _api_util
+from . import check_value
+from . import command
+from . import config
+from . import connect_core
+from . import data_type
+from . import exceptions
+from . import i18n
+from . import screens
 
 
 def logout(api) -> None:
-    logger = Logger('api_logout', api.config.log_level)
+    _api_util.one_thread(api)
 
-    cmd_list = list()
+    if not api._is_login:
+        return
+
+    logger = Logger('api', api.config.log_level, **config.LOGGER_CONFIG)
+
+    cmd_list = []
     cmd_list.append(command.go_main_menu)
     cmd_list.append('g')
     cmd_list.append(command.enter)
@@ -30,7 +37,7 @@ def logout(api) -> None:
             break_detect=True),
     ]
 
-    logger.info(i18n.logout, i18n.active)
+    logger.info(i18n.logout)
 
     try:
         api.connect_core.send(cmd, target_list)
@@ -40,56 +47,56 @@ def logout(api) -> None:
     except RuntimeError:
         pass
 
-    api._login_status = False
+    api._is_login = False
 
-    logger.info(i18n.logout, i18n.complete)
+    logger.stage(i18n.success)
 
 
-def login(
-        api,
-        ptt_id,
-        password,
-        kick_other_login):
-    logger = Logger('api_login', api.config.log_level)
+def login(api, ptt_id: str, ptt_pw: str, kick_other_session: bool):
+    logger = Logger('api', api.config.log_level, **config.LOGGER_CONFIG)
 
-    if api._login_status:
+    _api_util.one_thread(api)
+
+    check_value.check_type(ptt_id, str, 'ptt_id')
+    check_value.check_type(ptt_pw, str, 'password')
+    check_value.check_type(kick_other_session, bool, 'kick_other_session')
+
+    if api._is_login:
         api.logout()
 
-    api.config.kick_other_login = kick_other_login
+    api.config.kick_other_session = kick_other_session
 
     def kick_other_login_display_msg():
-        if api.config.kick_other_login:
+        if api.config.kick_other_session:
             return i18n.kick_other_login
         return i18n.not_kick_other_login
 
     def kick_other_login_response(screen):
-        if api.config.kick_other_login:
+        if api.config.kick_other_session:
             return 'y' + command.enter
         return 'n' + command.enter
 
-    api._mailbox_full = False
+    api.is_mailbox_full = False
 
-    # def mailbox_full():
+    # def is_mailbox_full():
     #     log.log(
     #         api.config,
-    #         Logger.INFO,
+    #         LogLevel.INFO,
     #         i18n.MailBoxFull)
-    #     api._mailbox_full = True
+    #     api.is_mailbox_full = True
 
     def register_processing(screen):
         pattern = re.compile('[\d]+')
         api.process_picks = int(pattern.search(screen).group(0))
 
-    if len(password) > 8:
-        password = password[:8]
+    if len(ptt_pw) > 8:
+        ptt_pw = ptt_pw[:8]
 
     ptt_id = ptt_id.strip()
-    password = password.strip()
+    ptt_pw = ptt_pw.strip()
 
-    api._ID = ptt_id
-    api._Password = password
-
-    api.config.kick_other_login = kick_other_login
+    api._ptt_id = ptt_id
+    api._ptt_pw = ptt_pw
 
     api.connect_core.connect()
 
@@ -216,11 +223,11 @@ def login(
     # WILL = '\xfb'
     # NAWS = '\x1f'
 
-    cmd_list = list()
+    cmd_list = []
     # cmd_list.append(IAC + WILL + NAWS)
     cmd_list.append(ptt_id + ',')
     cmd_list.append(command.enter)
-    cmd_list.append(password)
+    cmd_list.append(ptt_pw)
     cmd_list.append(command.enter)
 
     cmd = ''.join(cmd_list)
@@ -239,11 +246,11 @@ def login(
         logger.info(i18n.has_new_mail_goto_main_menu)
 
         if current_capacity > max_capacity:
-            api._mailbox_full = True
+            api.is_mailbox_full = True
 
             logger.info(i18n.mail_box_full)
 
-        if api._mailbox_full:
+        if api.is_mailbox_full:
             logger.info(i18n.use_mailbox_api_will_logout_after_execution)
 
         target_list = [
@@ -264,7 +271,7 @@ def login(
 
     login_result = target_list[index].get_display_msg()
     if login_result != i18n.login_success:
-        print(ori_screen)
+        # print(ori_screen)
         logger.info('reason', login_result)
         raise exceptions.LoginError()
 
@@ -284,21 +291,21 @@ def login(
         else:
             screens.Target.CursorToGoodbye.append('●(G)oodbye')
 
-    api.unregistered_user = True
+    unregistered_user = True
     if '(T)alk' in ori_screen:
-        api.unregistered_user = False
+        unregistered_user = False
     if '(P)lay' in ori_screen:
-        api.unregistered_user = False
+        unregistered_user = False
     if '(N)amelist' in ori_screen:
-        api.unregistered_user = False
+        unregistered_user = False
 
-    if api.unregistered_user:
+    if unregistered_user:
         logger.info(i18n.unregistered_user_cant_use_all_api)
 
-    api.registered_user = not api.unregistered_user
+    api.is_registered_user = not unregistered_user
 
     if api.process_picks != 0:
         logger.info(i18n.picks_in_register, api.process_picks)
 
-    api._login_status = True
-    logger.info(i18n.login_success)
+    api._is_login = True
+    logger.stage(i18n.success)

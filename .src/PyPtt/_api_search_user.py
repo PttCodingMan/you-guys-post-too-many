@@ -1,16 +1,34 @@
-from SingleLog.log import Logger
+from SingleLog import Logger
 
-from . import i18n
-from . import connect_core
+from . import _api_util
+from . import check_value
 from . import command
+from . import connect_core
+from . import exceptions
+from . import i18n
+from . import lib_util
 
 
-def search_user(
-        api: object, ptt_id: str, min_page: int, max_page: int) -> list:
+def search_user(api, ptt_id: str, min_page: int, max_page: int) -> list:
+    logger = Logger('search_user')
 
-    logger = Logger('search_user', Logger.INFO)
+    _api_util.one_thread(api)
 
-    cmd_list = list()
+    if not api._is_login:
+        raise exceptions.Requirelogin(i18n.require_login)
+
+    if not api.is_registered_user:
+        raise exceptions.UnregisteredUser(lib_util.get_current_func_name())
+
+    check_value.check_type(ptt_id, str, 'ptt_id')
+    if min_page is not None:
+        check_value.check_index('min_page', min_page)
+    if max_page is not None:
+        check_value.check_index('max_page', max_page)
+    if min_page is not None and max_page is not None:
+        check_value.check_index_range('min_page', min_page, 'max_page', max_page)
+
+    cmd_list = []
     cmd_list.append(command.go_main_menu)
     cmd_list.append('T')
     cmd_list.append(command.enter)
@@ -32,10 +50,9 @@ def search_user(
             i18n.any_key_continue,
             '任意鍵',
             break_detect=True,
-        ),
-    ]
+        )]
 
-    resultlist = list()
+    resultlist = []
 
     while True:
 
@@ -90,13 +107,13 @@ def search_user(
                 i18n.quit_user_profile,
                 '《ＩＤ暱稱》',
                 response=command.enter,
-                # log_level=Logger.DEBUG
+                # log_level=LogLevel.DEBUG
             ),
             connect_core.TargetUnit(
                 i18n.done,
                 '查詢網友',
                 break_detect=True,
-                # log_level=Logger.DEBUG
+                # log_level=LogLevel.DEBUG
             )
         ]
     )

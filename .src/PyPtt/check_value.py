@@ -1,48 +1,34 @@
-from SingleLog.log import Logger
+from SingleLog import Logger
 
 from . import i18n
-from . import lib_util
 
-logger = Logger('check value', Logger.INFO)
+logger = Logger('check value')
 
 
-def check_type(
-        value_type,
-        name,
-        value,
-        value_class=None) -> None:
+def check_type(value, value_type, name) -> None:
     if not isinstance(value, value_type):
         if value_type is str:
-            raise TypeError(f'{name} {i18n.must_be_a_string}')
+            raise TypeError(f'[PyPtt] {name} {i18n.must_be_a_string}, but got {value}')
         elif value_type is int:
-            raise TypeError(f'{name} {i18n.must_be_a_integer}')
+            raise TypeError(f'[PyPtt] {name} {i18n.must_be_a_integer}, but got {value}')
         elif value_type is bool:
-            raise TypeError(f'{name} {i18n.must_be_a_boolean}')
-
-    if value_class is not None:
-        if not lib_util.check_range(value_class, value):
-            raise ValueError(f'Unknown {name}', value)
+            raise TypeError(f'[PyPtt] {name} {i18n.must_be_a_boolean}, but got {value}')
+        else:
+            raise TypeError(f'[PyPtt] {name} {i18n.must_be} {value_type}, but got {value}')
 
 
-def check_range(
-        name,
-        value,
-        min_value,
-        max_value) -> None:
-    check_type(int, name, value)
-    check_type(int, 'min_value', min_value)
-    check_type(int, 'max_value', max_value)
+def check_range(value, min_value, max_value, name) -> None:
+    check_type(value, int, name)
+    check_type(min_value, int, 'min_value')
+    check_type(max_value, int, 'max_value')
 
     if min_value <= value <= max_value:
         return
     raise ValueError(f'{name} {value} {i18n.must_between} {min_value} ~ {max_value}')
 
 
-def check_index(
-        name,
-        index,
-        max_value=None) -> None:
-    check_type(int, name, index)
+def check_index(name, index, max_value=None) -> None:
+    check_type(index, int, name)
     if index < 1:
         raise ValueError(f'{name} {i18n.must_bigger_than} 0')
 
@@ -53,14 +39,9 @@ def check_index(
             raise ValueError(f'{name} {index} {i18n.must_between} 0 ~ {max_value}')
 
 
-def check_index_range(
-        start_name,
-        start_index,
-        end_name,
-        end_index,
-        max_value=None) -> None:
-    check_type(int, start_name, start_index)
-    check_type(int, end_name, end_index)
+def check_index_range(start_name, start_index, end_name, end_index, max_value=None) -> None:
+    check_type(start_index, int, start_name)
+    check_type(end_index, int, end_name)
 
     if start_index < 1:
         raise ValueError(f'{start_name} {start_index} {i18n.must_bigger_than} 0')

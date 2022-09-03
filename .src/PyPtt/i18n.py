@@ -1,16 +1,11 @@
-from enum import auto
+import random
 
-from . import lib_util
-
-
-class Lang(lib_util.AutoName):
-    CHINESE = auto()
-    ENGLISH = auto()
-
+from . import data_type
+from . import version
 
 languageList = [
-    Lang.CHINESE,
-    Lang.ENGLISH,
+    data_type.Language.MANDARIN,
+    data_type.Language.ENGLISH,
 ]
 
 
@@ -33,194 +28,275 @@ def replace(string, *args):
     return string
 
 
-chinese_traditional_module = None
-english_module = None
-init = None
-connect_host = None
-set_connect_host = None
-PTT = None
-PTT2 = None
-localhost = None
-must_be_a_string = None
-must_be_a_integer = None
-must_be_a_boolean = None
-unknown = None
-must_bigger_than = None
-must_small_than = None
-must_between = None
-connect_core = None
-use_too_many_resources = None
-prepare_connect_again = None
-active = None
-connect_mode = None
-connect_mode_TELNET = None
-connect_mode_WEBSOCKET = None
-set_connect_mode = None
-fail = None
-connect = None
-hide_sensitive_info = None
-send_msg = None
-ptt_msg = None
-spend_time = None
-kick_other_login = None
-not_kick_other_login = None
-login_id = None
-mail_box = None
-login_success = None
-go_main_menu = None
-wrong_id_pw = None
-login_too_often = None
-system_busy_try_later = None
-del_wrong_pw_record = None
-post_not_finish = None
-in_login_process_please_wait = None
-any_key_continue = None
-update_sync_online_user_friend_list = None
-error_login_rich_people_go_main_menu = None
-skip_registration_form = None
-only_secure_connection = None
-debug = None
-info = None
-out_side = None
-new_cursor = None
-old_cursor = None
-logout_success = None
-logout = None
-complete = None
-query_ptt_time_success = None
-has_new_mail_goto_main_menu = None
-mail_box_full = None
-use_mailbox_api_will_logout_after_execution = None
-unregistered_user_cant_use_all_api = None
-picks_in_register = None
-reading_board_info = None
-no_permission = None
-no_post = None
-set_connect_mail_first = None
-no_such_board = None
-no_mail = None
-find_newest_index = None
-catch_post = None
-catch_post_success = None
-query_post_success = None
-success = None
-post_deleted = None
-board = None
-substandard_post = None
-author = None
-title = None
-date = None
-content = None
-comment_id = None
-comment_date = None
-comment = None
-comment_content = None
-unconfirmed_post = None
-browse_post = None
-done = None
-browse_post_done = None
-post_no_content = None
-animation_post = None
-login_fail = None
-no_fast_comment = None
-no_such_user = None
-user_offline = None
-no_money = None
-money_too_few = None
-connection_closed = None
-unregistered_user_cant_use_this_api = None
-multi_thread_operate = None
-error_pw = None
-ptt2_not_support = None
-no_comment = None
-no_response = None
-need_moderator_permission = None
-connect_fail = None
-no_such_post = None
-screen_no_match_target = None
-can_not_use_search_post_code_f = None
-user_has_previously_been_banned = None
-no_search_result = None
-timeout = None
-deleted_post = None
-has_post_permission = None
-save_file = None
-select_signature = None
-not_record_ip = None
-record_ip = None
-push_aligned = None
-not_push_aligned = None
-has_push_permission = None
-only_arrow = None
-error_parameter = None
-wait_for_no_fast_comment = None
-require_login = None
-reading = None
-quit_user_profile = None
-read_complete = None
-get_user = None
-get_user_success = None
-get_user_fail = None
-water_ball = None
-set_call_status = None
-throw_waterball = None
-throw_waterball_success = None
-no_waterball = None
-browse_waterball = None
-browse_waterball_done = None
-get_call_status = None
-get_call_status_success = None
-set_call_status_success = None
-transaction_cancelled = None
-transaction = None
-transaction_success = None
-constant_red_bag = None
-verify_id = None
-anonymous_transaction = None
-input_money = None
-input_id = None
-authentication_has_not_expired = None
-trading_in_progress = None
-send_mail = None
-no_signature_file = None
-select_sign_file = None
-not_self_save_draft = None
-self_save_draft = None
-board_list = None
-reply_board = None
-reply_mail = None
-reply_board_mail = None
-forced_write = None
-edit_post = None
-use_the_original_title = None
-quote_original = None
-respond_success = None
-favourite_board_list = None
-confirm = None
-input_origin_password = None
-input_new_password = None
-check_new_password = None
-catch_bottom_post_success = None
-confirm_delete = None
-delete_success = None
-bucket_fail = None
-bucket_success = None
-input_bucket_days_reason = None
-new_settings_have_been_saved = None
-no_changes = None
-restore_connection = None
-new_version = None
-development_version = None
-latest_version = None
+mandarin_module: str = ''
+english_module: str = ''
+init: str = ''
+connect_host: str = ''
+set_connect_host: str = ''
+PTT: str = ''
+PTT2: str = ''
+localhost: str = ''
+must_be_a_string: str = ''
+must_be_a_integer: str = ''
+must_be_a_boolean: str = ''
+must_be: str = ''
+unknown: str = ''
+must_bigger_than: str = ''
+must_small_than: str = ''
+must_between: str = ''
+connect_core: str = ''
+use_too_many_resources: str = ''
+prepare_connect_again: str = ''
+active: str = ''
+connect_mode: str = ''
+connect_mode_TELNET: str = ''
+connect_mode_WEBSOCKET: str = ''
+set_connect_mode: str = ''
+fail: str = ''
+connect: str = ''
+hide_sensitive_info: str = ''
+send_msg: str = ''
+ptt_msg: str = ''
+spend_time: str = ''
+kick_other_login: str = ''
+not_kick_other_login: str = ''
+login_id: str = ''
+mail_box: str = ''
+login_success: str = ''
+go_main_menu: str = ''
+wrong_id_pw: str = ''
+login_too_often: str = ''
+system_busy_try_later: str = ''
+del_wrong_pw_record: str = ''
+post_not_finish: str = ''
+in_login_process_please_wait: str = ''
+any_key_continue: str = ''
+update_sync_online_user_friend_list: str = ''
+error_login_rich_people_go_main_menu: str = ''
+skip_registration_form: str = ''
+only_secure_connection: str = ''
+debug: str = ''
+info: str = ''
+out_side: str = ''
+new_cursor: str = ''
+old_cursor: str = ''
+logout_success: str = ''
+logout: str = ''
+complete: str = ''
+query_ptt_time_success: str = ''
+has_new_mail_goto_main_menu: str = ''
+mail_box_full: str = ''
+use_mailbox_api_will_logout_after_execution: str = ''
+unregistered_user_cant_use_all_api: str = ''
+picks_in_register: str = ''
+reading_board_info: str = ''
+no_permission: str = ''
+no_post: str = ''
+set_connect_mail_first: str = ''
+no_such_board: str = ''
+no_mail: str = ''
+find_newest_index: str = ''
+catch_post: str = ''
+catch_post_success: str = ''
+query_post_success: str = ''
+success: str = ''
+post_deleted: str = ''
+board: str = ''
+substandard_post: str = ''
+author: str = ''
+title: str = ''
+date: str = ''
+content: str = ''
+comment_id: str = ''
+comment_date: str = ''
+comment: str = ''
+comment_content: str = ''
+unconfirmed_post: str = ''
+browse_post: str = ''
+done: str = ''
+browse_post_done: str = ''
+post_no_content: str = ''
+animation_post: str = ''
+login_fail: str = ''
+no_fast_comment: str = ''
+no_such_user: str = ''
+user_offline: str = ''
+no_money: str = ''
+money_too_few: str = ''
+connection_closed: str = ''
+unregistered_user_cant_use_this_api: str = ''
+multi_thread_operate: str = ''
+error_pw: str = ''
+ptt2_not_support: str = ''
+no_comment: str = ''
+no_response: str = ''
+need_moderator_permission: str = ''
+connect_fail: str = ''
+no_such_post: str = ''
+screen_no_match_target: str = ''
+can_not_use_search_post_code_f: str = ''
+user_has_previously_been_banned: str = ''
+no_search_result: str = ''
+timeout: str = ''
+deleted_post: str = ''
+has_post_permission: str = ''
+save_file: str = ''
+select_signature: str = ''
+not_record_ip: str = ''
+record_ip: str = ''
+push_aligned: str = ''
+not_push_aligned: str = ''
+has_push_permission: str = ''
+only_arrow: str = ''
+error_parameter: str = ''
+wait_for_no_fast_comment: str = ''
+require_login: str = ''
+reading: str = ''
+quit_user_profile: str = ''
+read_complete: str = ''
+get_user: str = ''
+get_user_success: str = ''
+get_user_fail: str = ''
+water_ball: str = ''
+set_call_status: str = ''
+throw_waterball: str = ''
+throw_waterball_success: str = ''
+no_waterball: str = ''
+browse_waterball: str = ''
+browse_waterball_done: str = ''
+get_call_status: str = ''
+get_call_status_success: str = ''
+set_call_status_success: str = ''
+transaction_cancelled: str = ''
+transaction: str = ''
+transaction_success: str = ''
+constant_red_bag: str = ''
+verify_id: str = ''
+anonymous_transaction: str = ''
+input_money: str = ''
+input_id: str = ''
+authentication_has_not_expired: str = ''
+trading_in_progress: str = ''
+send_mail: str = ''
+no_signature_file: str = ''
+select_sign_file: str = ''
+not_self_save_draft: str = ''
+self_save_draft: str = ''
+board_list: str = ''
+reply_board: str = ''
+reply_mail: str = ''
+reply_board_mail: str = ''
+forced_write: str = ''
+edit_post: str = ''
+use_the_original_title: str = ''
+quote_original: str = ''
+respond_success: str = ''
+favourite_board_list: str = ''
+confirm: str = ''
+input_origin_password: str = ''
+input_new_password: str = ''
+check_new_password: str = ''
+catch_bottom_post_success: str = ''
+confirm_delete: str = ''
+delete_success: str = ''
+bucket_fail: str = ''
+bucket_success: str = ''
+input_bucket_days_reason: str = ''
+new_settings_have_been_saved: str = ''
+no_changes: str = ''
+restore_connection: str = ''
+new_version: str = ''
+development_version: str = ''
+current_version: str = ''
+latest_version: str = ''
+del_all_mark_post: str = ''
+mark_success: str = ''
+set_up_lang_module: str = ''
+welcome: str = ''
+goodbye: str = ''
+update_remote_version: str = ''
+retry: str = ''
+
+
+goodbye_en = [
+    'goodbye',
+    'bye',
+    'see you',
+    'catch you later',
+    'I hate to run, but…',
+    'Until we meet again, I will wait.',
+]
+goodbye_mandarin = [
+    '再見',
+    '掰',
+    '待會見',
+    '祝平安',
+    '謝謝你，我很開心',
+    '等你回來',
+]
 
 
 def load(lang):
-    if not isinstance(lang, Lang):
+    if not isinstance(lang, data_type.Language):
         raise ValueError('Unknown language', lang)
+
+    global retry
+    retry = specific_load(lang, [
+        '重試',
+        'retry',
+    ])
+
+    global update_remote_version
+    update_remote_version = specific_load(lang, [
+        '確認最新版本',
+        'fetching latest version',
+    ])
+
+    global goodbye
+    goodbye = specific_load(lang, [
+        random.choice(goodbye_mandarin),
+        random.choice(goodbye_en),
+    ])
+
+    global must_be
+    must_be = specific_load(lang, [
+        '必須為',
+        'must be',
+    ])
+
+    global welcome
+    welcome = specific_load(lang, [
+        f'PyPtt v {version} 由 CodingMan 開發',
+        f'PyPtt v {version} developed by CodingMan',
+    ])
+
+    global set_up_lang_module
+    set_up_lang_module = specific_load(lang, [
+        '設定語言模組',
+        'set up language module',
+    ])
+
+    global mark_success
+    mark_success = specific_load(lang, [
+        '刪除所有標記文章',
+        'Del All Mark PostField',
+    ])
+
+    global del_all_mark_post
+    del_all_mark_post = specific_load(lang, [
+        '刪除所有標記文章',
+        'Del All Mark PostField',
+    ])
+
+    global current_version
+    current_version = specific_load(lang, [
+        '目前版本',
+        'Current version',
+    ])
 
     global latest_version
     latest_version = specific_load(lang, [
-        '已經是最新版本',
+        '正在執行最新版本',
         'Running the latest version',
     ])
 
@@ -365,7 +441,7 @@ def load(lang):
     global reply_board
     reply_board = specific_load(lang, [
         '回應至看板',
-        'respond to the Board',
+        'respond to the BoardField',
     ])
 
     global reply_mail
@@ -563,7 +639,7 @@ def load(lang):
     global quit_user_profile
     quit_user_profile = specific_load(lang, [
         f'退出使用者檔案',
-        f'Quit User Profile',
+        f'Quit UserField Profile',
     ])
 
     global reading
@@ -635,13 +711,13 @@ def load(lang):
     global has_post_permission
     has_post_permission = specific_load(lang, [
         '使用者擁有貼文權限',
-        'User Has Post Permission',
+        'UserField Has PostField Permission',
     ])
 
     global deleted_post
     deleted_post = specific_load(lang, [
         '已刪除文章',
-        'Deleted Post',
+        'Deleted PostField',
     ])
 
     global timeout
@@ -665,7 +741,7 @@ def load(lang):
     global can_not_use_search_post_code_f
     can_not_use_search_post_code_f = specific_load(lang, [
         '此狀態下無法使用搜尋文章代碼(AID)功能',
-        'This status can not use the search Post code function',
+        'This status can not use the search PostField code function',
     ])
 
     global screen_no_match_target
@@ -677,7 +753,7 @@ def load(lang):
     global no_such_post
     no_such_post = specific_load(lang, [
         '{Target0} 板找不到這個文章代碼 {Target1}',
-        'in {Target0}, the post code is not exist {Target1}',
+        'in {Target0}, the post code is not exists {Target1}',
     ])
 
     global connect_fail
@@ -719,7 +795,7 @@ def load(lang):
     global unregistered_user_cant_use_this_api
     unregistered_user_cant_use_this_api = specific_load(lang, [
         '未註冊使用者，無法使用此功能',
-        'unregistered User Can\'t Use This API',
+        'unregistered UserField Can\'t Use This API',
     ])
 
     global connection_closed
@@ -773,7 +849,7 @@ def load(lang):
     global animation_post
     animation_post = specific_load(lang, [
         '動畫文章',
-        'Animation Post',
+        'Animation PostField',
     ])
 
     global post_no_content
@@ -803,7 +879,7 @@ def load(lang):
     global unconfirmed_post
     unconfirmed_post = specific_load(lang, [
         '待證實文章',
-        'Post To Be Confirmed',
+        'PostField To Be Confirmed',
     ])
 
     global comment
@@ -935,7 +1011,7 @@ def load(lang):
     global unregistered_user_cant_use_all_api
     unregistered_user_cant_use_all_api = specific_load(lang, [
         '未註冊使用者，將無法使用全部功能',
-        'unregistered User Can\'t Use All API',
+        'unregistered UserField Can\'t Use All API',
     ])
 
     global use_mailbox_api_will_logout_after_execution
@@ -1108,7 +1184,7 @@ def load(lang):
 
     global kick_other_login
     kick_other_login = specific_load(lang, [
-        '剔除其他登入',
+        '強制執行剔除其他登入',
         'kick other login',
     ])
 
@@ -1220,15 +1296,15 @@ def load(lang):
         '必須為字串',
         'must be a string'])
 
-    global chinese_traditional_module
-    chinese_traditional_module = specific_load(lang, [
-        '繁體中文語言模組',
-        'traditional Chinese language module'])
+    global mandarin_module
+    mandarin_module = specific_load(lang, [
+        '繁體中文',
+        'mandarin'])
 
     global english_module
     english_module = specific_load(lang, [
-        '英文語言模組',
-        'english language module'])
+        '英文',
+        'english'])
 
     global init
     init = specific_load(lang, [
@@ -1238,12 +1314,12 @@ def load(lang):
     global connect_host
     connect_host = specific_load(lang, [
         '連線主機',
-        'the connection host'])
+        'the connect host'])
 
     global set_connect_host
     set_connect_host = specific_load(lang, [
         '設定連線主機',
-        'set up the connection host'])
+        'set up the connect host'])
 
     global PTT
     PTT = specific_load(lang, [
@@ -1273,7 +1349,7 @@ def load(lang):
     # Quote original
 
     # global List
-    # List = list()
+    # List = []
 
     # for k, v in globals().items():
     #     # System Var
@@ -1287,7 +1363,7 @@ def load(lang):
 
 
 def _createlist():
-    i18nStrList = list()
+    i18nStrList = []
 
     for k, v in globals().items():
         # System Var
@@ -1299,7 +1375,3 @@ def _createlist():
     with open('i18n.txt', 'w') as F:
         F.write('\n'.join(i18nStrList))
 
-
-if __name__ == '__main__':
-    load(Lang.CHINESE)
-    _createlist()

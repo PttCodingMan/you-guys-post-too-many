@@ -1,16 +1,24 @@
 import progressbar
-from SingleLog.log import Logger
+from SingleLog import LogLevel
+from SingleLog import Logger
 
-from . import i18n
-from . import connect_core
-from . import screens
+from . import _api_util
 from . import command
+from . import connect_core
+from . import exceptions
+from . import i18n
+from . import screens
 
 
 def get_board_list(api) -> list:
-    logger = Logger('get_board_list', Logger.INFO)
+    logger = Logger('get_board_list')
 
-    cmd_list = list()
+    _api_util.one_thread(api)
+
+    if not api._is_login:
+        raise exceptions.Requirelogin(i18n.require_login)
+
+    cmd_list = []
     cmd_list.append(command.go_main_menu)
     cmd_list.append('F')
     cmd_list.append(command.enter)
@@ -51,12 +59,12 @@ def get_board_list(api) -> list:
 
     logger.debug('max_no', max_no)
 
-    if api.config.log_level == Logger.INFO:
+    if api.config.log_level == LogLevel.INFO:
         pb = progressbar.ProgressBar(
             max_value=max_no,
             redirect_stdout=True)
 
-    cmd_list = list()
+    cmd_list = []
     cmd_list.append(command.go_main_menu)
     cmd_list.append('F')
     cmd_list.append(command.enter)
@@ -64,7 +72,7 @@ def get_board_list(api) -> list:
     cmd_list.append('0')
     cmd = ''.join(cmd_list)
 
-    board_list = list()
+    board_list = []
     while True:
 
         api.connect_core.send(
@@ -107,14 +115,14 @@ def get_board_list(api) -> list:
 
             board_list.append(board_name)
 
-            if api.config.log_level == Logger.INFO:
+            if api.config.log_level == LogLevel.INFO:
                 pb.update(no)
 
         if no >= max_no:
             break
         cmd = command.ctrl_f
 
-    if api.config.log_level == Logger.INFO:
+    if api.config.log_level == LogLevel.INFO:
         pb.finish()
 
     return board_list

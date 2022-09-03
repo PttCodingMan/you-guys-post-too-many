@@ -1,18 +1,27 @@
-from SingleLog.log import Logger
+from SingleLog import LogLevel
+from SingleLog import Logger
 
-from . import data_type
-from . import i18n
-from . import connect_core
-from . import screens
-from . import exceptions
-from . import command
 from . import _api_util
+from . import check_value
+from . import command
+from . import connect_core
+from . import exceptions
+from . import i18n
+from . import screens
 
 
 def get_bottom_post_list(api, board):
-    api._goto_board(board, end=True)
+    _api_util.one_thread(api)
 
-    logger = Logger('get_bottom_post_list', Logger.INFO)
+    if not api._is_login:
+        raise exceptions.Requirelogin(i18n.require_login)
+
+    check_value.check_type(board, str, 'board')
+    _api_util.check_board(api, board)
+
+    _api_util.goto_board(api, board, end=True)
+
+    logger = Logger('get_bottom_post_list')
 
     last_screen = api.connect_core.get_screen_queue()[-1]
 
@@ -25,7 +34,7 @@ def get_bottom_post_list(api, board):
         logger.info(i18n.catch_bottom_post_success)
         return list()
 
-    cmd_list = list()
+    cmd_list = []
     cmd_list.append(command.query_post)
     cmd = ''.join(cmd_list)
 
@@ -35,12 +44,12 @@ def get_bottom_post_list(api, board):
             screens.Target.QueryPost,
             break_detect=True,
             refresh=False,
-            log_level=Logger.DEBUG),
+            log_level=LogLevel.DEBUG),
         connect_core.TargetUnit(
             i18n.post_deleted,
             screens.Target.InBoard,
             break_detect=True,
-            log_level=Logger.DEBUG),
+            log_level=LogLevel.DEBUG),
         connect_core.TargetUnit(
             i18n.no_such_board,
             screens.Target.MainMenu_Exiting,
@@ -48,7 +57,7 @@ def get_bottom_post_list(api, board):
         ),
     ]
 
-    result = list()
+    result = []
     for _ in range(0, bottom_length):
         api.connect_core.send(cmd, target_list)
         last_screen = api.connect_core.get_screen_queue()[-1]
@@ -66,7 +75,7 @@ def get_bottom_post_list(api, board):
 
         result.append(current_post)
 
-        cmd_list = list()
+        cmd_list = []
         cmd_list.append(command.enter)
         cmd_list.append(command.up)
         cmd_list.append(command.query_post)

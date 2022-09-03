@@ -1,19 +1,17 @@
+from . import _api_util
+from . import check_value
 from . import command
 from . import connect_core
 from . import exceptions
-from . import i18n, check_value, lib_util
+from . import i18n
+from . import lib_util
 from . import screens
 
 
-def fast_post_step0(
-        api: object,
-        board: str,
-        title: str,
-        content: str,
-        post_type: int) -> None:
-    api._goto_board(board)
+def fast_post_step0(api, board: str, title: str, content: str, post_type: int) -> None:
+    _api_util.goto_board(api, board)
 
-    cmd_list = list()
+    cmd_list = []
     cmd_list.append(command.ctrl_p)
     cmd_list.append(str(post_type))
     cmd_list.append(command.enter)
@@ -107,9 +105,9 @@ def fast_post(
         content: str,
         post_type: int,
         sign_file) -> None:
-    api._goto_board(board)
+    _api_util.goto_board(api, board)
 
-    cmd_list = list()
+    cmd_list = []
     cmd_list.append(command.ctrl_p)
     cmd_list.append(str(post_type))
     cmd_list.append(command.enter)
@@ -163,25 +161,19 @@ sign_file_list = [str(x) for x in range(0, 10)]
 sign_file_list.append('x')
 
 
-def post(
-        api: object,
-        board: str,
-        title: str,
-        content: str,
-        title_index: int,
-        sign_file) -> None:
-    api._one_thread()
+def post(api, board: str, title: str, content: str, title_index: int, sign_file) -> None:
+    _api_util.one_thread(api)
 
-    if api.unregistered_user:
+    if not api.is_registered_user:
         raise exceptions.UnregisteredUser(lib_util.get_current_func_name())
 
-    if not api._login_status:
+    if not api._is_login:
         raise exceptions.Requirelogin(i18n.require_login)
 
-    check_value.check_type(str, 'board', board)
-    check_value.check_type(int, 'title_index', title_index)
-    check_value.check_type(str, 'title', title)
-    check_value.check_type(str, 'content', content)
+    check_value.check_type(board, str, 'board')
+    check_value.check_type(title_index, int, 'title_index')
+    check_value.check_type(title, str, 'title')
+    check_value.check_type(content, str, 'content')
 
     if str(sign_file).lower() not in sign_file_list:
         raise ValueError(f'wrong parameter sign_file: {sign_file}')
@@ -192,13 +184,13 @@ def post(
     content = content.replace('\n', '\r\n')
     content = content.replace(random_tag, '\r\n')
 
-    api._check_board(board)
+    _api_util.check_board(api, board)
 
-    api._goto_board(board)
+    _api_util.goto_board(api, board)
 
-    # logger = Logger('post', Logger.INFO)
+    # logger = Logger('post')
 
-    cmd_list = list()
+    cmd_list = []
     cmd_list.append(command.ctrl_p)
 
     cmd = ''.join(cmd_list)
@@ -229,7 +221,7 @@ def post(
 
     screens.show(api.config, api.connect_core.get_screen_queue())
 
-    cmd_list = list()
+    cmd_list = []
     cmd_list.append(str(title_index))
     cmd_list.append(command.enter)
     cmd_list.append(str(title))

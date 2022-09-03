@@ -1,13 +1,22 @@
-from . import i18n
+from logging import Logger
+
+from . import command, _api_util
 from . import connect_core
 from . import exceptions
-from . import command
+from . import i18n
 
 
-def change_pw(
-        api,
-        new_password: str) -> None:
-    cmd_list = list()
+def change_pw(api, new_password: str) -> None:
+    _api_util.one_thread(api)
+
+    logger = Logger('api', api.config.log_level)
+
+    if not api._is_login:
+        raise exceptions.Requirelogin(i18n.require_login)
+
+    new_password = new_password[:8]
+
+    cmd_list = []
     cmd_list.append(command.go_main_menu)
     cmd_list.append('U')
     cmd_list.append(command.enter)
@@ -43,7 +52,7 @@ def change_pw(
         connect_core.TargetUnit(
             i18n.input_origin_password,
             '輸入原密碼',
-            response=api._Password + command.enter,
+            response=api._ptt_pw + command.enter,
             max_match=1),
         connect_core.TargetUnit(
             i18n.done,
@@ -58,7 +67,9 @@ def change_pw(
     if index < 0:
         raise exceptions.Timeout
 
-    api._Password = new_password
+    api._ptt_pw = new_password
 
     # ori_screen = api.connect_core.get_screen_queue()[-1]
     # print(ori_screen)
+
+    # logger.info()

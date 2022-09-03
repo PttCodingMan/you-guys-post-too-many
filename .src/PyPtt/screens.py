@@ -1,7 +1,8 @@
 import re
 import sys
 
-from SingleLog.log import Logger
+from SingleLog import LogLevel
+from SingleLog import Logger
 from uao import register_uao
 
 register_uao()
@@ -141,7 +142,7 @@ class Target:
 
 
 def show(config, screen_queue, function_name=None):
-    if config.log_level != Logger.TRACE:
+    if config.log_level != LogLevel.TRACE:
         return
 
     if isinstance(screen_queue, list):
@@ -269,6 +270,8 @@ class VT100Parser:
                     self._newline()
                     continue
 
+                # print(f'-{data[:1]}-{len(data[:1].encode("big5-uao", "replace"))}')
+
                 if self._cursor_y not in self.screen_length:
                     self.screen_length[self._cursor_y] = len(self.screen[self._cursor_y].encode(encoding, 'replace'))
 
@@ -330,4 +333,3 @@ if __name__ == '__main__':
 
     p = VT100Parser(screen, 'utf-8')
     print(p.screen)
-

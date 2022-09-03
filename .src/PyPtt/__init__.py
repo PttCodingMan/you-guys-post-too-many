@@ -1,13 +1,17 @@
-from SingleLog.log import Logger
+from SingleLog import LogLevel
 
-LOG_LEVEL = Logger
+LOG_LEVEL = LogLevel
 version = '1.0.0'
 
 from .PTT import API
 from .data_type import HOST
-from .data_type import Post
-from .data_type import PostDelStatus
-from .data_type import SearchType
 from .data_type import NewIndex
-from .exceptions import *
-from .i18n import Lang
+from .data_type import PostField
+from .data_type import PostStatus
+from .data_type import SearchType
+from .data_type import ConnectMode
+from .data_type import Language
+
+from .exceptions import LoginError
+from .exceptions import WrongIDorPassword
+from .exceptions import LoginTooOften

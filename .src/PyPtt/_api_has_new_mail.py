@@ -1,16 +1,16 @@
 import re
 
-from SingleLog.log import Logger
+from SingleLog import LogLevel
 
-from . import i18n
-from . import connect_core
-from . import screens
-from . import command
 from . import _api_util
+from . import command
+from . import connect_core
+from . import i18n
+from . import screens
 
 
 def has_new_mail(api) -> int:
-    cmd_list = list()
+    cmd_list = []
     cmd_list.append(command.go_main_menu)
     cmd_list.append(command.ctrl_z)
     cmd_list.append('m')
@@ -20,7 +20,7 @@ def has_new_mail(api) -> int:
     current_capacity = None
     plus_count = 0
     index_pattern = re.compile('(\d+)')
-    checked_index_list = list()
+    checked_index_list = []
     break_detect = False
 
     target_list = [
@@ -28,7 +28,7 @@ def has_new_mail(api) -> int:
             i18n.mail_box,
             screens.Target.InMailBox,
             break_detect=True,
-            log_level=Logger.DEBUG
+            log_level=LogLevel.DEBUG
         )
     ]
 
@@ -38,7 +38,7 @@ def has_new_mail(api) -> int:
     )
     current_capacity, _ = _api_util.get_mailbox_capacity(api)
     if current_capacity > 20:
-        cmd_list = list()
+        cmd_list = []
         cmd_list.append(command.go_main_menu)
         cmd_list.append(command.ctrl_z)
         cmd_list.append('m')

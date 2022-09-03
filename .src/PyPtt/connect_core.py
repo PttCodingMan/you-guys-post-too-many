@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import asyncio
 import ssl
 import telnetlib
@@ -5,29 +7,24 @@ import threading
 import time
 import traceback
 import warnings
-from enum import auto, unique
+from typing import Any
 
 import websockets
 import websockets.exceptions
 import websockets.http
-from SingleLog.log import Logger
-from SingleLog.log import LoggerLevel
+from SingleLog import LogLevel
+from SingleLog import Logger
 
-from . import command, version
+import PyPtt
+from . import command
 from . import data_type
 from . import exceptions
 from . import i18n
 from . import screens
-from .lib_util import AutoName
 
-websockets.http.USER_AGENT += f' PyPtt/{version}'
+websockets.http.USER_AGENT += f' PyPtt/{PyPtt.version}'
 
 ssl_context = ssl.create_default_context()
-
-@unique
-class ConnectMode(AutoName):
-    TELNET = auto()
-    WEBSOCKETS = auto()
 
 
 class TargetUnit:
@@ -35,8 +32,8 @@ class TargetUnit:
             self,
             display_msg,
             detect_target,
-            log_level: LoggerLevel = None,
-            response: str = '',
+            log_level: LogLevel = None,
+            response: [Any | str] = '',
             break_detect=False,
             break_detect_after_send=False,
             exceptions_=None,
@@ -48,7 +45,7 @@ class TargetUnit:
         self._DisplayMsg = display_msg
         self._DetectTarget = detect_target
         if log_level is None:
-            self._log_level = Logger.INFO
+            self._log_level = LogLevel.INFO
         else:
             self._log_level = log_level
         self._Response = response
@@ -127,7 +124,7 @@ async def websocket_receiver(core, screen_timeout, recv_data_obj):
 
 class ReceiveDataQueue(object):
     def __init__(self):
-        self._ReceiveDataQueue = list()
+        self._ReceiveDataQueue = []
 
     def add(self, screen):
         self._ReceiveDataQueue.append(screen)
@@ -148,13 +145,9 @@ class API(object):
             screens.Target.use_too_many_resources,
             exceptions_=exceptions.use_too_many_resources())
 
-        self.logger = Logger('connector', config.log_level)
-        self.logger.info(i18n.connect_core, i18n.init)
-
-        if self.config.connect_mode == ConnectMode.TELNET:
-            self.logger.info(i18n.set_connect_mode, i18n.connect_mode_TELNET)
-        elif self.config.connect_mode == ConnectMode.WEBSOCKETS:
-            self.logger.info(i18n.set_connect_mode, i18n.connect_mode_WEBSOCKET)
+        self.logger = Logger('connect', self.config.log_level)
+        self.ptt_logger = Logger(i18n.PTT if self.config.host == data_type.HOST.PTT1 else i18n.PTT2,
+                                 self.config.log_level, skip_repeat=True, stage_sep='.')
 
     def connect(self) -> None:
         def _wait():
@@ -174,7 +167,7 @@ class API(object):
         warnings.filterwarnings("ignore", category=DeprecationWarning)
 
         self.current_encoding = 'big5uao'
-        self.logger.info(i18n.connect_core, i18n.active)
+        # self.logger.info(i18n.connect_core, i18n.active)
 
         if self.config.host == data_type.HOST.PTT1:
             telnet_host = 'ptt.cc'
@@ -198,7 +191,7 @@ class API(object):
         for _ in range(2):
 
             try:
-                if self.config.connect_mode == ConnectMode.TELNET:
+                if self.config.connect_mode == data_type.ConnectMode.TELNET:
                     self._core = telnetlib.Telnet(telnet_host, self.config.port)
                 else:
                     if not threading.current_thread() is threading.main_thread():
@@ -260,9 +253,7 @@ class API(object):
 
                 find_target = True
 
-                self.logger.debug(
-                    i18n.ptt_msg,
-                    target.get_display_msg())
+                # self.ptt_logger.info(target.get_display_msg())
 
                 # if target.get_display_msg() == '登入成功':
                 #     print(type(receive_data_buffer), receive_data_buffer)
@@ -295,32 +286,8 @@ class API(object):
                 break
         return screen, find_target, is_secret, break_detect_after_send, use_too_many_res, msg, target_index
 
-    def send(
-            self,
-            msg: str,
-            target_list: list,
-            screen_timeout: int = 0,
-            refresh: bool = True,
-            secret: bool = False) -> int:
-
-        def clean_screen(recv_screen: str, NoColor: bool = True) -> str:
-
-            if not recv_screen:
-                return recv_screen
-            # http://asf.atmel.com/docs/latest/uc3l/html/group__group__avr32__lib_utils__print__funcs.html#ga024c3e2852fe509450ebc363df52ae73
-
-            # screen = re.sub('\[[\d+;]*m', '', screen)
-
-            # recv_screen = re.sub(r'[\r]', '', recv_screen)
-            # recv_screen = re.sub(r'[\x00-\x07]', '', recv_screen)
-            # recv_screen = re.sub(r'[\x0b\x0c]', '', recv_screen)
-            # recv_screen = re.sub(r'[\x0e-\x1A]', '', recv_screen)
-            # recv_screen = re.sub(r'[\x1C-\x1F]', '', recv_screen)
-            # recv_screen = re.sub(r'[\x7f-\xff]', '', recv_screen)
-
-            recv_screen = screens.vt100(recv_screen)
-
-            return recv_screen
+    def send(self, msg: str, target_list: list, screen_timeout: int = 0, refresh: bool = True,
+             secret: bool = False) -> int:
 
         if not all(isinstance(T, TargetUnit) for T in target_list):
             raise ValueError('Item of TargetList must be TargetUnit')
@@ -356,7 +323,7 @@ class API(object):
             else:
                 self.logger.debug(i18n.send_msg, str(msg))
 
-            if self.config.connect_mode == ConnectMode.TELNET:
+            if self.config.connect_mode == data_type.ConnectMode.TELNET:
                 try:
                     self._core.read_very_eager()
                     self._core.write(msg)
@@ -386,7 +353,7 @@ class API(object):
 
                 recv_data_obj = RecvData()
 
-                if self.config.connect_mode == ConnectMode.TELNET:
+                if self.config.connect_mode == data_type.ConnectMode.TELNET:
                     try:
                         recv_data_obj.data = self._core.read_very_eager()
                     except EOFError:
@@ -414,9 +381,6 @@ class API(object):
                         raise exceptions.ConnectionClosed()
 
                 receive_data_buffer += recv_data_obj.data
-                # receive_data_temp = receive_data_buffer.decode(
-                #     'utf-8', errors='replace')
-                # screen = clean_screen(receive_data_temp)
 
                 screen, find_target, is_secret, break_detect_after_send, use_too_many_res, msg, target_index = \
                     self._decode_screen(receive_data_buffer, start_time, target_list, is_secret, refresh, msg)
@@ -450,10 +414,10 @@ class API(object):
                 # raise exceptions.NoMatchTargetError(self._RDQ)
                 return -1
         # raise exceptions.NoMatchTargetError(self._RDQ)
-        return -1
+        return -2
 
     def close(self):
-        if self.config.connect_mode == ConnectMode.WEBSOCKETS:
+        if self.config.connect_mode == data_type.ConnectMode.WEBSOCKETS:
             asyncio.get_event_loop().run_until_complete(self._core.close())
         else:
             self._core.close()

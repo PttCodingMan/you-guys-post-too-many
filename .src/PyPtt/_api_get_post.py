@@ -1,31 +1,120 @@
-import re
+from __future__ import annotations
 
-from SingleLog.log import Logger
+import json
+import re
+import time
+from typing import Dict
+
+from AutoStrEnum import AutoJsonEncoder
+from SingleLog import LogLevel
+from SingleLog import Logger
 
 from . import _api_util
+from . import check_value
 from . import command
 from . import connect_core
 from . import data_type
 from . import exceptions
 from . import i18n
 from . import screens
-from .data_type import Post, Comment
+from .data_type import PostField, CommentField, NewIndex
+from .data_type import SearchType as st
 
 
-def get_post(
-        api,
-        board: str,
-        post_aid: str = None,
-        post_index: int = 0,
-        search_type: int = 0,
-        search_condition: str = None,
-        search_list: list = None,
-        query: bool = False) -> dict:
-    api._goto_board(board)
+def get_post(api, board: str, post_aid: [str | None] = None, post_index: int = 0, search_list: [list | None] = None,
+             search_type: data_type.SearchType = data_type.SearchType.NOPE,
+             search_condition: [str | None] = None, query: bool = False) -> Dict:
+    max_retry = 2
+    post = {}
+    for i in range(max_retry):
+        try:
+            post = _get_post(api, board, post_aid, post_index, search_type, search_condition, search_list, query)
+            if not post:
+                pass
+            elif not post[PostField.pass_format_check]:
+                pass
+            else:
+                break
+        except exceptions.ParseError:
+            if i == max_retry - 1:
+                raise
+        except exceptions.UnknownError:
+            if i == max_retry - 1:
+                raise
+        except exceptions.NoSuchBoard:
+            if i == max_retry - 1:
+                raise
+        except exceptions.NoMatchTargetError:
+            if i == max_retry - 1:
+                raise
 
-    logger = Logger('get_post', Logger.INFO)
+        api.logger.debug('Wait for retry repost')
+        time.sleep(0.1)
 
-    cmd_list = list()
+    post = json.dumps(post, cls=AutoJsonEncoder, ensure_ascii=False)
+    return json.loads(post)
+
+
+def _get_post(api, board: str, post_aid: [str | None] = None, post_index: int = 0,
+              search_type: data_type.SearchType = data_type.SearchType.NOPE,
+              search_condition: [str | None] = None, search_list: [list | None] = None, query: bool = False) -> Dict:
+    _api_util.one_thread(api)
+
+    if not api._is_login:
+        raise exceptions.Requirelogin(i18n.require_login)
+
+    check_value.check_type(board, str, 'board')
+    if post_aid is not None:
+        check_value.check_type(post_aid, str, 'post_aid')
+    check_value.check_type(post_index, int, 'post_index')
+
+    if search_type is not None and not isinstance(search_type, st):
+        raise TypeError(f'search_type must be SearchType, but got {search_type}')
+    if search_condition is not None:
+        check_value.check_type(search_condition, str, 'SearchCondition')
+
+    if search_list is not None:
+        check_value.check_type(search_condition, list, 'search_list')
+
+    if len(board) == 0:
+        raise ValueError(f'board error parameter: {board}')
+
+    if post_index != 0 and isinstance(post_aid, str):
+        raise ValueError('wrong parameter post_index and post_aid can\'t both input')
+
+    if post_index == 0 and post_aid is None:
+        raise ValueError('wrong parameter post_index or post_aid must input')
+
+    if search_condition is not None and search_type == 0:
+        raise ValueError('wrong parameter search_type must input')
+
+    if search_type == st.PUSH:
+        try:
+            S = int(search_condition)
+        except ValueError:
+            raise ValueError(f'wrong parameter search_condition: {search_condition}')
+
+        check_value.check_range(S, -100, 100, 'search_condition')
+
+    if post_aid is not None and search_condition is not None:
+        raise ValueError('wrong parameter post_aid and search_condition can\'t both input')
+
+    if post_index != 0:
+        newest_index = api.get_newest_index(
+            NewIndex.BBS,
+            board=board,
+            search_type=search_type,
+            search_condition=search_condition,
+            search_list=search_list)
+
+        check_value.check_index('post_index', post_index, newest_index)
+
+    _api_util.check_board(api, board)
+    _api_util.goto_board(api, board)
+
+    logger = Logger('get_post')
+
+    cmd_list = []
 
     if post_aid is not None:
         cmd_list.append('#' + post_aid)
@@ -78,12 +167,12 @@ def get_post(
             screens.Target.QueryPost,
             break_detect=True,
             refresh=False,
-            log_level=Logger.DEBUG),
+            log_level=LogLevel.DEBUG),
         connect_core.TargetUnit(
             i18n.post_deleted,
             screens.Target.InBoard,
             break_detect=True,
-            log_level=Logger.DEBUG),
+            log_level=LogLevel.DEBUG),
         connect_core.TargetUnit(
             i18n.no_such_board,
             screens.Target.MainMenu_Exiting,
@@ -94,26 +183,26 @@ def get_post(
     ori_screen = api.connect_core.get_screen_queue()[-1]
 
     post = {
-        Post.board: None,
-        Post.aid: None,
-        Post.index: None,
-        Post.author: None,
-        Post.date: None,
-        Post.title: None,
-        Post.content: None,
-        Post.money: None,
-        Post.url: None,
-        Post.ip: None,
-        Post.push_list: [],
-        Post.delete_status: data_type.PostDelStatus.exist,
-        Post.list_date: None,
-        Post.has_control_code: False,
-        Post.pass_format_check: False,
-        Post.location: None,
-        Post.push_number: None,
-        Post.is_lock: False,
-        Post.full_content: None,
-        Post.is_unconfirmed: False}
+        PostField.board: None,
+        PostField.aid: None,
+        PostField.index: None,
+        PostField.author: None,
+        PostField.date: None,
+        PostField.title: None,
+        PostField.content: None,
+        PostField.money: None,
+        PostField.url: None,
+        PostField.ip: None,
+        PostField.push_list: [],
+        PostField.delete_status: data_type.PostStatus.exists,
+        PostField.list_date: None,
+        PostField.has_control_code: False,
+        PostField.pass_format_check: False,
+        PostField.location: None,
+        PostField.push_number: None,
+        PostField.is_lock: False,
+        PostField.full_content: None,
+        PostField.is_unconfirmed: False}
 
     post_author = None
     post_title = None
@@ -142,11 +231,11 @@ def get_post(
         pattern = re.compile('\[[\w]+\]')
         pattern_result = pattern.search(cursor_line)
         if pattern_result is not None:
-            post_del_status = data_type.PostDelStatus.deleted_by_author
+            post_del_status = data_type.PostStatus.deleted_by_author
         else:
             pattern = re.compile('<[\w]+>')
             pattern_result = pattern.search(cursor_line)
-            post_del_status = data_type.PostDelStatus.deleted_by_moderator
+            post_del_status = data_type.PostStatus.deleted_by_moderator
 
         # > 79843     9/11 -             □ (本文已被吃掉)<
         # > 76060     8/28 -             □ (本文已被刪除) [weida7332]
@@ -155,18 +244,18 @@ def get_post(
             post_author = pattern_result.group(0)[1:-1]
         else:
             post_author = None
-            post_del_status = data_type.PostDelStatus.deleted_by_unknown
+            post_del_status = data_type.PostStatus.deleted_by_unknown
 
         logger.debug('ListDate', list_date)
         logger.debug('PostAuthor', post_author)
         logger.debug('post_del_status', post_del_status)
 
         post.update({
-            Post.board: board,
-            Post.author: post_author,
-            Post.list_date: list_date,
-            Post.delete_status: post_del_status,
-            Post.pass_format_check: True
+            PostField.board: board,
+            PostField.author: post_author,
+            PostField.list_date: list_date,
+            PostField.delete_status: post_del_status,
+            PostField.pass_format_check: True
         })
 
         return post
@@ -180,49 +269,49 @@ def get_post(
 
         if lock_post:
             post.update({
-                Post.board: board,
-                Post.aid: post_aid,
-                Post.index: post_index,
-                Post.author: post_author,
-                Post.title: post_title,
-                Post.url: post_web,
-                Post.money: post_money,
-                Post.list_date: list_date,
-                Post.pass_format_check: True,
-                Post.push_number: push_number,
-                Post.lock: True})
+                PostField.board: board,
+                PostField.aid: post_aid,
+                PostField.index: post_index,
+                PostField.author: post_author,
+                PostField.title: post_title,
+                PostField.url: post_web,
+                PostField.money: post_money,
+                PostField.list_date: list_date,
+                PostField.pass_format_check: True,
+                PostField.push_number: push_number,
+                PostField.is_lock: True})
             return post
 
     if query:
         post.update({
-            Post.board: board,
-            Post.aid: post_aid,
-            Post.index: post_index,
-            Post.author: post_author,
-            Post.title: post_title,
-            Post.url: post_web,
-            Post.money: post_money,
-            Post.list_date: list_date,
-            Post.pass_format_check: True,
-            Post.push_number: push_number})
+            PostField.board: board,
+            PostField.aid: post_aid,
+            PostField.index: post_index,
+            PostField.author: post_author,
+            PostField.title: post_title,
+            PostField.url: post_web,
+            PostField.money: post_money,
+            PostField.list_date: list_date,
+            PostField.pass_format_check: True,
+            PostField.push_number: push_number})
         return post
 
     origin_post, has_control_code = _api_util.get_content(api)
 
     if origin_post is None:
         post.update({
-            Post.board: board,
-            Post.aid: post_aid,
-            Post.index: post_index,
-            Post.author: post_author,
-            Post.title: post_title,
-            Post.url: post_web,
-            Post.money: post_money,
-            Post.list_date: list_date,
-            Post.has_control_code: has_control_code,
-            Post.pass_format_check: False,
-            Post.push_number: push_number,
-            Post.is_unconfirmed: api.Unconfirmed
+            PostField.board: board,
+            PostField.aid: post_aid,
+            PostField.index: post_index,
+            PostField.author: post_author,
+            PostField.title: post_title,
+            PostField.url: post_web,
+            PostField.money: post_money,
+            PostField.list_date: list_date,
+            PostField.has_control_code: has_control_code,
+            PostField.pass_format_check: False,
+            PostField.push_number: push_number,
+            PostField.is_unconfirmed: api.Unconfirmed
         })
         return post
 
@@ -231,7 +320,7 @@ def get_post(
     # print('=' * 20)
 
     content_start = '─── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ──'
-    content_end = list()
+    content_end = []
     content_end.append('--\n※ 發信站: 批踢踢實業坊')
     content_end.append('--\n※ 發信站: 批踢踢兔(ptt2.cc)')
     content_end.append('--\n※ 發信站: 新批踢踢(ptt2.twbbs.org.tw)')
@@ -244,7 +333,7 @@ def get_post(
     post_content = None
     ip = None
     location = None
-    push_list = list()
+    push_list = []
 
     # 格式確認，亂改的我也沒辦法Q_Q
     origin_post_lines = origin_post.split('\n')
@@ -271,24 +360,24 @@ def get_post(
             logger.debug(i18n.substandard_post, i18n.author)
 
             post.update({
-                board: board,
-                Post.aid: post_aid,
-                Post.index: post_index,
-                Post.author: post_author,
-                Post.date: post_date,
-                Post.title: post_title,
-                Post.url: post_web,
-                Post.money: post_money,
-                Post.content: post_content,
-                Post.ip: ip,
-                Post.push_list: push_list,
-                Post.list_date: list_date,
-                Post.has_control_code: has_control_code,
-                Post.pass_format_check: False,
-                Post.location: location,
-                Post.push_number: push_number,
-                Post.full_content: origin_post,
-                Post.is_unconfirmed: api.Unconfirmed, })
+                PostField.board: board,
+                PostField.aid: post_aid,
+                PostField.index: post_index,
+                PostField.author: post_author,
+                PostField.date: post_date,
+                PostField.title: post_title,
+                PostField.url: post_web,
+                PostField.money: post_money,
+                PostField.content: post_content,
+                PostField.ip: ip,
+                PostField.push_list: push_list,
+                PostField.list_date: list_date,
+                PostField.has_control_code: has_control_code,
+                PostField.pass_format_check: False,
+                PostField.location: location,
+                PostField.push_number: push_number,
+                PostField.full_content: origin_post,
+                PostField.is_unconfirmed: api.Unconfirmed, })
 
             return post
         post_author = pattern_result.group(0)
@@ -305,24 +394,24 @@ def get_post(
         logger.debug(i18n.substandard_post, i18n.title)
 
         post.update({
-            Post.board: board,
-            Post.aid: post_aid,
-            Post.index: post_index,
-            Post.author: post_author,
-            Post.date: post_date,
-            Post.title: post_title,
-            Post.url: post_web,
-            Post.money: post_money,
-            Post.content: post_content,
-            Post.ip: ip,
-            Post.push_list: push_list,
-            Post.list_date: list_date,
-            Post.has_control_code: has_control_code,
-            Post.pass_format_check: False,
-            Post.location: location,
-            Post.push_number: push_number,
-            Post.full_content: origin_post,
-            Post.is_unconfirmed: api.Unconfirmed, })
+            PostField.board: board,
+            PostField.aid: post_aid,
+            PostField.index: post_index,
+            PostField.author: post_author,
+            PostField.date: post_date,
+            PostField.title: post_title,
+            PostField.url: post_web,
+            PostField.money: post_money,
+            PostField.content: post_content,
+            PostField.ip: ip,
+            PostField.push_list: push_list,
+            PostField.list_date: list_date,
+            PostField.has_control_code: has_control_code,
+            PostField.pass_format_check: False,
+            PostField.location: location,
+            PostField.push_number: push_number,
+            PostField.full_content: origin_post,
+            PostField.is_unconfirmed: api.Unconfirmed, })
 
         return post
     post_title = pattern_result.group(0)
@@ -337,24 +426,24 @@ def get_post(
         logger.debug(i18n.substandard_post, i18n.date)
 
         post.update({
-            Post.board: board,
-            Post.aid: post_aid,
-            Post.index: post_index,
-            Post.author: post_author,
-            Post.date: post_date,
-            Post.title: post_title,
-            Post.url: post_web,
-            Post.money: post_money,
-            Post.content: post_content,
-            Post.ip: ip,
-            Post.push_list: push_list,
-            Post.list_date: list_date,
-            Post.has_control_code: has_control_code,
-            Post.pass_format_check: False,
-            Post.location: location,
-            Post.push_number: push_number,
-            Post.full_content: origin_post,
-            Post.is_unconfirmed: api.Unconfirmed, })
+            PostField.board: board,
+            PostField.aid: post_aid,
+            PostField.index: post_index,
+            PostField.author: post_author,
+            PostField.date: post_date,
+            PostField.title: post_title,
+            PostField.url: post_web,
+            PostField.money: post_money,
+            PostField.content: post_content,
+            PostField.ip: ip,
+            PostField.push_list: push_list,
+            PostField.list_date: list_date,
+            PostField.has_control_code: has_control_code,
+            PostField.pass_format_check: False,
+            PostField.location: location,
+            PostField.push_number: push_number,
+            PostField.full_content: origin_post,
+            PostField.is_unconfirmed: api.Unconfirmed, })
 
         return post
     post_date = pattern_result.group(0)
@@ -368,10 +457,7 @@ def get_post(
         content_fail = True
     else:
         post_content = origin_post
-        post_content = post_content[
-                       post_content.find(content_start) +
-                       len(content_start) + 1:
-                       ]
+        post_content = post_content[post_content.find(content_start) + len(content_start) + 1:]
         # print('Type 2')
         # print(f'PostContent [{PostContent}]')
         for EC in content_end:
@@ -380,9 +466,7 @@ def get_post(
             if EC in post_content:
                 content_fail = False
 
-                post_content = post_content[
-                               :post_content.rfind(EC) + 3
-                               ]
+                post_content = post_content[:post_content.rfind(EC) + 3]
                 origin_post_lines = origin_post[origin_post.find(EC):]
                 # post_content = post_content.strip()
                 origin_post_lines = origin_post_lines.split('\n')
@@ -392,33 +476,30 @@ def get_post(
         logger.debug(i18n.substandard_post, i18n.content)
 
         post.update({
-            Post.board: board,
-            Post.aid: post_aid,
-            Post.index: post_index,
-            Post.author: post_author,
-            Post.date: post_date,
-            Post.title: post_title,
-            Post.url: post_web,
-            Post.money: post_money,
-            Post.content: post_content,
-            Post.ip: ip,
-            Post.push_list: push_list,
-            Post.list_date: list_date,
-            Post.has_control_code: has_control_code,
-            Post.pass_format_check: False,
-            Post.location: location,
-            Post.push_number: push_number,
-            Post.full_content: origin_post,
-            Post.is_unconfirmed: api.Unconfirmed, })
+            PostField.board: board,
+            PostField.aid: post_aid,
+            PostField.index: post_index,
+            PostField.author: post_author,
+            PostField.date: post_date,
+            PostField.title: post_title,
+            PostField.url: post_web,
+            PostField.money: post_money,
+            PostField.content: post_content,
+            PostField.ip: ip,
+            PostField.push_list: push_list,
+            PostField.list_date: list_date,
+            PostField.has_control_code: has_control_code,
+            PostField.pass_format_check: False,
+            PostField.location: location,
+            PostField.push_number: push_number,
+            PostField.full_content: origin_post,
+            PostField.is_unconfirmed: api.Unconfirmed, })
 
         return post
 
     logger.debug(i18n.content, post_content)
 
-    info_lines = [
-        line for line in origin_post_lines if line.startswith('※') or
-                                              line.startswith('◆')
-    ]
+    info_lines = [line for line in origin_post_lines if line.startswith('※') or line.startswith('◆')]
 
     pattern = re.compile('[\d]+\.[\d]+\.[\d]+\.[\d]+')
     pattern_p2 = re.compile('[\d]+-[\d]+-[\d]+-[\d]+')
@@ -465,24 +546,24 @@ def get_post(
             logger.debug(i18n.substandard_post, ip)
 
             post.update({
-                Post.board: board,
-                Post.aid: post_aid,
-                Post.index: post_index,
-                Post.author: post_author,
-                Post.date: post_date,
-                Post.title: post_title,
-                Post.url: post_web,
-                Post.money: post_money,
-                Post.content: post_content,
-                Post.ip: ip,
-                Post.push_list: push_list,
-                Post.list_date: list_date,
-                Post.has_control_code: has_control_code,
-                Post.pass_format_check: False,
-                Post.location: location,
-                Post.push_number: push_number,
-                Post.full_content: origin_post,
-                Post.is_unconfirmed: api.Unconfirmed, })
+                PostField.board: board,
+                PostField.aid: post_aid,
+                PostField.index: post_index,
+                PostField.author: post_author,
+                PostField.date: post_date,
+                PostField.title: post_title,
+                PostField.url: post_web,
+                PostField.money: post_money,
+                PostField.content: post_content,
+                PostField.ip: ip,
+                PostField.push_list: push_list,
+                PostField.list_date: list_date,
+                PostField.has_control_code: has_control_code,
+                PostField.pass_format_check: False,
+                PostField.location: location,
+                PostField.push_number: push_number,
+                PostField.full_content: origin_post,
+                PostField.is_unconfirmed: api.Unconfirmed, })
 
             return post
     logger.debug('IP', ip)
@@ -491,15 +572,15 @@ def get_post(
     push_date_pattern = re.compile('[\d]+/[\d]+ [\d]+:[\d]+')
     push_ip_pattern = re.compile('[\d]+\.[\d]+\.[\d]+\.[\d]+')
 
-    push_list = list()
+    push_list = []
 
     for line in origin_post_lines:
         if line.startswith('推'):
-            comment_type = data_type.push_type.PUSH
+            comment_type = data_type.CommentType.PUSH
         elif line.startswith('噓 '):
-            comment_type = data_type.push_type.BOO
+            comment_type = data_type.CommentType.BOO
         elif line.startswith('→ '):
-            comment_type = data_type.push_type.ARROW
+            comment_type = data_type.CommentType.ARROW
         else:
             continue
 
@@ -523,54 +604,46 @@ def get_post(
             comment_ip = result.group(0)
             logger.debug(f'{i18n.comment} ip', comment_ip)
 
-        push_content = line[
-                       line.find(push_author) + len(push_author):
-                       ]
+        push_content = line[line.find(push_author) + len(push_author):]
         # PushContent = PushContent.replace(PushDate, '')
 
         if api.config.host == data_type.HOST.PTT1:
-            push_content = push_content[
-                           :push_content.rfind(push_date)
-                           ]
+            push_content = push_content[:push_content.rfind(push_date)]
         else:
             # → CodingMan:What is Ptt?                                       推 10/04 13:25
-            push_content = push_content[
-                           :push_content.rfind(push_date) - 2
-                           ]
+            push_content = push_content[:push_content.rfind(push_date) - 2]
         if comment_ip is not None:
             push_content = push_content.replace(comment_ip, '')
-        push_content = push_content[
-                       push_content.find(':') + 1:
-                       ].strip()
+        push_content = push_content[push_content.find(':') + 1:].strip()
 
         logger.debug(i18n.comment_content, push_content)
 
         current_push = {
-            Comment.type: comment_type,
-            Comment.author: push_author,
-            Comment.content: push_content,
-            Comment.ip: comment_ip,
-            Comment.time: push_date}
+            CommentField.type: comment_type,
+            CommentField.author: push_author,
+            CommentField.content: push_content,
+            CommentField.ip: comment_ip,
+            CommentField.time: push_date}
         push_list.append(current_push)
 
     post.update({
-        Post.board: board,
-        Post.aid: post_aid,
-        Post.index: post_index,
-        Post.author: post_author,
-        Post.date: post_date,
-        Post.title: post_title,
-        Post.url: post_web,
-        Post.money: post_money,
-        Post.content: post_content,
-        Post.ip: ip,
-        Post.push_list: push_list,
-        Post.list_date: list_date,
-        Post.has_control_code: has_control_code,
-        Post.pass_format_check: True,
-        Post.location: location,
-        Post.push_number: push_number,
-        Post.full_content: origin_post,
-        Post.is_unconfirmed: api.Unconfirmed})
+        PostField.board: board,
+        PostField.aid: post_aid,
+        PostField.index: post_index,
+        PostField.author: post_author,
+        PostField.date: post_date,
+        PostField.title: post_title,
+        PostField.url: post_web,
+        PostField.money: post_money,
+        PostField.content: post_content,
+        PostField.ip: ip,
+        PostField.push_list: push_list,
+        PostField.list_date: list_date,
+        PostField.has_control_code: has_control_code,
+        PostField.pass_format_check: True,
+        PostField.location: location,
+        PostField.push_number: push_number,
+        PostField.full_content: origin_post,
+        PostField.is_unconfirmed: api.Unconfirmed})
 
     return post

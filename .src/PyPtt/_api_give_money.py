@@ -1,12 +1,27 @@
-from . import i18n
+from . import _api_util
+from . import check_value
+from . import command
 from . import connect_core
 from . import exceptions
-from . import command
+from . import i18n
+from . import lib_util
 
 
-def give_money(
-        api, ptt_id: str, money: int) -> None:
-    cmd_list = list()
+def give_money(api, ptt_id: str, money: int) -> None:
+    _api_util.one_thread(api)
+
+    if not api._is_login:
+        raise exceptions.Requirelogin(i18n.require_login)
+
+    if not api.is_registered_user:
+        raise exceptions.UnregisteredUser(lib_util.get_current_func_name())
+
+    check_value.check_type(ptt_id, str, 'ptt_id')
+    check_value.check_type(money, int, 'money')
+    # Check data_type.user
+    api.get_user(ptt_id)
+
+    cmd_list = []
     cmd_list.append(command.go_main_menu)
     cmd_list.append('P')
     cmd_list.append(command.enter)
@@ -54,7 +69,7 @@ def give_money(
         connect_core.TargetUnit(
             i18n.verify_id,
             '完成交易前要重新確認您的身份',
-            response=api._Password + command.enter
+            response=api._ptt_pw + command.enter
         ),
         connect_core.TargetUnit(
             i18n.anonymous_transaction,

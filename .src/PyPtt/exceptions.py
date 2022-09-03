@@ -103,7 +103,7 @@ class NoSuchBoard(Exception):
                 i18n.no_such_board
             ]
 
-        if config.language == i18n.Lang.CHINESE:
+        if config.language == data_type.Language.MANDARIN:
             self.message = ''.join(self.message) + ': ' + board
         else:
             self.message = ' '.join(self.message) + ': ' + board
@@ -295,7 +295,6 @@ class SetConnectMailFirst(Exception):
 
     def __str__(self):
         return self.message
-
 
 # class SystemOverload(Exception):
 #     def __init__(self):

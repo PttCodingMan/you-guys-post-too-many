@@ -1,20 +1,17 @@
+from SingleLog import LogLevel
 
-from SingleLog.log import Logger
-
-from . import i18n
-from . import connect_core
-from . import screens
-from . import exceptions
+from . import _api_util
 from . import command
+from . import connect_core
+from . import exceptions
+from . import i18n
+from . import screens
 
 
-def get_post_index(
-        api,
-        board: str,
-        aid: str) -> int:
-    api._goto_board(board)
+def get_post_index(api, board: str, aid: str) -> int:
+    _api_util.goto_board(api, board)
 
-    cmd_list = list()
+    cmd_list = []
     cmd_list.append('#')
     cmd_list.append(aid)
     cmd_list.append(command.enter)
@@ -28,7 +25,7 @@ def get_post_index(
         connect_core.TargetUnit(
             no_such_post,
             '找不到這個文章代碼',
-            log_level=Logger.DEBUG,
+            log_level=LogLevel.DEBUG,
             exceptions_=exceptions.NoSuchPost(board, aid)
         ),
         # 此狀態下無法使用搜尋文章代碼(AID)功能
@@ -46,13 +43,13 @@ def get_post_index(
             i18n.success,
             screens.Target.InBoard,
             break_detect=True,
-            log_level=Logger.DEBUG
+            log_level=LogLevel.DEBUG
         ),
         connect_core.TargetUnit(
             i18n.success,
             screens.Target.InBoardWithCursor,
             break_detect=True,
-            log_level=Logger.DEBUG
+            log_level=LogLevel.DEBUG
         ),
         connect_core.TargetUnit(
             i18n.no_such_board,

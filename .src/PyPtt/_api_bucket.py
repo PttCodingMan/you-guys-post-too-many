@@ -1,14 +1,38 @@
-from . import i18n
-from . import connect_core
-from . import screens
-from . import exceptions
+from SingleLog import Logger
+
+from . import _api_util
+from . import check_value
 from . import command
+from . import connect_core
+from . import exceptions
+from . import i18n
+from . import lib_util
+from . import screens
 
 
-def bucket(api: object, board: str, bucket_days: int, reason: str, ptt_id: str) -> None:
-    api._goto_board(board)
+def bucket(api, board: str, bucket_days: int, reason: str, ptt_id: str) -> None:
+    _api_util.one_thread(api)
 
-    cmd_list = list()
+    # logger = Logger('api', api.config.log_level)
+
+    if not api._is_login:
+        raise exceptions.Requirelogin(i18n.require_login)
+
+    if not api.is_registered_user:
+        raise exceptions.UnregisteredUser(lib_util.get_current_func_name())
+
+    check_value.check_type(board, str, 'board')
+    check_value.check_type(bucket_days, int, 'bucket_days')
+    check_value.check_type(reason, str, 'reason')
+    check_value.check_type(ptt_id, str, 'ptt_id')
+
+    api.get_user(ptt_id)
+
+    _api_util.check_board(api, board, check_moderator=True)
+
+    _api_util.goto_board(api, board)
+
+    cmd_list = []
     cmd_list.append('i')
     cmd_list.append(command.ctrl_p)
     cmd_list.append('w')
@@ -19,7 +43,7 @@ def bucket(api: object, board: str, bucket_days: int, reason: str, ptt_id: str) 
     cmd_list.append(command.enter)
     cmd = ''.join(cmd_list)
 
-    cmd_list = list()
+    cmd_list = []
     cmd_list.append(str(bucket_days))
     cmd_list.append(command.enter)
     cmd_list.append(reason)
