@@ -4,7 +4,7 @@ import time
 from datetime import date, timedelta
 
 import tweepy
-from SingleLog.log import Logger
+from SingleLog import Logger
 
 import PyPtt
 import config
@@ -40,10 +40,9 @@ def detect_posts(days_ago: int = 1):
                 current_day = basic_day - timedelta(day)
 
                 temp_file = f'./.src/data/{board}-{current_day.strftime("%Y-%m-%d")}.json'
-                if os.path.exists(temp_file):
+                if os.path.exists(temp_file) and False:
                     with open(temp_file, 'r') as f:
                         current_authors = json.load(f)
-
                     authors = util.merge_dict(authors, current_authors)
                 else:
                     if days_ago + day - 1 > 5:
@@ -79,11 +78,11 @@ def detect_posts(days_ago: int = 1):
 
                         # logger.info('data', author, title)
 
-                        if delete_status == PyPtt.PostDelStatus.deleted_by_author:
+                        if delete_status == PyPtt.PostStatus.deleted_by_author:
                             title = '(本文已被刪除) [' + author + ']'
-                        elif delete_status == PyPtt.PostDelStatus.deleted_by_moderator:
+                        elif delete_status == PyPtt.PostStatus.deleted_by_moderator:
                             title = '(本文已被刪除) <' + author + '>'
-                        elif delete_status == PyPtt.PostDelStatus.deleted_by_unknown:
+                        elif delete_status == PyPtt.PostStatus.deleted_by_unknown:
                             title = '(本文已被刪除) <<' + author + '>>'
                         else:
                             title = title[:title.rfind('(')].strip()
@@ -273,7 +272,8 @@ if __name__ == '__main__':
         try:
             detect_posts(1)
             break
-        except Exception:
+        except Exception as e:
+            logger.info('Error', e)
             # Retry at 10 mins later if an error causes
             time.sleep(10 * 60)
         except KeyboardInterrupt:
