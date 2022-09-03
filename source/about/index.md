@@ -12,4 +12,6 @@ date: 2022-02-06 15:59:00
 說明你是哪一個板的板主，並附上板規連結即可
 
 原始碼: <a href="https://github.com/PttCodingMan/you-guys-post-too-many">https://github.com/PttCodingMan/you-guys-post-too-many</a>
+為什麼做這個專案 [PyPtt - 批踢踢超貼觀測站兩三事](https://codingman.cc/pyptt-about-ptt-you-guys-post-too-many/) <br>
+
 </div>

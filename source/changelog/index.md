@@ -7,6 +7,8 @@ date: 2022-02-09 09:13:05
   - 新增 [Gamesale](/you-guys-post-too-many/tags/Gamesale/) 板
     - 實作 Gamesale 看板 [5.1 板規](/you-guys-post-too-many/implemented-rules/)
   - 調整啟動時間從 00:02 至 00:10，解決 23:58 至 00:00 之間的文章有機率被漏掉的問題
+  - 「批踢踢多 PO 觀測站」更名為「批踢踢超貼觀測站」
+  - 新增為什麼做這個專案 [PyPtt - 批踢踢超貼觀測站兩三事](https://codingman.cc/pyptt-about-ptt-you-guys-post-too-many/)
 - 2022.06.11
   - 結果開始發佈在 Twitter [批踢踢超貼觀測站](https://twitter.com/ptt_post_many)
 - 2022.02.11
