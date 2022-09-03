@@ -40,7 +40,7 @@ def detect_posts(days_ago: int = 1):
                 current_day = basic_day - timedelta(day)
 
                 temp_file = f'./.src/data/{board}-{current_day.strftime("%Y-%m-%d")}.json'
-                if os.path.exists(temp_file) and False:
+                if os.path.exists(temp_file):
                     with open(temp_file, 'r') as f:
                         current_authors = json.load(f)
                     authors = util.merge_dict(authors, current_authors)
@@ -237,7 +237,7 @@ def detect_posts(days_ago: int = 1):
     print(check_date)
     for tweet in response.data:
         # print(str(tweet.text))
-        if check_date in str(tweet.created_at) and '多 po 結果' in tweet.text.lower():
+        if check_date in str(tweet.created_at) and ('多 po 結果' in tweet.text.lower() or '超貼結果' in tweet.text.lower()):
 
             check_board = True
             for board, _, gen_web, _ in config.board_rules:
@@ -253,7 +253,7 @@ def detect_posts(days_ago: int = 1):
     if exist:
         logger.info('Twitter already post today')
     else:
-        twitter_content = f"{basic_day.strftime('%Y.%m.%d')} 多 po 結果\n\n{twitter_content}\n\n詳細名單請洽上方傳送門"
+        twitter_content = f"{basic_day.strftime('%Y.%m.%d')} 超貼結果\n\n{twitter_content}\n\n詳細名單請洽上方傳送門"
 
         response = client.create_tweet(
             text=twitter_content
