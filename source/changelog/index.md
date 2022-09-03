@@ -3,6 +3,9 @@ title: 更新日誌
 date: 2022-02-09 09:13:05
 ---
 
+- 2022.09.03
+  - 新增 [Gamesale](/you-guys-post-too-many/tags/Gamesale/) 板
+    - 實作 Gamesale 看板 [5.1 板規](/you-guys-post-too-many/implemented-rules/) 
 - 2022.06.11
   - 結果開始發佈在 Twitter [批踢踢超貼觀測站](https://twitter.com/ptt_post_many)
 - 2022.02.11
