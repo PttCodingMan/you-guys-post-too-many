@@ -6,6 +6,9 @@ This project finds people who have posted too many posts in the past day, even i
 Publish on this site: https://codingman.cc/you-guys-post-too-many/  
 Also publish on Twitter: https://twitter.com/ptt_post_many
 
+## The reason for this project
+[PyPtt - 批踢踢超貼觀測站兩三事](https://codingman.cc/pyptt-about-ptt-you-guys-post-too-many/)
+
 ## Config
 
 The following config is an actual config.
