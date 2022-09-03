@@ -3185,8 +3185,8 @@
       </tags>
   </entry>
   <entry>
-    <title>2022-04-22-Beauty 違規 0 人</title>
-    <url>/you-guys-post-too-many/2022-04-22-Beauty/</url>
+    <title>2022-04-23-Beauty 違規 0 人</title>
+    <url>/you-guys-post-too-many/2022-04-23-Beauty/</url>
     <content><![CDATA[<p>Beauty 板 <a href="https://www.ptt.cc/bbs/Beauty/M.1630069980.A.84B.html">板規連結</a><br>昨天違規 0 人</p>
 ]]></content>
       <tags>
@@ -3194,8 +3194,8 @@
       </tags>
   </entry>
   <entry>
-    <title>2022-04-23-Beauty 違規 0 人</title>
-    <url>/you-guys-post-too-many/2022-04-23-Beauty/</url>
+    <title>2022-04-22-Beauty 違規 0 人</title>
+    <url>/you-guys-post-too-many/2022-04-22-Beauty/</url>
     <content><![CDATA[<p>Beauty 板 <a href="https://www.ptt.cc/bbs/Beauty/M.1630069980.A.84B.html">板規連結</a><br>昨天違規 0 人</p>
 ]]></content>
       <tags>
@@ -12752,8 +12752,8 @@
       </tags>
   </entry>
   <entry>
-    <title>2022-08-20-Wanted 違規 0 人</title>
-    <url>/you-guys-post-too-many/2022-08-20-Wanted/</url>
+    <title>2022-08-19-Wanted 違規 0 人</title>
+    <url>/you-guys-post-too-many/2022-08-19-Wanted/</url>
     <content><![CDATA[<p>Wanted 板 <a href="https://www.ptt.cc/bbs/Wanted/M.1608829773.A.D3B.html">板規連結</a><br>昨天違規 0 人</p>
 ]]></content>
       <tags>
@@ -12761,8 +12761,8 @@
       </tags>
   </entry>
   <entry>
-    <title>2022-08-19-Wanted 違規 0 人</title>
-    <url>/you-guys-post-too-many/2022-08-19-Wanted/</url>
+    <title>2022-08-20-Wanted 違規 0 人</title>
+    <url>/you-guys-post-too-many/2022-08-20-Wanted/</url>
     <content><![CDATA[<p>Wanted 板 <a href="https://www.ptt.cc/bbs/Wanted/M.1608829773.A.D3B.html">板規連結</a><br>昨天違規 0 人</p>
 ]]></content>
       <tags>
@@ -15055,7 +15055,7 @@ count();
 <br>
 
 <p>如果你有新增看板的需求，可丟站內信給我 CodingMan<br>說明你是哪一個板的板主，並附上板規連結即可</p>
-<p>原始碼: <a href="https://github.com/PttCodingMan/you-guys-post-too-many">https://github.com/PttCodingMan/you-guys-post-too-many</a></p>
+<p>原始碼: <a href="https://github.com/PttCodingMan/you-guys-post-too-many">https://github.com/PttCodingMan/you-guys-post-too-many</a><br>為什麼做這個專案 <a href="https://codingman.cc/pyptt-about-ptt-you-guys-post-too-many/">PyPtt - 批踢踢超貼觀測站兩三事</a> <br></p>
 </div>]]></content>
   </entry>
   <entry>
@@ -15068,6 +15068,8 @@ count();
 </ul>
 </li>
 <li>調整啟動時間從 00:02 至 00:10，解決 23:58 至 00:00 之間的文章有機率被漏掉的問題</li>
+<li>「批踢踢多 PO 觀測站」更名為「批踢踢超貼觀測站」</li>
+<li>新增為什麼做這個專案 <a href="https://codingman.cc/pyptt-about-ptt-you-guys-post-too-many/">PyPtt - 批踢踢超貼觀測站兩三事</a></li>
 </ul>
 </li>
 <li>2022.06.11<ul>
