@@ -12752,8 +12752,8 @@
       </tags>
   </entry>
   <entry>
-    <title>2022-08-19-Wanted 違規 0 人</title>
-    <url>/you-guys-post-too-many/2022-08-19-Wanted/</url>
+    <title>2022-08-20-Wanted 違規 0 人</title>
+    <url>/you-guys-post-too-many/2022-08-20-Wanted/</url>
     <content><![CDATA[<p>Wanted 板 <a href="https://www.ptt.cc/bbs/Wanted/M.1608829773.A.D3B.html">板規連結</a><br>昨天違規 0 人</p>
 ]]></content>
       <tags>
@@ -12761,8 +12761,8 @@
       </tags>
   </entry>
   <entry>
-    <title>2022-08-20-Wanted 違規 0 人</title>
-    <url>/you-guys-post-too-many/2022-08-20-Wanted/</url>
+    <title>2022-08-19-Wanted 違規 0 人</title>
+    <url>/you-guys-post-too-many/2022-08-19-Wanted/</url>
     <content><![CDATA[<p>Wanted 板 <a href="https://www.ptt.cc/bbs/Wanted/M.1608829773.A.D3B.html">板規連結</a><br>昨天違規 0 人</p>
 ]]></content>
       <tags>
@@ -15023,6 +15023,30 @@
       </tags>
   </entry>
   <entry>
+    <title>404</title>
+    <url>/you-guys-post-too-many//404.html</url>
+    <content><![CDATA[<!-- markdownlint-disable MD039 MD033 -->
+
+<h2 id="很抱歉，你目前存取的頁面並不存在。"><a href="#很抱歉，你目前存取的頁面並不存在。" class="headerlink" title="很抱歉，你目前存取的頁面並不存在。"></a>很抱歉，你目前存取的頁面並不存在。</h2><p>預計將在約 <span id="timeout">6</span> 秒後返回首頁。</p>
+<script>
+let countTime = 6;
+
+function count() {
+  
+  document.getElementById('timeout').textContent = countTime;
+  countTime -= 1;
+  if(countTime === 0){
+    location.href = '/you-guys-post-too-many'; // 記得改成自己網址 Url
+  }
+  setTimeout(() => {
+    count();
+  }, 1000);
+}
+
+count();
+</script>]]></content>
+  </entry>
+  <entry>
     <title>關於</title>
     <url>/you-guys-post-too-many/about/index.html</url>
     <content><![CDATA[<div class="about_text">
@@ -15040,9 +15064,10 @@
     <content><![CDATA[<ul>
 <li>2022.09.03<ul>
 <li>新增 <a href="/you-guys-post-too-many/tags/Gamesale/">Gamesale</a> 板<ul>
-<li>實作 Gamesale 看板 <a href="/you-guys-post-too-many/implemented-rules/">5.1 板規</a> </li>
+<li>實作 Gamesale 看板 <a href="/you-guys-post-too-many/implemented-rules/">5.1 板規</a></li>
 </ul>
 </li>
+<li>調整啟動時間從 00:02 至 00:10，解決 23:58 至 00:00 之間的文章有機率被漏掉的問題</li>
 </ul>
 </li>
 <li>2022.06.11<ul>
@@ -15119,29 +15144,5 @@
     <title>tags</title>
     <url>/you-guys-post-too-many/tags/index.html</url>
     <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>404</title>
-    <url>/you-guys-post-too-many//404.html</url>
-    <content><![CDATA[<!-- markdownlint-disable MD039 MD033 -->
-
-<h2 id="很抱歉，你目前存取的頁面並不存在。"><a href="#很抱歉，你目前存取的頁面並不存在。" class="headerlink" title="很抱歉，你目前存取的頁面並不存在。"></a>很抱歉，你目前存取的頁面並不存在。</h2><p>預計將在約 <span id="timeout">6</span> 秒後返回首頁。</p>
-<script>
-let countTime = 6;
-
-function count() {
-  
-  document.getElementById('timeout').textContent = countTime;
-  countTime -= 1;
-  if(countTime === 0){
-    location.href = '/you-guys-post-too-many'; // 記得改成自己網址 Url
-  }
-  setTimeout(() => {
-    count();
-  }, 1000);
-}
-
-count();
-</script>]]></content>
   </entry>
 </search>
