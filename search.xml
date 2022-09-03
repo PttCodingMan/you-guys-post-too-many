@@ -3581,8 +3581,8 @@
       </tags>
   </entry>
   <entry>
-    <title>2022-06-07-Beauty 違規 0 人</title>
-    <url>/you-guys-post-too-many/2022-06-07-Beauty/</url>
+    <title>2022-06-06-Beauty 違規 0 人</title>
+    <url>/you-guys-post-too-many/2022-06-06-Beauty/</url>
     <content><![CDATA[<p>Beauty 板 <a href="https://www.ptt.cc/bbs/Beauty/M.1630069980.A.84B.html">板規連結</a><br>昨天違規 0 人</p>
 ]]></content>
       <tags>
@@ -3590,8 +3590,8 @@
       </tags>
   </entry>
   <entry>
-    <title>2022-06-06-Beauty 違規 0 人</title>
-    <url>/you-guys-post-too-many/2022-06-06-Beauty/</url>
+    <title>2022-06-07-Beauty 違規 0 人</title>
+    <url>/you-guys-post-too-many/2022-06-07-Beauty/</url>
     <content><![CDATA[<p>Beauty 板 <a href="https://www.ptt.cc/bbs/Beauty/M.1630069980.A.84B.html">板規連結</a><br>昨天違規 0 人</p>
 ]]></content>
       <tags>
@@ -4388,6 +4388,15 @@
 ]]></content>
       <tags>
         <tag>Beauty</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2022-09-03-Gamesale 違規 0 人</title>
+    <url>/you-guys-post-too-many/2022-09-03-Gamesale/</url>
+    <content><![CDATA[<p>Gamesale 板 <a href="https://www.ptt.cc/bbs/Gossiping/M.1637425085.A.07D.html">板規連結</a><br>昨天違規 0 人</p>
+]]></content>
+      <tags>
+        <tag>Gamesale</tag>
       </tags>
   </entry>
   <entry>
@@ -13249,6 +13258,15 @@
       </tags>
   </entry>
   <entry>
+    <title>2022-03-11-give 違規 0 人</title>
+    <url>/you-guys-post-too-many/2022-03-11-give/</url>
+    <content><![CDATA[<p>give 板 <a href="https://www.ptt.cc/bbs/give/M.1612495900.A.C32.html">板規連結</a><br>昨天違規 0 人</p>
+]]></content>
+      <tags>
+        <tag>give</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>2022-03-12-give 違規 0 人</title>
     <url>/you-guys-post-too-many/2022-03-12-give/</url>
     <content><![CDATA[<p>give 板 <a href="https://www.ptt.cc/bbs/give/M.1612495900.A.C32.html">板規連結</a><br>昨天違規 0 人</p>
@@ -15005,39 +15023,6 @@
       </tags>
   </entry>
   <entry>
-    <title>2022-03-11-give 違規 0 人</title>
-    <url>/you-guys-post-too-many/2022-03-11-give/</url>
-    <content><![CDATA[<p>give 板 <a href="https://www.ptt.cc/bbs/give/M.1612495900.A.C32.html">板規連結</a><br>昨天違規 0 人</p>
-]]></content>
-      <tags>
-        <tag>give</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>404</title>
-    <url>/you-guys-post-too-many//404.html</url>
-    <content><![CDATA[<!-- markdownlint-disable MD039 MD033 -->
-
-<h2 id="很抱歉，你目前存取的頁面並不存在。"><a href="#很抱歉，你目前存取的頁面並不存在。" class="headerlink" title="很抱歉，你目前存取的頁面並不存在。"></a>很抱歉，你目前存取的頁面並不存在。</h2><p>預計將在約 <span id="timeout">6</span> 秒後返回首頁。</p>
-<script>
-let countTime = 6;
-
-function count() {
-  
-  document.getElementById('timeout').textContent = countTime;
-  countTime -= 1;
-  if(countTime === 0){
-    location.href = '/you-guys-post-too-many'; // 記得改成自己網址 Url
-  }
-  setTimeout(() => {
-    count();
-  }, 1000);
-}
-
-count();
-</script>]]></content>
-  </entry>
-  <entry>
     <title>關於</title>
     <url>/you-guys-post-too-many/about/index.html</url>
     <content><![CDATA[<div class="about_text">
@@ -15053,8 +15038,15 @@ count();
     <title>更新日誌</title>
     <url>/you-guys-post-too-many/changelog/index.html</url>
     <content><![CDATA[<ul>
+<li>2022.09.03<ul>
+<li>新增 <a href="/you-guys-post-too-many/tags/Gamesale/">Gamesale</a> 板<ul>
+<li>實作 Gamesale 看板 <a href="/you-guys-post-too-many/implemented-rules/">5.1 板規</a> </li>
+</ul>
+</li>
+</ul>
+</li>
 <li>2022.06.11<ul>
-<li>結果開始發佈在 Twitter <a href="https://twitter.com/ptt_post_many">批踢踢多 PO 觀測站</a></li>
+<li>結果開始發佈在 Twitter <a href="https://twitter.com/ptt_post_many">批踢踢超貼觀測站</a></li>
 </ul>
 </li>
 <li>2022.02.11<ul>
@@ -15116,6 +15108,10 @@ count();
 <li>(十八) 每人每日只得發表三篇文章(刪文亦視為配額)</li>
 </ul>
 </li>
+<li>Gamesale <a href="https://www.ptt.cc/bbs/Gamesale/M.1625548693.A.451.html">板規連結</a><ul>
+<li>5.1 每人一天之內限張貼兩篇，以PTT日期時間跨日為準，非以發文第一篇算24小時</li>
+</ul>
+</li>
 </ul>
 ]]></content>
   </entry>
@@ -15123,5 +15119,29 @@ count();
     <title>tags</title>
     <url>/you-guys-post-too-many/tags/index.html</url>
     <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>404</title>
+    <url>/you-guys-post-too-many//404.html</url>
+    <content><![CDATA[<!-- markdownlint-disable MD039 MD033 -->
+
+<h2 id="很抱歉，你目前存取的頁面並不存在。"><a href="#很抱歉，你目前存取的頁面並不存在。" class="headerlink" title="很抱歉，你目前存取的頁面並不存在。"></a>很抱歉，你目前存取的頁面並不存在。</h2><p>預計將在約 <span id="timeout">6</span> 秒後返回首頁。</p>
+<script>
+let countTime = 6;
+
+function count() {
+  
+  document.getElementById('timeout').textContent = countTime;
+  countTime -= 1;
+  if(countTime === 0){
+    location.href = '/you-guys-post-too-many'; // 記得改成自己網址 Url
+  }
+  setTimeout(() => {
+    count();
+  }, 1000);
+}
+
+count();
+</script>]]></content>
   </entry>
 </search>
