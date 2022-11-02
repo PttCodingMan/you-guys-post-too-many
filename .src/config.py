@@ -17,7 +17,7 @@ board_rules = [
     ('HatePolitics', [(None, 5, 1)], True, 'https://www.ptt.cc/bbs/HatePolitics/M.1617115262.A.D60.html'),
     ('Gossiping', [
         (None, 5, 1),
-        ('[問卦]', 2, 1),
+        ('[問卦]', 3, 1),
         ('[新聞]', 1, 1)
     ], True, 'https://www.ptt.cc/bbs/Gossiping/M.1637425085.A.07D.html'),
     ('AllTogether', [(None, 1, 7)], True, 'https://www.ptt.cc/bbs/AllTogether/M.1643211430.A.5FB.html'),
