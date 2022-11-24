@@ -1,0 +1,26 @@
+---
+title: 2022-11-25-Gossiping 違規 3 人
+tags:
+    - Gossiping
+abbrlink: 2022-11-25-Gossiping
+date: Gossiping-2022-11-25 12:00:00
+---
+Gossiping 板 [板規連結](https://www.ptt.cc/bbs/Gossiping/M.1637425085.A.07D.html)
+昨天違規 3 人
+<!-- more -->
+
+違規清單
+單日 [問卦] 不得超過 3 篇
+
+11/24 cutiehoneyzu □ [問卦] 一千萬的床墊躺起來是什麼…
+11/24 cutiehoneyzu □ [問卦] 慈禧的心腸為什麼那麼會惡…
+11/24 cutiehoneyzu □ [問卦] 台積電這金雞母搬到美國，…
+11/24 cutiehoneyzu □ [問卦] 台灣如果像卡達一樣有豐富…
+
+單日 [新聞] 不得超過 1 篇
+
+11/24 takuson □ [新聞] 富士康鄭州廠暴動新畫面曝…
+11/24 takuson □ [新聞] 富士康鄭州廠暴動新畫面曝…
+
+11/24 EstelleRinz □ [新聞] 比倒讚更兇的來了！　陳時…
+11/24 EstelleRinz □ [新聞] 人民陷無水無電窘境！ 澤…
