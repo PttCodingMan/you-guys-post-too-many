@@ -1,0 +1,23 @@
+---
+title: 2022-11-30-HatePolitics 違規 1 人
+tags:
+    - HatePolitics
+abbrlink: 2022-11-30-HatePolitics
+date: HatePolitics-2022-11-30 12:00:00
+---
+HatePolitics 板 [板規連結](https://www.ptt.cc/bbs/HatePolitics/M.1617115262.A.D60.html)
+昨天違規 1 人
+<!-- more -->
+
+違規清單
+單日不得超過 5 篇
+
+11/29 magicbook123 □ [討論] 其實綠營這次綠營斬獲…
+11/29 magicbook123 □ [討論] 世間第一高票 會去角逐…
+11/29 magicbook123 □ [討論] 覺得選後綠營應該要大…
+11/29 magicbook123 R: [討論] DPP到底要怎麼處理王浩宇
+11/29 magicbook123 □ [討論] 2022綠營會敗 是因為新…
+11/29 magicbook123 R: [討論] 為什麼側翼那麼重視政黑
+11/29 magicbook123 □ [討論] 請問新舊任的市長都怎…
+11/29 magicbook123 □ [討論] 綠營黨內要團結 得甲恰…
+11/29 magicbook123 R: [討論] 沒人要討論桃園為何被…
