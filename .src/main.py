@@ -78,11 +78,11 @@ def detect_posts(days_ago: int = 1):
 
                         # logger.info('data', author, title)
 
-                        if delete_status == PyPtt.PostStatus.deleted_by_author:
+                        if delete_status == PyPtt.PostStatus.DELETED_BY_AUTHOR:
                             title = '(本文已被刪除) [' + author + ']'
-                        elif delete_status == PyPtt.PostStatus.deleted_by_moderator:
+                        elif delete_status == PyPtt.PostStatus.DELETED_BY_MODERATOR:
                             title = '(本文已被刪除) <' + author + '>'
-                        elif delete_status == PyPtt.PostStatus.deleted_by_unknown:
+                        elif delete_status == PyPtt.PostStatus.DELETED_BY_UNKNOWN:
                             title = '(本文已被刪除) <<' + author + '>>'
                         else:
                             title = title[:title.rfind('(')].strip()
@@ -270,9 +270,10 @@ if __name__ == '__main__':
 
     for _ in range(3):
         try:
-            detect_posts(1)
+            detect_posts(6)
             break
         except Exception as e:
+            raise e
             logger.info('Error', e)
             # Retry at 10 mins later if an error causes
             time.sleep(10 * 60)

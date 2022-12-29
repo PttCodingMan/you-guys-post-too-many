@@ -127,7 +127,7 @@ def get_first_index(ptt_bot: PyPtt.API, board, newest_index, day_ago, oldest_ind
 
 def get_post_index_range(ptt_bot: PyPtt.API, board: str, days_ago: int = 1):
     newest_index = ptt_bot.get_newest_index(
-        PyPtt.NewIndex.BBS,
+        PyPtt.NewIndex.BOARD,
         board='ALLPOST',
         search_type=PyPtt.SearchType.KEYWORD,
         search_condition=f'({board})')
