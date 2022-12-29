@@ -270,10 +270,9 @@ if __name__ == '__main__':
 
     for _ in range(3):
         try:
-            detect_posts(5)
+            detect_posts(1)
             break
         except Exception as e:
-            raise e
             logger.info('Error', e)
             # Retry at 10 mins later if an error causes
             time.sleep(10 * 60)
