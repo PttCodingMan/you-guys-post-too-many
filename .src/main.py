@@ -270,7 +270,7 @@ if __name__ == '__main__':
 
     for _ in range(3):
         try:
-            detect_posts(6)
+            detect_posts(5)
             break
         except Exception as e:
             raise e
