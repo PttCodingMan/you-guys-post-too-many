@@ -73,6 +73,9 @@ def detect_posts(days_ago: int = 1):
                             author = author[:author.find('(')].strip()
 
                         title = post.get('title')
+                        if title is None:
+                            continue
+
                         delete_status = post.get('delete_status')
                         # ip = post.ip
 
@@ -85,6 +88,8 @@ def detect_posts(days_ago: int = 1):
                         elif delete_status == PyPtt.PostStatus.DELETED_BY_UNKNOWN:
                             title = '(本文已被刪除) <<' + author + '>>'
                         else:
+
+                            logger.info('data', title, post)
                             title = title[:title.rfind('(')].strip()
 
                         if '[公告]' in title:
@@ -273,6 +278,7 @@ if __name__ == '__main__':
             detect_posts(1)
             break
         except Exception as e:
+            raise e
             logger.info('Error', e)
             # Retry at 10 mins later if an error causes
             time.sleep(10 * 60)
