@@ -4,7 +4,7 @@ from datetime import date, timedelta
 
 import PyPtt
 import tweepy
-from SingleLog import DefaultLogger as Logger, LogLevel
+from SingleLog import DefaultLogger as Logger
 
 import config
 import util
@@ -23,9 +23,9 @@ def login():
 def detect_posts(from_days_ago: int = 1):
     ptt_bot = None
 
-    for days_ago in range(1, from_days_ago + 1):
+    twitter_content = None
 
-        twitter_content = None
+    for days_ago in range(1, from_days_ago + 1):
 
         basic_day = date.today() - timedelta(days_ago - 1)
 
@@ -199,16 +199,10 @@ def detect_posts(from_days_ago: int = 1):
                                 else:
                                     result += f'\n{list_date} {suspect}{mark}{title}'
 
-                # print(result)
 
                 if gen_web:
                     with open(f'./source/_posts/{board}-{basic_day.strftime("%Y-%m-%d")}.md', 'w') as f:
                         post = config.post_template
-
-                        if twitter_content is None:
-                            twitter_content = f'{board} 板 違規 {prisoner_count} 人'
-                        else:
-                            twitter_content += f'\n{board} 板 違規 {prisoner_count} 人'
 
                         post = post.replace('=title=',
                                             f'{basic_day.strftime("%Y-%m-%d")}-{board} 違規 {prisoner_count} 人')
@@ -229,12 +223,16 @@ def detect_posts(from_days_ago: int = 1):
                             f.write(result)
                     # json.dump(authors, f, indent=4, ensure_ascii=False)
 
+            if days_ago == 1:
+                if twitter_content is None:
+                    twitter_content = f'{board} 板 違規 {prisoner_count} 人'
+                else:
+                    twitter_content += f'\n{board} 板 違規 {prisoner_count} 人'
+
     if ptt_bot is not None:
         ptt_bot.logout()
 
     logger.info('超貼偵測', '結束')
-
-    exit(0)
 
     client = tweepy.Client(
         bearer_token=config.bearer_token,
@@ -246,8 +244,8 @@ def detect_posts(from_days_ago: int = 1):
     response = client.get_users_tweets(user_id, tweet_fields=['created_at'], max_results=20)
 
     exist = False
-    check_date = basic_day.strftime("%Y-%m-%d")
-    print(check_date)
+    check_date = date.today().strftime("%Y-%m-%d")
+
     for tweet in response.data:
         # print(str(tweet.text))
         if check_date in str(tweet.created_at) and (
@@ -267,24 +265,26 @@ def detect_posts(from_days_ago: int = 1):
     if exist:
         logger.info('Twitter already post today')
     else:
-        twitter_content = f"{basic_day.strftime('%Y.%m.%d')} 超貼結果\n\n{twitter_content}\n\n詳細名單請洽上方傳送門"
+        twitter_content = f"{date.today().strftime('%Y.%m.%d')} 超貼結果\n\n{twitter_content}\n\n詳細名單請洽上方傳送門"
 
+        logger.info('twit!', twitter_content)
         response = client.create_tweet(
             text=twitter_content
         )
-        logger.info('Twitter', 'post')
 
 
 if __name__ == '__main__':
-    logger = Logger('post', LogLevel.DEBUG)
-    logger.info('Welcome to', 'PTT Post Too Many Monitor', config.version)
+    logger = Logger('post'
+                    # , LogLevel.DEBUG
+                    )
+    logger.info('Welcome to', 'PTT Post Too Many Crawler', config.version)
 
     # for day in range(1, 6):
     #     detect_posts(days_ago=day)
 
     for _ in range(3):
         try:
-            detect_posts(10)
+            detect_posts(7)
             break
         except Exception as e:
             raise e
