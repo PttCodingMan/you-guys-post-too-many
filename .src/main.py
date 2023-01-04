@@ -1,13 +1,11 @@
 import json
 import os.path
-import sys
-import time
 from datetime import date, timedelta
 
-import tweepy
-from SingleLog import Logger, LogLevel
-
 import PyPtt
+import tweepy
+from SingleLog import DefaultLogger as Logger, LogLevel
+
 import config
 import util
 
@@ -51,11 +49,14 @@ def detect_posts(from_days_ago: int = 1):
                         if days_ago + day - 1 > 5:
                             break
 
+                        logger.info('讀取資料', f'{board} 看板', days_ago + day - 1, '天前')
+
                         if ptt_bot is None:
                             ptt_bot = login()
 
-                        start_index, end_index = util.get_post_index_range(ptt_bot, board=board,
-                                                                           days_ago=days_ago + day - 1)
+                        start_index, end_index = util.get_post_index_range(
+                            ptt_bot, board=board,
+                            days_ago=days_ago + day - 1)
                         current_authors = {}
                         for index in range(start_index, end_index + 1):
 
@@ -160,7 +161,8 @@ def detect_posts(from_days_ago: int = 1):
                                 compliant_titles = []
 
                                 for list_date, title in titles:
-                                    if title.startswith('(本文已被刪除)') or (key_word in title and not title.startswith('R:')):
+                                    if title.startswith('(本文已被刪除)') or (
+                                            key_word in title and not title.startswith('R:')):
                                         compliant_titles.append(
                                             [list_date, title])
                             else:
@@ -208,7 +210,8 @@ def detect_posts(from_days_ago: int = 1):
                         else:
                             twitter_content += f'\n{board} 板 違規 {prisoner_count} 人'
 
-                        post = post.replace('=title=', f'{basic_day.strftime("%Y-%m-%d")}-{board} 違規 {prisoner_count} 人')
+                        post = post.replace('=title=',
+                                            f'{basic_day.strftime("%Y-%m-%d")}-{board} 違規 {prisoner_count} 人')
                         post = post.replace('=tags=', f'    - {board}')
                         post = post.replace('=link=', f'{basic_day.strftime("%Y-%m-%d")}-{board}')
                         post = post.replace('=date=', f'{board}-{basic_day.strftime("%Y-%m-%d %I:%M:%S")}')
@@ -247,7 +250,8 @@ def detect_posts(from_days_ago: int = 1):
     print(check_date)
     for tweet in response.data:
         # print(str(tweet.text))
-        if check_date in str(tweet.created_at) and ('多 po 結果' in tweet.text.lower() or '超貼結果' in tweet.text.lower()):
+        if check_date in str(tweet.created_at) and (
+                '多 po 結果' in tweet.text.lower() or '超貼結果' in tweet.text.lower()):
 
             check_board = True
             for board, _, gen_web, _ in config.board_rules:
@@ -272,7 +276,7 @@ def detect_posts(from_days_ago: int = 1):
 
 
 if __name__ == '__main__':
-    logger = Logger('post', log_level=LogLevel.DEBUG)
+    logger = Logger('post', LogLevel.DEBUG)
     logger.info('Welcome to', 'PTT Post Too Many Monitor', config.version)
 
     # for day in range(1, 6):
@@ -280,7 +284,7 @@ if __name__ == '__main__':
 
     for _ in range(3):
         try:
-            detect_posts(5)
+            detect_posts(10)
             break
         except Exception as e:
             raise e

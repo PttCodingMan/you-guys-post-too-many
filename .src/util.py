@@ -4,7 +4,7 @@ import os
 from datetime import date, timedelta, datetime
 
 import requests
-from SingleLog.log import Logger
+from SingleLog import DefaultLogger as Logger
 
 import PyPtt
 
