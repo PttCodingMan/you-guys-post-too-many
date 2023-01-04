@@ -1,5 +1,6 @@
 import json
 import os.path
+import sys
 import time
 from datetime import date, timedelta
 
@@ -110,7 +111,9 @@ def detect_posts(days_ago: int = 1):
                 if day == 1:
                     authors_day_1 = current_authors
 
-        logger.debug('authors', authors)
+            logger.debug('authors', authors)
+
+        sys.exit()
 
         result = None
         prisoner_count = 0
