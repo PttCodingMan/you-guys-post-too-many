@@ -11,7 +11,7 @@ bearer_token = os.environ['bearer_token']
 
 version = '0.0.4'
 
-global_gen_web = False
+global_gen_web = True
 
 board_rules = [
     ('give', [(None, 3, 1)], True if global_gen_web else False, 'https://www.ptt.cc/bbs/give/M.1612495900.A.C32.html'),
