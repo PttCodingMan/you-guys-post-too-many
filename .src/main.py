@@ -34,7 +34,7 @@ def detect_posts(days_ago: int = 1):
 
         for key_word, max_post, day_range in rule_list:
 
-            authors = {}
+            all_authors = {}
             for day in range(1, day_range + 1):
                 # print('load', day)
                 current_day = basic_day - timedelta(day)
@@ -43,7 +43,7 @@ def detect_posts(days_ago: int = 1):
                 if os.path.exists(temp_file):
                     with open(temp_file, 'r') as f:
                         current_authors = json.load(f)
-                    authors = util.merge_dict(authors, current_authors)
+                    all_authors = util.merge_dict(all_authors, current_authors)
                 else:
                     if days_ago + day - 1 > 5:
                         break
@@ -105,123 +105,123 @@ def detect_posts(days_ago: int = 1):
                     with open(temp_file, 'w') as f:
                         json.dump(current_authors, f, indent=4, ensure_ascii=False)
 
-                    authors = util.merge_dict(authors, current_authors)
+                    all_authors = util.merge_dict(all_authors, current_authors)
 
                 if day == 1:
                     authors_day_1 = current_authors
 
-        logger.debug('authors', authors)
+            logger.debug('authors', all_authors)
 
-        result = None
-        prisoner_count = 0
-        last_key_word = None
-        for key_word, max_post, day_range in rule_list:
+            result = None
+            prisoner_count = 0
+            last_key_word = None
+            for key_word, max_post, day_range in rule_list:
 
-            day_mark = '單日' if day_range == 1 else f'{day_range} 日內'
+                day_mark = '單日' if day_range == 1 else f'{day_range} 日內'
 
-            for suspect, titles in authors.items():
+                for suspect, titles in all_authors.items():
 
-                # logger.info('->', suspect, titles)
+                    # logger.info('->', suspect, titles)
 
-                if key_word is None:
+                    if key_word is None:
 
-                    if len(titles) <= max_post:
-                        continue
-                    if suspect not in authors_day_1:
-                        continue
+                        if len(titles) <= max_post:
+                            continue
+                        if suspect not in authors_day_1:
+                            continue
 
-                    prisoner_count += 1
+                        prisoner_count += 1
 
-                    if result is not None:
-                        result += '\n'
-
-                    if last_key_word is None:
-                        last_key_word = ''
                         if result is not None:
-                            result += f'\n{day_mark}不得超過 {max_post} 篇\n'
-                        else:
-                            result = f'{day_mark}不得超過 {max_post} 篇\n'
+                            result += '\n'
 
-                    for list_date, title in titles:
-                        mark = ' '
-                        if not title.startswith('R:'):
-                            mark = ' □ '
-
-                        if result is None:
-                            result = f'{list_date} {suspect}{mark}{title}'
-                        else:
-                            result += f'\n{list_date} {suspect}{mark}{title}'
-
-                else:
-                    if key_word == '[問卦]':
-                        compliant_titles = []
+                        if last_key_word is None:
+                            last_key_word = ''
+                            if result is not None:
+                                result += f'\n{day_mark}不得超過 {max_post} 篇\n'
+                            else:
+                                result = f'{day_mark}不得超過 {max_post} 篇\n'
 
                         for list_date, title in titles:
-                            if title.startswith('(本文已被刪除)') or (key_word in title and not title.startswith('R:')):
-                                compliant_titles.append(
-                                    [list_date, title])
+                            mark = ' '
+                            if not title.startswith('R:'):
+                                mark = ' □ '
+
+                            if result is None:
+                                result = f'{list_date} {suspect}{mark}{title}'
+                            else:
+                                result += f'\n{list_date} {suspect}{mark}{title}'
+
                     else:
-                        compliant_titles = []
+                        if key_word == '[問卦]':
+                            compliant_titles = []
 
-                        for list_date, title in titles:
-                            if key_word in title and not title.startswith('R:'):
-                                compliant_titles.append(
-                                    [list_date, title])
+                            for list_date, title in titles:
+                                if title.startswith('(本文已被刪除)') or (key_word in title and not title.startswith('R:')):
+                                    compliant_titles.append(
+                                        [list_date, title])
+                        else:
+                            compliant_titles = []
 
-                    if len(compliant_titles) <= max_post:
-                        continue
-                    if suspect not in authors_day_1:
-                        continue
-                    prisoner_count += 1
+                            for list_date, title in titles:
+                                if key_word in title and not title.startswith('R:'):
+                                    compliant_titles.append(
+                                        [list_date, title])
 
-                    if result is not None:
-                        result += '\n'
+                        if len(compliant_titles) <= max_post:
+                            continue
+                        if suspect not in authors_day_1:
+                            continue
+                        prisoner_count += 1
 
-                    if last_key_word != key_word:
-                        last_key_word = key_word
                         if result is not None:
-                            result += f'\n{day_mark} {key_word} 不得超過 {max_post} 篇\n'
-                        else:
-                            result = f'{day_mark} {key_word} 不得超過 {max_post} 篇\n'
+                            result += '\n'
 
-                    for list_date, title in compliant_titles:
-                        mark = ' '
-                        if not title.startswith('R:'):
-                            mark = ' □ '
+                        if last_key_word != key_word:
+                            last_key_word = key_word
+                            if result is not None:
+                                result += f'\n{day_mark} {key_word} 不得超過 {max_post} 篇\n'
+                            else:
+                                result = f'{day_mark} {key_word} 不得超過 {max_post} 篇\n'
 
-                        if result is None:
-                            result = f'{list_date} {suspect}{mark}{title}'
-                        else:
-                            result += f'\n{list_date} {suspect}{mark}{title}'
+                        for list_date, title in compliant_titles:
+                            mark = ' '
+                            if not title.startswith('R:'):
+                                mark = ' □ '
 
-        # print(result)
+                            if result is None:
+                                result = f'{list_date} {suspect}{mark}{title}'
+                            else:
+                                result += f'\n{list_date} {suspect}{mark}{title}'
 
-        if gen_web:
-            with open(f'./source/_posts/{board}-{basic_day.strftime("%Y-%m-%d")}.md', 'w') as f:
-                post = config.post_template
+            # print(result)
 
-                if twitter_content is None:
-                    twitter_content = f'{board} 板 違規 {prisoner_count} 人'
-                else:
-                    twitter_content += f'\n{board} 板 違規 {prisoner_count} 人'
+            if gen_web:
+                with open(f'./source/_posts/{board}-{basic_day.strftime("%Y-%m-%d")}.md', 'w') as f:
+                    post = config.post_template
 
-                post = post.replace('=title=', f'{basic_day.strftime("%Y-%m-%d")}-{board} 違規 {prisoner_count} 人')
-                post = post.replace('=tags=', f'    - {board}')
-                post = post.replace('=link=', f'{basic_day.strftime("%Y-%m-%d")}-{board}')
-                post = post.replace('=date=', f'{board}-{basic_day.strftime("%Y-%m-%d %I:%M:%S")}')
+                    if twitter_content is None:
+                        twitter_content = f'{board} 板 違規 {prisoner_count} 人'
+                    else:
+                        twitter_content += f'\n{board} 板 違規 {prisoner_count} 人'
 
-                f.write(post)
+                    post = post.replace('=title=', f'{basic_day.strftime("%Y-%m-%d")}-{board} 違規 {prisoner_count} 人')
+                    post = post.replace('=tags=', f'    - {board}')
+                    post = post.replace('=link=', f'{basic_day.strftime("%Y-%m-%d")}-{board}')
+                    post = post.replace('=date=', f'{board}-{basic_day.strftime("%Y-%m-%d %I:%M:%S")}')
 
-                f.write(f'{board} 板 [板規連結]({rule_url})\n')
-                f.write(f'昨天違規 {prisoner_count} 人\n')
-                if result is None:
-                    pass
-                    # f.write('昨天沒有違規')
-                else:
-                    f.write('<!-- more -->\n\n')
-                    f.write('違規清單\n')
-                    f.write(result)
-            # json.dump(authors, f, indent=4, ensure_ascii=False)
+                    f.write(post)
+
+                    f.write(f'{board} 板 [板規連結]({rule_url})\n')
+                    f.write(f'昨天違規 {prisoner_count} 人\n')
+                    if result is None:
+                        pass
+                        # f.write('昨天沒有違規')
+                    else:
+                        f.write('<!-- more -->\n\n')
+                        f.write('違規清單\n')
+                        f.write(result)
+                # json.dump(authors, f, indent=4, ensure_ascii=False)
 
     if ptt_bot is not None:
         ptt_bot.logout()
