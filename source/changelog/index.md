@@ -3,6 +3,9 @@ title: 更新日誌
 date: 2022-02-09 09:13:05
 ---
 
+- 2023.01.04
+  - 修正一些問題
+  - 將啟動時間從 00:10 調整為 07:30，以最大機率降低接近零時的文章有機會被漏掉的問題
 - 2022.09.03
   - 新增 [Gamesale](/you-guys-post-too-many/tags/Gamesale/) 板
     - 實作 Gamesale 看板 [5.1 板規](/you-guys-post-too-many/implemented-rules/)
