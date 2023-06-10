@@ -93,7 +93,7 @@ def detect_posts(from_days_ago: int = 1):
                                 title = '(本文已被刪除) <<' + author + '>>'
                             else:
 
-                                logger.info('data', title, post)
+                                # logger.info('data', title, post)
                                 title = title[:title.rfind('(')].strip()
 
                             if '[公告]' in title:
