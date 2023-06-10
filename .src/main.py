@@ -31,7 +31,7 @@ def detect_posts(from_days_ago: int = 1):
 
         authors_day_1 = None
         for board, rule_list, gen_web, rule_url in config.board_rules:
-            logger.info('啟動超貼偵測', board)
+            logger.info('啟動超貼偵測', board, days_ago)
 
             for key_word, max_post, day_range in rule_list:
 
@@ -233,44 +233,6 @@ def detect_posts(from_days_ago: int = 1):
         ptt_bot.logout()
 
     logger.info('超貼偵測', '結束')
-
-    client = tweepy.Client(
-        bearer_token=config.bearer_token,
-        consumer_key=config.consumer_key, consumer_secret=config.consumer_secret,
-        access_token=config.access_token, access_token_secret=config.access_token_secret)
-
-    user_id = 1534551619077304321
-
-    response = client.get_users_tweets(user_id, tweet_fields=['created_at'], max_results=20)
-
-    exist = False
-    check_date = date.today().strftime("%Y-%m-%d")
-
-    for tweet in response.data:
-        # print(str(tweet.text))
-        if check_date in str(tweet.created_at) and (
-                '多 po 結果' in tweet.text.lower() or '超貼結果' in tweet.text.lower()):
-
-            check_board = True
-            for board, _, gen_web, _ in config.board_rules:
-                if not gen_web:
-                    continue
-                if board not in tweet.text:
-                    check_board = False
-                    break
-            if check_board:
-                exist = True
-                break
-
-    if exist:
-        logger.info('Twitter already post today')
-    else:
-        twitter_content = f"{date.today().strftime('%Y.%m.%d')} 超貼結果\n\n{twitter_content}\n\n詳細名單請洽上方傳送門"
-
-        logger.info('twit!', twitter_content)
-        response = client.create_tweet(
-            text=twitter_content
-        )
 
 
 if __name__ == '__main__':
