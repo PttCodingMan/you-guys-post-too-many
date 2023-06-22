@@ -1,0 +1,23 @@
+---
+title: 2023-06-23-Gossiping 違規 2 人
+tags:
+    - Gossiping
+abbrlink: 2023-06-23-Gossiping
+date: Gossiping-2023-06-23 12:00:00
+---
+Gossiping 板 [板規連結](https://www.ptt.cc/bbs/Gossiping/M.1637425085.A.07D.html)
+昨天違規 2 人
+<!-- more -->
+
+違規清單
+單日 [問卦] 不得超過 3 篇
+
+6/22 oldmangoes □ [問卦] 我就問五億高中生自殺動機…
+6/22 oldmangoes □ [問卦] 罵歸罵 男生還是羨慕NO哥…
+6/22 oldmangoes □ [問卦] 該輪到城武了吧???
+6/22 oldmangoes □ [問卦] 假結婚不就足以證明有殺人…
+
+6/22 sunny8757 □ [問卦] 吳宗憲是台灣臉皮最厚 最…
+6/22 sunny8757 □ [問卦] 吳宗憲是台灣臉皮最厚 最…
+6/22 sunny8757 □ [問卦] 如果被困在潛水器裡 最後…
+6/22 sunny8757 □ [問卦] 東京死神 柯南會怎麼逃出…
