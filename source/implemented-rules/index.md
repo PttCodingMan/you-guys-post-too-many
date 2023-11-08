@@ -13,8 +13,6 @@ date: 2022-02-09 15:55:43
   - 每日發文(含回文)額度，不得超過五篇。
   - 問卦不得超過二篇
   - 新聞每一天只能張貼一篇
-- AllTogether [板規連結](https://www.ptt.cc/bbs/AllTogether/M.1643211430.A.5FB.html)
-  - 每一使用者七天（以發文日起算）只能發表一篇文章，
 - Beauty [板規連結](https://www.ptt.cc/bbs/Beauty/M.1630069980.A.84B.html)
   - (十八) 每人每日只得發表三篇文章(刪文亦視為配額)
 - Gamesale [板規連結](https://www.ptt.cc/bbs/Gamesale/M.1625548693.A.451.html)
