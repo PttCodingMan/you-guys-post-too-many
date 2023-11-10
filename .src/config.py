@@ -24,8 +24,6 @@ board_rules = [
         ('[問卦]', 3, 1),
         ('[新聞]', 1, 1)
     ], True if global_gen_web else False, 'https://www.ptt.cc/bbs/Gossiping/M.1637425085.A.07D.html'),
-    # ('AllTogether', [(None, 1, 7)], True if global_gen_web else False,
-    #  'https://www.ptt.cc/bbs/AllTogether/M.1643211430.A.5FB.html'),
     ('Beauty', [(None, 3, 1)], True if global_gen_web else False,
      'https://www.ptt.cc/bbs/Beauty/M.1630069980.A.84B.html'),
     ('Gamesale', [
