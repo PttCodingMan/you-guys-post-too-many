@@ -27,7 +27,7 @@ jobs:
         PTT1_ID: ${{ secrets.PTT1_ID }}
         PTT1_PW: ${{ secrets.PTT1_PW }}
       run: |
-        python3 src/main.py
+        python3 .src/main.py
 
     - name: Commit
       run: |
