@@ -3,7 +3,6 @@ import os.path
 from datetime import date, timedelta
 
 import PyPtt
-import tweepy
 from SingleLog import DefaultLogger as Logger
 
 import config
