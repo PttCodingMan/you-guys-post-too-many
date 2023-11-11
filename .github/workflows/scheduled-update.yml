@@ -1,7 +1,7 @@
 # This workflow will install Python dependencies, run tests and lint with a single version of Python
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
-name: scheduled auto update
+name: scheduled update
 
 on:
   workflow_dispatch:
@@ -29,23 +29,7 @@ jobs:
       run: |
         python3 .src/main.py
 
-    - name: Commit
-      run: |
-
-        git config --global user.email "pttcodingman@gmail.com"
-        git config --global user.name "PttCodingMan"
-
-        git add -A
-        git commit -m "Auto update at $(date)"
-
-    - name: Pushes to another repository
-      uses: cpina/github-action-push-to-another-repository@main
-      env:
-        SSH_DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
-        # API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+    - name: Commit changes
+      uses: EndBug/add-and-commit@v9
       with:
-        source-directory: 'blog'
-        destination-github-username: 'PttCodingMan'
-        destination-repository-name: 'you-guys-post-too-many'
-        user-email: pttcodingman@gmail.com
-        target-branch: master
+        message: 'Auto update at $(date)'
