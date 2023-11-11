@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - master
+    paths:
+      - 'source/**/*.md'
+      - 'public/**/*'
   workflow_dispatch:
 
 jobs:
