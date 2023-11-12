@@ -13,7 +13,13 @@ jobs:
     runs-on: macos-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
+
+    - name: Set timezone
+      uses: szenius/set-timezone@v1.2
+      with:
+        timezoneMacos: "Asia/Taipei"
+
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
@@ -32,4 +38,4 @@ jobs:
     - name: Commit changes
       uses: EndBug/add-and-commit@v9
       with:
-        message: 'Auto update at $(date)'
+        message: 'scheduled update'
