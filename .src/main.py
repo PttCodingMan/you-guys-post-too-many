@@ -3,7 +3,6 @@ import os.path
 from datetime import date, timedelta
 
 import PyPtt
-import tweepy
 from SingleLog import DefaultLogger as Logger
 
 import config
@@ -246,7 +245,7 @@ if __name__ == '__main__':
 
     for _ in range(3):
         try:
-            detect_posts(7)
+            detect_posts(3)
             break
         except Exception as e:
             raise e
