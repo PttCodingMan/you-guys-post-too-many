@@ -1,10 +1,16 @@
 name: Hexo Deploy
 
 on:
-  workflow_run:
-    workflows: [ scheduled-update ]
-    types:
-      - completed
+  # workflow_run:
+  #   workflows: [ scheduled-update ]
+  #   types:
+  #     - completed
+  push:
+    branches:
+      - master
+    paths:
+      - 'source/**/*.md'
+      - 'public/**/*'
   workflow_dispatch:
 
 jobs:
