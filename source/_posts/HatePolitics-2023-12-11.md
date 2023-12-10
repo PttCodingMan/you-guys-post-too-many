@@ -1,0 +1,23 @@
+---
+title: 2023-12-11-HatePolitics 違規 1 人
+tags:
+    - HatePolitics
+abbrlink: 2023-12-11-HatePolitics
+date: HatePolitics-2023-12-11 12:00:00
+---
+HatePolitics 板 [板規連結](https://www.ptt.cc/bbs/HatePolitics/M.1617115262.A.D60.html)
+昨天違規 1 人
+<!-- more -->
+
+違規清單
+單日不得超過 5 篇
+
+12/10 kjtry □ [討論] 要期待柯文哲什麼
+12/10 kjtry R: [討論] 如果想報復社會的話該…
+12/10 kjtry R: [新聞] 強化兩岸互信對話 趙少…
+12/10 kjtry R: [討論] 只有我覺得侯友宜最後…
+12/10 kjtry R: [討論] 趙少康忘記中國要統一 …
+12/10 kjtry □ [討論] 好像很久沒有聽到獨派…
+12/10 kjtry R: [新聞] 朱學恒直播公布飯局照…
+12/10 kjtry R: [討論] 白藍繼續打違建沒關係
+12/10 kjtry R: [討論] 罵了八年，結果發現小…
