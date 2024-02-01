@@ -1,0 +1,23 @@
+---
+title: 2024-02-02-Gossiping 違規 2 人
+tags:
+    - Gossiping
+abbrlink: 2024-02-02-Gossiping
+date: Gossiping-2024-02-02 12:00:00
+---
+Gossiping 板 [板規連結](https://www.ptt.cc/bbs/Gossiping/M.1637425085.A.07D.html)
+昨天違規 2 人
+<!-- more -->
+
+違規清單
+單日 [問卦] 不得超過 3 篇
+
+2/01 ttucse □ [問卦] 姚期智當初要是回台大教書…
+2/01 ttucse □ [問卦] sean什麼都說好吃 很假吧
+2/01 ttucse □ [問卦] 劉詩詩以後不拍戲了會住在…
+2/01 ttucse □ [問卦] 習近平有接班人嗎要是突然…
+
+2/01 Manzini □ [問卦] 台北的透天價格怎麼這麼誇…
+2/01 Manzini □ [問卦] 有沒有台灣料理=潮汕+福建…
+2/01 Manzini □ [問卦] 台灣年輕人特別喜歡鬧事網…
+2/01 Manzini □ [問卦] 有沒有妙麗散在台灣是處方…
