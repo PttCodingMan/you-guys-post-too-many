@@ -1,0 +1,29 @@
+---
+title: 2024-05-23-Gossiping 違規 3 人
+tags:
+    - Gossiping
+abbrlink: 2024-05-23-Gossiping
+date: Gossiping-2024-05-23 12:00:00
+---
+Gossiping 板 [板規連結](https://www.ptt.cc/bbs/Gossiping/M.1637425085.A.07D.html)
+昨天違規 3 人
+<!-- more -->
+
+違規清單
+單日不得超過 5 篇
+
+5/22 hamasakiayu R: [問卦]其實我根本就不討厭民進黨？
+5/22 hamasakiayu R: [問卦] 立法者不懂法是啥概念？
+5/22 hamasakiayu R: [新聞] 揭藍白「查水表惡法」4嚴…
+5/22 hamasakiayu R: [爆卦] 民眾黨說明國會改革47條有…
+5/22 hamasakiayu R: [新聞] 內政部政次答不出早餐吃什…
+5/22 hamasakiayu R: [問卦] 廢死:鄭捷被死刑 還不是無…
+5/22 hamasakiayu R: [新聞] 我很排斥！李遠直言討厭抖…
+
+單日 [新聞] 不得超過 1 篇
+
+5/22 filmwalker □ [新聞] 國會改革改什麼？陳智菡整…
+5/22 filmwalker □ [新聞] 國會職權修法二讀條文 學…
+
+5/22 jc761128 □ [新聞] 影／中捷砍人醫專男移送畫…
+5/22 jc761128 □ [新聞] 買野馬GT繳不出車貸上周怒…
