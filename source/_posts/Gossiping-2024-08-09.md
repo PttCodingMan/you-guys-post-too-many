@@ -1,0 +1,23 @@
+---
+title: 2024-08-09-Gossiping 違規 2 人
+tags:
+    - Gossiping
+abbrlink: 2024-08-09-Gossiping
+date: Gossiping-2024-08-09 12:00:00
+---
+Gossiping 板 [板規連結](https://www.ptt.cc/bbs/Gossiping/M.1637425085.A.07D.html)
+昨天違規 2 人
+<!-- more -->
+
+違規清單
+單日 [問卦] 不得超過 3 篇
+
+8/08 myis8787 □ [問卦] 全紅嬋=文盲被虐待 Biles=…
+8/08 myis8787 □ [問卦] 歐美SJW不是很多嗎？沒人…
+8/08 myis8787 □ [問卦] 新加坡奧運0獎牌 發生了什…
+8/08 myis8787 □ [問卦] 餐飲業不壓榨 料用最頂 就…
+
+8/08 drwashing □ [問卦] 為什麼奧運得牌國光獎金差…
+8/08 drwashing □ [問卦]
+8/08 drwashing □ [問卦] 上沖下洗後,投資台積電已…
+8/08 drwashing □ [問卦] 對岸打工仔是不是很珍惜現…
