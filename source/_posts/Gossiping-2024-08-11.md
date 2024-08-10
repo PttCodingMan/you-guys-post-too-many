@@ -1,0 +1,23 @@
+---
+title: 2024-08-11-Gossiping 違規 2 人
+tags:
+    - Gossiping
+abbrlink: 2024-08-11-Gossiping
+date: Gossiping-2024-08-11 12:00:00
+---
+Gossiping 板 [板規連結](https://www.ptt.cc/bbs/Gossiping/M.1637425085.A.07D.html)
+昨天違規 2 人
+<!-- more -->
+
+違規清單
+單日 [問卦] 不得超過 3 篇
+
+8/10 vanattenhove □ [問卦] 有日本JK可以襪子長短不一…
+8/10 vanattenhove □ [問卦] 為何奧運韻律體操都沒男生？
+8/10 vanattenhove □ [問卦] 真的有人出社會後還過的跟…
+8/10 vanattenhove □ [問卦] 中國桌球 韓國射箭哪個會…
+
+8/10 sasaki3630 □ [問卦] 不太會用excel PPT，怎麼…
+8/10 sasaki3630 □ [問卦] 為何當年EVA，會這麼紅啊=…
+8/10 sasaki3630 □ [問卦] 台灣為何工時長，休假少= …
+8/10 sasaki3630 □ [問卦] 月薪2~3萬的人，怎麼存活=…
