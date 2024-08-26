@@ -1,0 +1,23 @@
+---
+title: 2024-08-27-Gossiping 違規 2 人
+tags:
+    - Gossiping
+abbrlink: 2024-08-27-Gossiping
+date: Gossiping-2024-08-27 12:00:00
+---
+Gossiping 板 [板規連結](https://www.ptt.cc/bbs/Gossiping/M.1637425085.A.07D.html)
+昨天違規 2 人
+<!-- more -->
+
+違規清單
+單日 [問卦] 不得超過 3 篇
+
+8/26 amoyui □ [問卦] 線上遊戲現實結婚的後來還…
+8/26 amoyui □ [問卦] 台女找工具人回收都不會外…
+8/26 amoyui □ [問卦] 日本人不麻煩別人，卻給亞…
+8/26 amoyui □ [問卦] 反正台灣幾乎都代工，讀書…
+
+8/26 chengyou66 □ [問卦] 8年級:我每月有10萬元被動…
+8/26 chengyou66 □ [問卦] 4分田種香蕉能年薪100萬嗎?
+8/26 chengyou66 □ [問卦] 造成8年級不加班的原因是…
+8/26 chengyou66 □ [問卦] 高雄買房 要現在買還是幾…
