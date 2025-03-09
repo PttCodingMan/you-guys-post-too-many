@@ -1,0 +1,26 @@
+---
+title: 2025-03-10-Gossiping 違規 3 人
+tags:
+    - Gossiping
+abbrlink: 2025-03-10-Gossiping
+date: Gossiping-2025-03-10 12:00:00
+---
+Gossiping 板 [板規連結](https://www.ptt.cc/bbs/Gossiping/M.1637425085.A.07D.html)
+昨天違規 3 人
+<!-- more -->
+
+違規清單
+單日 [問卦] 不得超過 3 篇
+
+3/09 matatabi □ [問卦] 當初四個月義務役是什麼腦…
+3/09 matatabi □ [問卦] 用一個洗車89換未來醫生，…
+3/09 matatabi □ [問卦] 在台灣當罪犯比當老百姓有…
+3/09 matatabi □ [問卦] 台灣島其實是一座大型監獄…
+
+單日 [新聞] 不得超過 1 篇
+
+3/09 gearty □ [新聞] 等六年、去年底剛接裝！　…
+3/09 gearty □ [新聞] 台泥召募AI頂尖人才 月薪8…
+
+3/09 pl132 □ [新聞]傳假訊息給21名親友「柯P接…
+3/09 pl132 □ [新聞]224萬起！台灣賓士「首波25…
