@@ -1,0 +1,29 @@
+---
+title: 2025-05-22-Gossiping 違規 4 人
+tags:
+    - Gossiping
+abbrlink: 2025-05-22-Gossiping
+date: Gossiping-2025-05-22 12:00:00
+---
+Gossiping 板 [板規連結](https://www.ptt.cc/bbs/Gossiping/M.1637425085.A.07D.html)
+昨天違規 4 人
+<!-- more -->
+
+違規清單
+單日 [問卦] 不得超過 3 篇
+
+5/21 kingmusk □ [問卦] 一堆人是因為沒錢買花 才…
+5/21 kingmusk □ [問卦] 為啥炎亞綸沒事？但追殺孟…
+5/21 kingmusk □ [問卦] 認真問 逼別人離婚的 是不…
+5/21 kingmusk □ [問卦] Threads上 中國人 易烊千…
+
+單日 [新聞] 不得超過 1 篇
+
+5/21 anna1203 □ [新聞] 減持台股影響 外資首季流…
+5/21 anna1203 □ [新聞] 林姿佑護航三峽肇事老翁！…
+
+5/21 dppkmt □ [新聞] 罷免張之豪領銜人游正義涉…
+5/21 dppkmt □ [新聞] 罷免連署涉偽造 基檢聲押…
+
+5/21 LeeClement □ [新聞]
+5/21 LeeClement □ [新聞](香港)安達臣道首置盤貪污…
