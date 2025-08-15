@@ -1,0 +1,23 @@
+---
+title: 2025-08-16-Gossiping 違規 2 人
+tags:
+    - Gossiping
+abbrlink: 2025-08-16-Gossiping
+date: Gossiping-2025-08-16 12:00:00
+---
+Gossiping 板 [板規連結](https://www.ptt.cc/bbs/Gossiping/M.1637425085.A.07D.html)
+昨天違規 2 人
+<!-- more -->
+
+違規清單
+單日 [問卦] 不得超過 3 篇
+
+8/15 Omnitrix □ [問卦] 有家中長輩，大多都蕭貪的…
+8/15 Omnitrix □ [問卦] 有大嘴巴-DaMouth解散很可…
+8/15 Omnitrix □ [問卦] 有咖哩一次煮太多，該怎麼…
+8/15 Omnitrix □ [問卦] 有以前的人沒洗碗機怎麼活…
+
+8/15 YESGOTO □ [問卦] 女同事拍肥宅的肚子，算職…
+8/15 YESGOTO □ [問卦] 有沒有名言製造機－馬克吐…
+8/15 YESGOTO □ [問卦] 張飛的智力484被低估了
+8/15 YESGOTO □ [問卦] 事實證明，帶真理入山比噴…
