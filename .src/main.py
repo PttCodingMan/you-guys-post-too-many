@@ -1,5 +1,7 @@
+import glob
 import json
-import os.path
+import os
+import re
 from datetime import date, timedelta
 
 import PyPtt
@@ -234,6 +236,18 @@ def detect_posts(from_days_ago: int = 1):
     logger.info('超貼偵測', '結束')
 
 
+def cleanup_old_files(keep_days: int = 30):
+    cutoff = (date.today() - timedelta(days=keep_days)).strftime('%Y-%m-%d')
+    date_pattern = re.compile(r'\d{4}-\d{2}-\d{2}')
+
+    for pattern in ['./source/_posts/*.md', './.src/data/*.json']:
+        for filepath in glob.glob(pattern):
+            match = date_pattern.search(os.path.basename(filepath))
+            if match and match.group() < cutoff:
+                os.remove(filepath)
+                logger.info('清理舊檔', filepath)
+
+
 if __name__ == '__main__':
     logger = Logger('post'
                     # , LogLevel.DEBUG
@@ -246,6 +260,7 @@ if __name__ == '__main__':
     for _ in range(3):
         try:
             detect_posts(3)
+            cleanup_old_files(30)
             break
         except Exception as e:
             raise e
