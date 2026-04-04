@@ -1,0 +1,29 @@
+---
+title: 2026-04-05-Gossiping 違規 4 人
+tags:
+    - Gossiping
+abbrlink: 2026-04-05-Gossiping
+date: Gossiping-2026-04-05 12:00:00
+---
+Gossiping 板 [板規連結](https://www.ptt.cc/bbs/Gossiping/M.1637425085.A.07D.html)
+昨天違規 4 人
+<!-- more -->
+
+違規清單
+單日 [問卦] 不得超過 3 篇
+
+4/04 freertos □ [問卦] 總預算還不過, 台灣人不生…
+4/04 freertos □ [問卦] 年代主播的發聲 都很像嗎？
+4/04 freertos □ [問卦] 不懂為何 統一在台南 吃得…
+4/04 freertos □ [問卦] 清明節 訂在某人去世的日…
+
+單日 [新聞] 不得超過 1 篇
+
+4/04 str8g □ [新聞] 政大女學霸開公車「急剎害…
+4/04 str8g □ [新聞] 墾丁大街湧大批人潮　網驚…
+
+4/04 KotoriCute □ [新聞] 日媒：日本擬率商界訪俄，…
+4/04 KotoriCute □ [新聞] 詐團首腦撈上億！徐巧芯大…
+
+4/04 jganet □ [新聞] 館長自曝遇人生最低潮「難…
+4/04 jganet □ [新聞] 館長稱遇人生最低潮「要支…
