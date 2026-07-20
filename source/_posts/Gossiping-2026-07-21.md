@@ -1,0 +1,33 @@
+---
+title: 2026-07-21-Gossiping 違規 3 人
+tags:
+    - Gossiping
+abbrlink: 2026-07-21-Gossiping
+date: Gossiping-2026-07-21 12:00:00
+---
+Gossiping 板 [板規連結](https://www.ptt.cc/bbs/Gossiping/M.1637425085.A.07D.html)
+昨天違規 3 人
+<!-- more -->
+
+違規清單
+單日不得超過 5 篇
+
+7/20 ll2NTU R: [問卦] 為什麼沒有人妻節
+7/20 ll2NTU □ [問卦] 在街上喊我是哈哈卑鄙店員…
+7/20 ll2NTU □ [問卦] 台灣的大學一本、二本、三…
+7/20 ll2NTU R: [問卦] 徐閉：是我許願某人賠到跳…
+7/20 ll2NTU □ [問卦] 以前半夜賣的燒肉粽是南部…
+7/20 ll2NTU R: [新聞] 王祖賢息影22年「首授權AI…
+
+單日 [問卦] 不得超過 3 篇
+
+7/20 JaegwonKim □ [問卦] 未來還會有哪些斷XX演習？
+7/20 JaegwonKim □ [問卦] 推嬰兒車是不是大多預設別…
+7/20 JaegwonKim □ [問卦] 為何新北有個四號公園，那…
+7/20 JaegwonKim □ [問卦] LBJ最後做什麼決定可以驚…
+7/20 JaegwonKim □ [問卦] 為什麼會覺得自己煮會比較…
+
+單日 [新聞] 不得超過 1 篇
+
+7/20 Taizu □ [新聞] 首頁 / 兩岸
+7/20 Taizu □ [新聞] 廣東揭陽少年虐狗 全球串…
