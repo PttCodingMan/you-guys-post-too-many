@@ -5,7 +5,7 @@ cd "$(dirname "$0")"
 
 git pull
 
-if python3 .src/main.py;
+if .venv/bin/python .src/main.py;
 then
 	git add -A
 
