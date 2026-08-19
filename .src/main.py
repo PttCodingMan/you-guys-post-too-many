@@ -81,7 +81,7 @@ def detect_posts(from_days_ago: int = 1):
                             if title is None:
                                 continue
 
-                            delete_status = post.get('delete_status')
+                            delete_status = post.get('post_status')
                             # ip = post.ip
 
                             # logger.info('data', author, title)

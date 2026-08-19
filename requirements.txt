@@ -1,6 +1,2 @@
 SingleLog
-requests
-websockets
-uao
-
 PyPtt

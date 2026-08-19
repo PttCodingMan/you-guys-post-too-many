@@ -3,7 +3,6 @@ import json
 import os
 from datetime import date, timedelta, datetime
 
-import requests
 from SingleLog import DefaultLogger as Logger
 
 import PyPtt
