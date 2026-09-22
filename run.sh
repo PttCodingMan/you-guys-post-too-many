@@ -5,6 +5,8 @@ cd "$(dirname "$0")"
 
 git pull
 
+uv pip install -U -r requirements.txt --python .venv/bin/python
+
 if .venv/bin/python .src/main.py;
 then
 	git add -A
