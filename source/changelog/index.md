@@ -2,6 +2,8 @@
 title: 更新日誌
 date: 2022-02-09 09:13:05
 ---
+- 2026.11.10
+  - 因應 PTT 政策改變，[暫停此專案](/you-guys-post-too-many/announcement-pause/)
 - 2023.11.08
   - 移除 AllTogether
 - 2023.01.04
